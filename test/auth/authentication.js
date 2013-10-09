@@ -103,8 +103,9 @@ describe('authentication.Authentication', function () {
     };
 
     requst.isAuthenticated.returns(true);
+    var ensureAuthenticated = auth.ensureAuthenticated();
 
-    auth.ensureAuthenticated(requst, {}, function () {
+    ensureAuthenticated(requst, {}, function () {
       expect(requst.isAuthenticated.called).to.eql(true);
     });
   });
@@ -123,8 +124,11 @@ describe('authentication.Authentication', function () {
 
     auth.createRedirectUrl = sinon.stub();
     auth.createRedirectUrl.returns(link);
+    authentication.__set__('ensureAuthenticated', null);
 
-    auth.ensureAuthenticated(requst, response, function () {});
+    var ensureAuthenticated = auth.ensureAuthenticated();
+
+    ensureAuthenticated(requst, response, function () {});
 
     expect(response.redirect.called).to.eql(true);
     expect(response.send.called).to.eql(true);
