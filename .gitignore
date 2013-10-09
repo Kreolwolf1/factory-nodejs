@@ -1,0 +1,7 @@
+.idea
+.map
+.DS_Store
+test_out
+node_modules
+npm-debug.log
+atlassian-ide-plugin.xml

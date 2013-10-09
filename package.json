@@ -1,0 +1,21 @@
+{
+  "name": "factory",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "passport": "0.1.x",
+    "passport-oauth": "0.1.x",
+    "async": "0.2.x"
+  },
+  "devDependencies": {
+    "matchdep": "~0.1.2",
+    "mocha": "*",
+    "chai": "*",
+    "sinon": "*",
+    "rewire": "*"
+  },
+  "scripts": {
+    "test": "make test"
+  },
+  "main": "factory"
+}
