@@ -122,12 +122,12 @@ describe('authentication.Authentication', function () {
     };
     var link = '/foo/bar';
 
-    auth.createRedirectUrl = sinon.stub();
-    auth.createRedirectUrl.returns(link);
-    authentication.__set__('ensureAuthenticated', null);
+    var createRedirectUrl = sinon.stub();
+    createRedirectUrl.returns(link);
+
+    authentication.__set__('createRedirectUrl', createRedirectUrl);
 
     var ensureAuthenticated = auth.ensureAuthenticated();
-
     ensureAuthenticated(requst, response, function () {});
 
     expect(response.redirect.called).to.eql(true);
@@ -143,25 +143,6 @@ describe('authentication.Authentication', function () {
     expect(app.get.getCall(0).args[0]).to.eql('/login');
     expect(app.get.getCall(1).args[0]).to.eql('/logout');
     expect(app.get.getCall(2).args[0]).to.eql('/auth/callback');
-
-  });
-
-  it('#createRedirectUrl should create correct url if parsed request contains protocol', function () {
-    var request = {
-      url: 'http://foo.com/bar'
-    };
-    var url = auth.createRedirectUrl(request);
-    expect(url).to.eql(request.url);
-  });
-
-  it('#createRedirectUrl should create correct url without protocol in request', function () {
-    var request = {
-      url: '/bar',
-      connection: {encrypted: true},
-      headers: {host: 'foo.com'}
-    };
-    var url = auth.createRedirectUrl(request);
-    expect(url).to.eql('https://foo.com/bar');
 
   });
 
