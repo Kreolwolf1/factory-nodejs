@@ -1,5 +1,5 @@
 'use strict';
 
 module.exports = {
-  auth: require('./lib/auth/authentication')
+    auth: require('./lib/auth/authentication')
 };
