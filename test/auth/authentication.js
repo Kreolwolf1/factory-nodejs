@@ -112,13 +112,13 @@ describe('authentication.Authentication', function () {
 
     it('#ensureAuthenticated should redirect on login page if user is new', function () {
         var requst = {
-            isAuthenticated: sinon.stub()
+            isAuthenticated: sinon.stub(),
+            method: 'GET'
         };
 
         requst.isAuthenticated.returns(false);
         var response = {
-            redirect: sinon.spy(),
-            send: sinon.spy()
+            redirect: sinon.spy()
         };
         var link = '/foo/bar';
 
@@ -131,9 +131,22 @@ describe('authentication.Authentication', function () {
         ensureAuthenticated(requst, response, function () {});
 
         expect(response.redirect.called).to.eql(true);
-        expect(response.send.called).to.eql(true);
-
         expect(response.redirect.getCall(0).args[0]).to.contain(encodeURIComponent(link));
+    });
+
+    it('#ensureAuthenticated should returns 401 error if req.method is not GET', function () {
+        var requst = {
+            isAuthenticated: sinon.stub()
+        };
+        requst.isAuthenticated.returns(false);
+        var response = {
+            send: sinon.spy()
+        };
+
+        var ensureAuthenticated = auth.ensureAuthenticated();
+        ensureAuthenticated(requst, response, function () {});
+
+        expect(response.send.called).to.eql(true);
         expect(response.send.getCall(0).args[0]).to.eql(401);
     });
 
