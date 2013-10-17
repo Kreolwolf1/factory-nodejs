@@ -9,27 +9,27 @@ var rewire = require('rewire');
 
 var app;
 var verify;
-var uaaService;
 var passport;
 
 describe('auth', function () {
     var auth = require('../../factory').auth;
-    it('should have Authentication constructor and Strategy', function () {
+    it('should have Authentication, Strategy constructors and ensureAuthenticated', function () {
         expect(auth).to.have.property('Authentication');
         expect(auth).to.have.property('Strategy');
+        expect(auth).to.have.property('ensureAuthenticated');
 
-        expect(typeof auth.Authentication).to.eql('function');
-        expect(typeof auth.Strategy).to.eql('function');
+        expect(auth.Authentication).to.be.a('Function');
+        expect(auth.Strategy).to.be.a('Function');
     });
 
     it('Authentication instanse should have use and ensureAuthenticated functions', function () {
         var authProvider = new auth.Authentication({}, {}, function () {});
 
         expect(authProvider).to.have.property('use');
-        expect(typeof authProvider.use).to.eql('function');
+        expect(authProvider.use).to.be.a('Function');
 
         expect(authProvider).to.have.property('ensureAuthenticated');
-        expect(typeof authProvider.ensureAuthenticated).to.eql('function');
+        expect(authProvider.ensureAuthenticated).to.be.a('Function');
     });
 
 
@@ -46,12 +46,6 @@ describe('authentication.Authentication', function () {
 
         verify = sinon.spy();
 
-        uaaService = {
-            credentials: {
-                login_server_url: 'some/server/url'
-            }
-        };
-
         passport = {
             use: sinon.spy(),
             serializeUser: sinon.spy(),
@@ -62,7 +56,7 @@ describe('authentication.Authentication', function () {
 
         authentication.__set__('passport', passport);
 
-        auth = new authentication.Authentication(app, uaaService, verify);
+        auth = new authentication.Authentication(app, verify);
     });
 
 
@@ -79,8 +73,6 @@ describe('authentication.Authentication', function () {
 
         auth.use(options);
         expect(options.callbackURL).to.eql('/auth/callback');
-        expect(options.uaaUrl).to.eql(uaaService.credentials.login_server_url);
-        expect(options.strategyName).to.eql('uaa');
 
         expect(strategy.called).to.eql(true);
 
@@ -157,6 +149,19 @@ describe('authentication.Authentication', function () {
         expect(app.get.getCall(1).args[0]).to.eql('/logout');
         expect(app.get.getCall(2).args[0]).to.eql('/auth/callback');
 
+    });
+
+    it('#verifyAuth should fill profile and emit event', function (done) {
+        var accessToken = 'someAccessToken';
+        var refreshToken = 'someRefreshToken';
+
+        auth.on('successLogin', function (profile) {
+            expect(profile.accessToken).to.eql(accessToken);
+            expect(profile.refreshToken).to.eql(refreshToken);
+            done();
+        });
+
+        auth.verifyAuth(accessToken, refreshToken, {}, function () {});
     });
 
 });
