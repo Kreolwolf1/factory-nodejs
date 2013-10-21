@@ -66,13 +66,16 @@ describe('authentication.Authentication', function () {
 
         auth.makeRoutes = sinon.spy();
 
-        var options = {};
+        var options = {
+            client_id: 'foo',
+            client_secret: 'bar',
+            url: 'foo/bar'
+        };
 
         passport.initialize.returns('someInitValue');
         passport.session.returns('someSessionValue');
 
         auth.use(options);
-        expect(options.callbackURL).to.eql('/auth/callback');
 
         expect(strategy.called).to.eql(true);
 
@@ -84,9 +87,17 @@ describe('authentication.Authentication', function () {
         expect(passport.session.called).to.eql(true);
 
         expect(auth.makeRoutes.called).to.eql(true);
+        var makeRoutesOptions = auth.makeRoutes.getCall(0).args[0];
 
-        expect(app.use.getCall(0).args[0]).to.eql('someInitValue');
-        expect(app.use.getCall(1).args[0]).to.eql('someSessionValue');
+        expect(makeRoutesOptions).to.eql({
+            callbackURL: '/auth/callback',
+            clientID: options.client_id,
+            clientSecret: options.client_secret,
+            uaaUrl: options.url
+        });
+
+        expect(app.use.getCall(1).args[0]).to.eql('someInitValue');
+        expect(app.use.getCall(2).args[0]).to.eql('someSessionValue');
     });
 
     it('#ensureAuthenticated should call next if user is authenticated', function () {
