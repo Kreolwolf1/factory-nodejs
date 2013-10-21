@@ -34,7 +34,7 @@ You need to add a few line of code in your app.js file and use middleware with t
 ```js
 //app.js
 
-vvar express = require('express');
+var express = require('express');
 var routes = require('./routes');
 
 // some code...
@@ -46,10 +46,6 @@ var app = express();
 var auth = new Authentication(app);
 
 // some code... 
-
-app.use(express.bodyParser());
-app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
 
 app.use(express.session());
 
