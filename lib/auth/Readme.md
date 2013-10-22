@@ -1,4 +1,3 @@
-
 #Authentification Library: What It Is and Why We Need It 
 
 Auth is a module that provides a simple way for developers to add the User Account and Authentication (UAA) wmg authentication to the ***node.js*** application.
