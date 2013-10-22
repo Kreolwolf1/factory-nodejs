@@ -12,18 +12,17 @@ The library uses [passport](http://passportjs.org/) and [passport-oauth](https:/
 In Summary the auth object provides three functions:
 
 ```js
-var auth = require('factory').auth;
 
 // UAA strategy constructor function that could be used if you want to implement your own 
 // authentication with passport and UAA strategy
-var Strategy = auth.Strategy;
+var Strategy = require('factory').auth.Strategy;
 
 
 // constructor function that instantiates the auth provider object
-var Authentication = auth.Authentication;
+var Authentication = require('factory').auth.Authentication;
 
 // middleware for checking user authentication
-var ensureAuthenticated = auth.ensureAuthenticated;
+var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
 
 ```
 
@@ -79,3 +78,45 @@ var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
 app.get('/', ensureAuthenticated, routes.index);
 
 ```
+
+If in your application all routes are supposed to be secure, there is no need to add middleware to each of them you just can add set option **isAllUrlsSecure** to true
+
+```js
+auth.use({
+    client_id: 'yourUaaClientID',
+    client_secret: 'yourClientSecret',
+    url: 'http://uaa.link.off.your.app',
+    isAllUrlsSecure: true
+});
+
+```
+
+After ensureAuthenticated will be initialized as middleware for all routes and will redirect to login page if user isn't authenticated or if the url is not in the list of unsecure urls. By default this list contains only three urls: '/login', '/auth/callback', '/logout', but you can extend this list using **addUnsecureUrl** method
+
+```js
+auth.addUnsecureUrl('/foobar');
+
+//or just
+auth.addUnsecureUrl(['/foo/bar', '/some/other/url']);
+
+```
+
+If you want to execute your code after success authentication you have two ways for it. First you can add your listener to the event 'successLogin'
+
+```js
+auth.on('successLogin', function (profile) {
+    console.log('this is profile of authenticated user %j', profile);
+});
+
+```
+
+The other way is to redefine the method **verifyAuth** before 'use' method will have been executed.
+
+```js
+auth.verifyAuth = function (accessToken, refreshToken, profile, done) {
+    // some your custom logic
+    done(null, profile);
+};
+
+```
+
