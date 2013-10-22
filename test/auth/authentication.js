@@ -100,9 +100,25 @@ describe('authentication.Authentication', function () {
         expect(app.use.getCall(2).args[0]).to.eql('someSessionValue');
     });
 
+    it('#addUnsecureUrl should expand unsecure urls', function () {
+        var fooUrl = '/foo',
+            urlList = ['/asd', '/bar'];
+
+        auth.addUnsecureUrl(fooUrl);
+        var unsecureUrls = authentication.__get__('unsecureUrls');
+        expect(unsecureUrls).to.contain(fooUrl);
+
+        auth.addUnsecureUrl(urlList);
+        unsecureUrls = authentication.__get__('unsecureUrls');
+        expect(unsecureUrls).to.contain(fooUrl);
+
+    });
+
+
     it('#ensureAuthenticated should call next if user is authenticated', function () {
         var requst = {
-            isAuthenticated: sinon.stub()
+            isAuthenticated: sinon.stub(),
+            url: '/'
         };
 
         requst.isAuthenticated.returns(true);
@@ -113,9 +129,24 @@ describe('authentication.Authentication', function () {
         });
     });
 
+    it('#ensureAuthenticated should call next if url is unsecure', function () {
+        var requst = {
+            isAuthenticated: sinon.stub(),
+            url: '/foobar'
+        };
+        auth.addUnsecureUrl('/foobar');
+        requst.isAuthenticated.returns(false);
+        var ensureAuthenticated = auth.ensureAuthenticated();
+
+        ensureAuthenticated(requst, {}, function () {
+            expect(requst.isAuthenticated.called).to.eql(true);
+        });
+    });
+
     it('#ensureAuthenticated should redirect on login page if user is new', function () {
         var requst = {
             isAuthenticated: sinon.stub(),
+            url: '/',
             method: 'GET'
         };
 
@@ -139,7 +170,8 @@ describe('authentication.Authentication', function () {
 
     it('#ensureAuthenticated should returns 401 error if req.method is not GET', function () {
         var requst = {
-            isAuthenticated: sinon.stub()
+            isAuthenticated: sinon.stub(),
+            url: '/'
         };
         requst.isAuthenticated.returns(false);
         var response = {
