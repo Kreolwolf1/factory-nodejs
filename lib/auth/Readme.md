@@ -27,7 +27,7 @@ var Authentication = require('factory').auth.Authentication;
 var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
 ```
 
-##How to Add Authentication into Your Application
+##How to Add Authentication to Your Application
 
 You need to add a few lines of code into your ***app.js*** file and use the middleware with those routes that are supposed to be secure:
 
