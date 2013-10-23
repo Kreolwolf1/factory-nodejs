@@ -6,7 +6,7 @@ UAA is a Cloud Foundry service that is responsible for securing the platform ser
 
 The basic delegation model is described in the [OAuth2 specification](http://tools.ietf.org/html/draft-ietf-oauth-v2). You can also read more about the Cloud Foundry UAA component in [this article](http://blog.cloudfoundry.com/2012/07/23/introducing-the-uaa-and-security-for-cloud-foundry/).
 
-##How It Works?
+##How It Works
 
 The library uses [passport](http://passportjs.org/) and [passport-OAuth](https://github.com/jaredhanson/passport-oauth) under the hood. It just provides the UAA authentication strategy that is inherited from the passport OAuth2 strategy and encapsulates the process of passport initialization from a developer. Also the library makes routes for login and logout and provides the ***ensureAuthenticated*** middleware  that can check whether a user is authenticated or not.
 
