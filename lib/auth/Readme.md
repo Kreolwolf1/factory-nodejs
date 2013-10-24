@@ -1,8 +1,9 @@
 ---
-Title: Authentification Library: What It Is and Why We Need It
+Title: Authentification Library
 Author: randomIN68
 DevCenter: Common
 Type: tutorial
+
 ---
 
 #Authentification Library: What It Is and Why We Need It 
