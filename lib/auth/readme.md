@@ -2,7 +2,7 @@
 Title: Authentification Library
 Author: Eugene Tsypkin
 DevCenter: Common
-Section: tutorial
+Section: Tutorial
 
 ---
 
