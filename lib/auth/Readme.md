@@ -1,8 +1,8 @@
 ---
 Title: Authentification Library
-Author: randomIN68
+Author: Eugene Tsypkin
 DevCenter: Common
-Type: tutorial
+Section: tutorial
 
 ---
 
