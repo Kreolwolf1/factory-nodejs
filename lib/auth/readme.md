@@ -8,7 +8,7 @@ Section: Tutorial
 
 #Authentification Library: What It Is and Why We Need It 
 
-Auth is a module that provides a simple way for developers to add the User Account and Authentication (UAA) wmg authentication to the ***node.js*** application.
+Auth is a module that provides a simple way for developers to the User Account and Authentication (UAA) authentication to the ***node.js*** application.
 
 UAA is a Cloud Foundry service that is responsible for securing the platform services and providing a single sign-on (SSO) for web applications. The primary role of the UAA component is to serve as an OAuth2 authorization server. 
 
@@ -37,7 +37,7 @@ var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
 
 ##How to Add Authentication to Your Application
 
-You need to add a few lines of code into your ***app.js*** file and use the middleware with those routes that are supposed to be secure:
+You need to add a few lines of code into your ***app.js*** file and use the middleware on those routes that are supposed to be secure:
 
 ```js
 //app.js
@@ -74,9 +74,9 @@ app.use(app.router);
 app.get('/', auth.ensureAuthenticated(), routes.index);
 
 ```
-So what you need to do is to create an instanse of the *Authentication* constructor, execute the use method with UAA credentials, and add the ***ensureAuthenticated*** middleware to the routes.
+So what you need to do is to create an instance of the *Authentication* constructor, execute the use method with UAA credentials, and add the ***ensureAuthenticated*** middleware to the routes.
 
->**Imprtant** Since inside the ***auth.use*** method we initialize the passport's middleware and it works with sessions, we need to execute the ***auth.use()*** method after initialization of a session's middleware. Also it will be great to use this function before router initialization, otherwise you could face passport errors. 
+>**Improtant** Since inside the ***auth.use*** method we initialize the passport's middleware and it works with sessions, we need to execute the ***auth.use()*** method after initialization of a session's middleware. Also it is important to use this function before router initialization, otherwise you could face passport errors. 
 
 If routes are assigned in your application to a separate file, you do not need to instantiate the auth object for the middleware. You could just get it as a function.
 
@@ -87,7 +87,7 @@ app.get('/', ensureAuthenticated, routes.index);
 
 ```
 
-If all routes are supposed to be secure in your application, there is no need to add the middleware to each of them; you can just add and set the ***isAllUrlsSecure*** option to "true".
+If all routes are meant to be secure in your application, there is no need to add the middleware to each of them; you can just add and set the ***isAllUrlsSecure*** option to "true".
 
 ```js
 auth.use({
