@@ -1,7 +1,7 @@
 ---
 Title: Authentification Library
 Author: Eugene Tsypkin
-DevCenter: Common
+DevCenter: Node.js
 Section: Tutorial
 
 ---
