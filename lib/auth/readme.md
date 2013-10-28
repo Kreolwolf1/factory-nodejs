@@ -34,7 +34,24 @@ npm install factory
 
 ###Simple Usage
 
+In configuration file you need to add cloudfoundry credentials
+
 ```js
+//config.js
+var cloudfoundry = require('cloudfoundry');
+module.exports = {
+    uaa: {
+        client_id: 'devportal',
+        client_secret: 'appclientsecret',
+        url: cloudfoundry.dsp_uaa_v1["dsp-uaa"].credentials.login_server_url
+    }
+}
+
+```
+
+```js
+//app.js
+var config = require('./config');
 var Authentication = require('factory').auth.Authentication;
 var app = express();
 
@@ -45,16 +62,20 @@ app.use(express.session());
 
 // invoke use method with UAA credentials that initialize passport and makes '/login'
 // and '/logout' routes 
-auth.use({
-    client_id: 'yourUaaClientID',
-    client_secret: 'yourClientSecret',
-    url: 'http://uaa.link.off.your.app'
-});
+auth.use(config.uaa);
 
 // add ensureAuthenticated middleware to the routes 
 app.get('/', auth.ensureAuthenticated(), routes.index);
 
 ```
+
+If you want to make all your routes scure by default you just need to add option **isAllUrlsSecure**
+
+```js
+config.uaa.isAllUrlsSecure = true;
+auth.use(config.uaa);
+```
+And then you will not need to add ensureAuthenticated middleware wof each route
 
 
 ##Detailed info
@@ -89,11 +110,25 @@ var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
 
 You need to add a few lines of code into your ***app.js*** file and use the middleware on those routes that are supposed to be secure:
 
+
+```js
+//config.js
+var cloudfoundry = require('cloudfoundry');
+module.exports = {
+    uaa: {
+        client_id: 'devportal',
+        client_secret: 'appclientsecret',
+        url: cloudfoundry.dsp_uaa_v1["dsp-uaa"].credentials.login_server_url
+    }
+}
+
+```
+
 ```js
 //app.js
 
 var express = require('express');
-var routes = require('./routes');
+var config = require('./config');
 
 // some code...
 
@@ -109,11 +144,7 @@ app.use(express.session());
 
 // invoke use method with UAA credentials that initialize passport and makes '/login'
 // and '/logout' routes 
-auth.use({
-    client_id: 'yourUaaClientID',
-    client_secret: 'yourClientSecret',
-    url: 'http://uaa.link.off.your.app'
-});
+auth.use(config.uaa);
 
 app.use(app.router);
 
@@ -142,13 +173,8 @@ app.get('/', ensureAuthenticated, routes.index);
 If all routes are meant to be secure in your application, there is no need to add the middleware to each of them; you can just add and set the ***isAllUrlsSecure*** option to "true".
 
 ```js
-auth.use({
-    client_id: 'yourUaaClientID',
-    client_secret: 'yourClientSecret',
-    url: 'http://uaa.link.off.your.app',
-    isAllUrlsSecure: true
-});
-
+config.uaa.isAllUrlsSecure = true;
+auth.use(config.uaa);
 ```
 
 After ***ensureAuthenticated*** has been initialized as a middleware for all the routes, it will redirect a user to the login page when this user has not been authenticated or the URL is not found in the list of unsecure URLs. By default this list contains only three URLs: '/login', '/auth/callback', '/logout', but you can extend this list using the ***addUnsecureUrl*** method.
