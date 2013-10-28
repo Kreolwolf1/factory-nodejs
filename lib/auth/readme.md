@@ -6,22 +6,72 @@ Section: Tutorial
 
 ---
 
-#Authentification Library: What It Is and Why We Need It 
+#Authentification Library
 
 Auth is a module that provides a simple way for developers to the User Account and Authentication (UAA) authentication to the ***node.js*** application.
+
+##Quick start
+
+###Instalation
+
+In order to install this npm module you should add to your **package.json** file a dependency:
+
+```js
+"factory": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development"
+
+```
+If you have wmg private npm repository installed you just need to add: 
+```js
+"factory": "*"
+
+```
+
+Than you have to execute
+
+```
+npm install factory
+```
+
+###Simple Usage
+
+```js
+var Authentication = require('factory').auth.Authentication;
+var app = express();
+
+// Create an instance of auth provider
+var auth = new Authentication(app);
+
+app.use(express.session());
+
+// invoke use method with UAA credentials that initialize passport and makes '/login'
+// and '/logout' routes 
+auth.use({
+    client_id: 'yourUaaClientID',
+    client_secret: 'yourClientSecret',
+    url: 'http://uaa.link.off.your.app'
+});
+
+// add ensureAuthenticated middleware to the routes 
+app.get('/', auth.ensureAuthenticated(), routes.index);
+
+```
+
+
+##Detailed info
+
+###What is UAA
 
 UAA is a Cloud Foundry service that is responsible for securing the platform services and providing a single sign-on (SSO) for web applications. The primary role of the UAA component is to serve as an OAuth2 authorization server. 
 
 The basic delegation model is described in the [OAuth2 specification](http://tools.ietf.org/html/draft-ietf-oauth-v2). You can also read more about the Cloud Foundry UAA component in [this article](http://blog.cloudfoundry.com/2012/07/23/introducing-the-uaa-and-security-for-cloud-foundry/).
 
-##How It Works
+###How It Works
 
 The library uses [passport](http://passportjs.org/) and [passport-OAuth](https://github.com/jaredhanson/passport-oauth) under the hood. It just provides the UAA authentication strategy that is inherited from the passport OAuth2 strategy and encapsulates the process of passport initialization from a developer. Also the library makes routes for login and logout and provides the ***ensureAuthenticated*** middleware  that can check whether a user is authenticated or not.
 
 To summarize, the auth object provides three functions:
 
-```
-js
+```js
 
 // UAA strategy constructor function that could be used if you want to implement your own 
 // authentication with passport and UAA strategy
@@ -35,7 +85,7 @@ var Authentication = require('factory').auth.Authentication;
 var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
 ```
 
-##How to Add Authentication to Your Application
+###How to Add Authentication to Your Application
 
 You need to add a few lines of code into your ***app.js*** file and use the middleware on those routes that are supposed to be secure:
 
@@ -87,6 +137,8 @@ app.get('/', ensureAuthenticated, routes.index);
 
 ```
 
+###If all routes are meant to be secure
+
 If all routes are meant to be secure in your application, there is no need to add the middleware to each of them; you can just add and set the ***isAllUrlsSecure*** option to "true".
 
 ```js
@@ -108,6 +160,9 @@ auth.addUnsecureUrl('/foobar');
 auth.addUnsecureUrl(['/foo/bar', '/some/other/url']);
 
 ```
+
+###How to execute your code after authentication
+
 If you want to execute your code after successful authentication, there are two ways to do so. First, you can add your listener to the ***successLoginevent*** event.
 
 ```js
