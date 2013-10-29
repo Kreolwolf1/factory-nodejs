@@ -12,7 +12,7 @@ Auth is a module that provides a simple way for developers to the User Account a
 
 ##Quick start
 
-###Instalation
+###Installation
 
 In order to install this npm module you should add to your **package.json** file a dependency:
 
