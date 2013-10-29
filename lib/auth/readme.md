@@ -5,7 +5,6 @@ DevCenter: Node.js
 Section: Tutorial
 
 ---
-TestTest
 
 #Authentication Module
 
