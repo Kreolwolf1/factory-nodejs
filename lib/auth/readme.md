@@ -5,8 +5,6 @@ DevCenter: Node.js
 Section: Tutorial
 
 ---
-Test 
-
 #Authentication Module
 
 Authentication Module provides a simple way for developers to add integration with  User Account and Authentication (UAA) authentication to the ***node.js*** applications.
