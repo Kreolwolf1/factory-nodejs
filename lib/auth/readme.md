@@ -17,9 +17,10 @@ Auth is a module that provides a simple way for developers to the User Account a
 In order to install this npm module you should add to your **package.json** file a dependency:
 
 ```js
-"factory": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development"
-
+"factory": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development",
+"cloudfoundry": "*"
 ```
+
 If you have wmg private npm repository installed you just need to add: 
 ```js
 "factory": "*"
@@ -49,6 +50,10 @@ module.exports = {
 
 ```
 
+>**Improtant** If you are going to use this code on your local machine you have to provide direct uaa url instead of
+url from cloudfoundry credentials
+
+
 ```js
 //app.js
 var config = require('./config');
@@ -63,6 +68,8 @@ app.use(express.session());
 // invoke use method with UAA credentials that initialize passport and makes '/login'
 // and '/logout' routes 
 auth.use(config.uaa);
+
+app.use(app.router);
 
 // add ensureAuthenticated middleware to the routes 
 app.get('/', auth.ensureAuthenticated(), routes.index);
