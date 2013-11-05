@@ -1,15 +1,16 @@
 /*global describe, it, beforeEach: true*/
-
 'use strict';
 
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var rewire = require('rewire');
+var async = require('async');
 
 
 var app;
 var verify;
 var passport;
+
 
 describe('auth', function () {
     var auth = require('../../factory').auth;
@@ -141,7 +142,14 @@ describe('authentication.Authentication', function () {
         ensureAuthenticated(requst, {}, function () {
             expect(requst.isAuthenticated.called).to.eql(true);
         });
+
+        requst.url = '/foobar/';
+
+        ensureAuthenticated(requst, {}, function () {
+            expect(requst.isAuthenticated.called).to.eql(true);
+        });
     });
+
 
     it('#ensureAuthenticated should redirect on login page if user is new', function () {
         var requst = {
