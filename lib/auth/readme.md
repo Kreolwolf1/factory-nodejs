@@ -1,33 +1,33 @@
 ---
-Title: Authentification Library
+Title: Authentication Module
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
 
 ---
+#Authentication Module
 
-#Authentification Library
-
-Auth is a module that provides a simple way for developers to the User Account and Authentication (UAA) authentication to the ***node.js*** application.
+Authentication Module provides a simple way for developers to add integration with  User Account and Authentication (UAA) authentication to the ***node.js*** applications.
 
 ##Quick start
 
-###Instalation
+###Installation
 
-In order to install this npm module you should add to your **package.json** file a dependency:
+Authentication Module is part of the Node.js Factory Library, therefore in order to use it you need to include the dependency on the Factory Library to your **package.json** file:
 
 ```js
 "factory": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development",
 "cloudfoundry": "*"
 ```
 
-If you have wmg private npm repository installed you just need to add: 
+If you have WMG private npm repository installed you just need to add:
+
 ```js
 "factory": "*"
 
 ```
 
-Than you have to execute
+Then you need to execute:
 
 ```
 npm install factory
@@ -35,7 +35,7 @@ npm install factory
 
 ###Simple Usage
 
-In configuration file you need to add cloudfoundry credentials
+In configuration file you need to add specify the 'client_id' and the 'client_secret' used to register your application in UAA as well as the UAA URL. As shown below, the UAA URL should be obained from the Cloud Founcry environment variable:
 
 ```js
 //config.js
@@ -76,13 +76,14 @@ app.get('/', auth.ensureAuthenticated(), routes.index);
 
 ```
 
-If you want to make all your routes scure by default you just need to add option **isAllUrlsSecure**
+If you would like to make all your routes secure by default you just need to set the **isAllUrlsSecure** option to 'true':
 
 ```js
 config.uaa.isAllUrlsSecure = true;
 auth.use(config.uaa);
 ```
-And then you will not need to add ensureAuthenticated middleware wof each route
+
+If you would like to have more granular control of your routes security, you can add 'ensureAuthenticated' middleware for each route that needs to be secure. Please see more detailes in the next section.
 
 
 ##Detailed info
