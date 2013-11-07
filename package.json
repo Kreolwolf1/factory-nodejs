@@ -6,7 +6,8 @@
         "passport": "0.1.x",
         "passport-oauth": "0.1.x",
         "async": "0.2.x",
-        "lodash": "*"
+        "lodash": "*",
+        "request": "~2.27.*"
     },
     "devDependencies": {
         "matchdep": "~0.1.2",
