@@ -4,8 +4,6 @@
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var rewire = require('rewire');
-var async = require('async');
-
 
 var app;
 var verify;
