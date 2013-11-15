@@ -1,6 +1,6 @@
 {
     "name": "factory",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "private": true,
     "dependencies": {
         "passport": "0.1.x",
@@ -8,7 +8,8 @@
         "async": "0.2.x",
         "lodash": "*",
         "request": "*",
-        "http-proxy": "~0.10.3"
+        "http-proxy": "~0.10.3",
+        "cloudfoundry": "*"
     },
     "devDependencies": {
         "matchdep": "~0.1.2",

@@ -5,7 +5,7 @@ DevCenter: Node.js
 Section: Tutorial
 
 ---
-#Authentication Module
+##Introduction
 
 Authentication Module provides a simple way for developers to add integration with  User Account and Authentication (UAA) authentication to the ***node.js*** applications.
 
@@ -86,7 +86,7 @@ auth.use(config.uaa);
 If you would like to have more granular control of your routes security, you can add 'ensureAuthenticated' middleware for each route that needs to be secure. Please see more detailes in the next section.
 
 
-##Detailed info
+##Detailed Information
 
 ###What is UAA
 
@@ -176,7 +176,7 @@ app.get('/', ensureAuthenticated, routes.index);
 
 ```
 
-###If all routes are meant to be secure
+###If All Routes Are Meant to Be Secure
 
 If all routes are meant to be secure in your application, there is no need to add the middleware to each of them; you can just add and set the ***isAllUrlsSecure*** option to "true".
 
@@ -195,7 +195,7 @@ auth.addUnsecureUrl(['/foo/bar', '/some/other/url']);
 
 ```
 
-###How to execute your code after authentication
+###How to Execute Your Code After Authentication
 
 If you want to execute your code after successful authentication, there are two ways to do so. First, you can add your listener to the ***successLoginevent*** event.
 
