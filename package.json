@@ -9,7 +9,9 @@
         "lodash": "*",
         "request": "*",
         "http-proxy": "~0.10.3",
-        "cloudfoundry": "*"
+        "cloudfoundry": "*",
+        "connect": "~2.11.0",
+        "cookie": "~0.1.0"
     },
     "devDependencies": {
         "matchdep": "~0.1.2",
