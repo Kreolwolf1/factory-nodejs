@@ -6,7 +6,6 @@ var sinon = require('sinon');
 var expect = require('chai').expect;
 var rewire = require('rewire');
 
-
 var socketAuthorization = rewire('../../lib/auth/socketAuthorization');
 
 var onAuth,
@@ -22,7 +21,8 @@ describe('socketAuthorization', function () {
         };
         handshakeData = {
             headers: {
-                cookie: 'foobar'
+                cookie: 'foobar',
+                referer: 'http://localhost:9000/sandbox'
             }
         };
 
@@ -31,6 +31,7 @@ describe('socketAuthorization', function () {
         socketAuthorization.__set__('getSessionCookie', getSessionCookie);
 
         onAuth = socketAuthorization.checkAuthorization(sessionStorage, 'foo', 'bar');
+
     });
 
     it('#checkAuthorization should return error if we dont have cookie', function () {
@@ -49,6 +50,29 @@ describe('socketAuthorization', function () {
         expect(getSessionCookie.called).to.eql(true);
         expect(getSessionCookie.getCall(0).args[0]).to.eql(handshakeData.headers.cookie);
         expect(callback.getCall(0).args[0]).not.to.eql(null);
+    });
+  
+    it('#checkAuthorization should call callback without errors if page is unsecure', function () {
+        var cookie = 'foo';
+        getSessionCookie.returns(cookie);
+
+        socketAuthorization.__set__('unsecureUrl', {check: function () {
+            return true;
+        }});
+
+
+        onAuth(handshakeData, callback);
+
+        expect(sessionStorage.get.called).to.eql(false);
+
+        expect(callback.called).to.eql(true);
+
+        expect(callback.getCall(0).args[0]).to.eql(null);
+
+        socketAuthorization.__set__('unsecureUrl', {check: function () {
+            return false;
+        }});
+
     });
 
     it('#checkAuthorization should return error if session return error', function () {

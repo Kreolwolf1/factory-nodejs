@@ -99,20 +99,6 @@ describe('authentication.Authentication', function () {
         expect(app.use.getCall(2).args[0]).to.eql('someSessionValue');
     });
 
-    it('#addUnsecureUrl should expand unsecure urls', function () {
-        var fooUrl = '/foo',
-            urlList = ['/asd', '/bar'];
-
-        auth.addUnsecureUrl(fooUrl);
-        var unsecureUrls = authentication.__get__('unsecureUrls');
-        expect(unsecureUrls).to.contain(fooUrl);
-
-        auth.addUnsecureUrl(urlList);
-        unsecureUrls = authentication.__get__('unsecureUrls');
-        expect(unsecureUrls).to.contain(fooUrl);
-
-    });
-
 
     it('#ensureAuthenticated should call next if user is authenticated', function () {
         var requst = {
