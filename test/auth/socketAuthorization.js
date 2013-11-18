@@ -15,7 +15,7 @@ var onAuth,
     handshakeData,
     callback;
 
-describe.only('socketAuthorization', function () {
+describe('socketAuthorization', function () {
     beforeEach(function () {
         sessionStorage = {
             get: sinon.stub()
