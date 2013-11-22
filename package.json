@@ -21,7 +21,9 @@
         "rewire": "*"
     },
     "scripts": {
-        "test": "make test"
+        "test": "mocha -R spec --recursive",
+        "debugTest": "mocha debug -R spec --recursive",
+        "xunitTest": "mocha --recursive -R xunit > test-reports.xml"
     },
     "main": "factory"
 }
