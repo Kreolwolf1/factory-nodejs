@@ -114,7 +114,7 @@ describe('socketAuthorization', function () {
         expect(callback.getCall(0).args[1]).to.eql(true);
     });
 
-    it.only('#checkAuthorization should emit event with user and handshakeData', function (done) {
+    it('#checkAuthorization should emit event with user and handshakeData', function (done) {
         var cookie = 'foo';
         getSessionCookie.returns(cookie);
         var fakeUser = {
