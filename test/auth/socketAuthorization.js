@@ -114,17 +114,18 @@ describe('socketAuthorization', function () {
         expect(callback.getCall(0).args[1]).to.eql(true);
     });
 
-    it('#checkAuthorization should emit event with user', function (done) {
+    it.only('#checkAuthorization should emit event with user and handshakeData', function (done) {
         var cookie = 'foo';
         getSessionCookie.returns(cookie);
-        var user = {
+        var fakeUser = {
             accessToken: 'foo'
         };
 
-        sessionStorage.get.callsArgWith(1, null, {user: user});
+        sessionStorage.get.callsArgWith(1, null, {user: fakeUser});
         
-        socketAuthorization.on('successSocketLogin', function (user) {
-            expect(user).to.eql(user);
+        socketAuthorization.on('successSocketLogin', function (user, handshake) {
+            expect(user).to.eql(fakeUser);
+            expect(handshake).to.eql(handshakeData);
             done();
         });
 
