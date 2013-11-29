@@ -83,7 +83,7 @@ config.uaa.isAllUrlsSecure = true;
 auth.use(config.uaa);
 ```
 
-If you would like to have more granular control of your routes security, you can add 'ensureAuthenticated' middleware for each route that needs to be secure. Please see more detailes in the next section.
+If you would like to have more granular control of your routes security, you can add ***ensureAuthenticated*** middleware for each route that needs to be secure. Please see more detailes in the next section.
 
 
 ##Detailed Information
@@ -98,20 +98,24 @@ The basic delegation model is described in the [OAuth2 specification](http://too
 
 The library uses [passport](http://passportjs.org/) and [passport-OAuth](https://github.com/jaredhanson/passport-oauth) under the hood. It just provides the UAA authentication strategy that is inherited from the passport OAuth2 strategy and encapsulates the process of passport initialization from a developer. Also the library makes routes for login and logout and provides the ***ensureAuthenticated*** middleware  that can check whether a user is authenticated or not.
 
-To summarize, the auth object provides three functions:
+To summarize, the auth object provides three functions and one object:
 
 ```js
+var factory = require('factory');
 
 // UAA strategy constructor function that could be used if you want to implement your own 
 // authentication with passport and UAA strategy
-var Strategy = require('factory').auth.Strategy;
+var Strategy = factory.auth.Strategy;
 
 
 // constructor function that instantiates the auth provider object
-var Authentication = require('factory').auth.Authentication;
+var Authentication = factory.auth.Authentication;
 
 // middleware for checking user authentication
-var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
+var ensureAuthenticated = factory.auth.ensureAuthenticated;
+
+// socket authorization provider
+var socketAuthorization = factory.auth.socketAuthorization;
 ```
 
 ###How to Add Authentication to Your Application
@@ -176,6 +180,15 @@ app.get('/', ensureAuthenticated, routes.index);
 
 ```
 
+After adding authentication to your application user object could easily been accessed from each request object in the rout handler.
+
+```js
+app.get('/', ensureAuthenticated, function (request, response) {
+    console.log(request.user);
+});
+
+```
+
 ###If All Routes Are Meant to Be Secure
 
 If all routes are meant to be secure in your application, there is no need to add the middleware to each of them; you can just add and set the ***isAllUrlsSecure*** option to "true".
@@ -214,4 +227,60 @@ auth.verifyAuth = function (accessToken, refreshToken, profile, done) {
 };
 
 ```
+
+###How to authorize user on webSocket conection
+
+If you use [Socket.io](http://socket.io/) (or some module with compatible api) you have a possability to run you handler when socket.io performs a handshake, Auth module provides you such handler, for use it you have to do following:
+
+```js
+var io = require('socket.io'),
+    express = require('express'),
+    auth = require('factory').auth;
+
+var MemoryStore = express.session.MemoryStore;
+var sessionStore = new MemoryStore();
+var Authentication = auth.Authentication;
+
+var app = express();
+var auth = new Authentication(app);
+
+app.use(express.session({
+    key: 'someKey',
+    secret: 'someSecret',
+    store: sessionStore
+}));
+
+auth.use(config.uaa);
+
+var server = require('http').createServer(app)
+
+io.listen(server);
+
+var socketAuth = auth.socketAuthorization;
+
+io.set('authorization', socketAuth.checkAuthorization(sessionStore,
+    'someKey', 'someSecret'));
+
+```
+
+***checkAuthorization*** method obtains sessionStore, sessionKey and sessionSecret and returns a checker function. It trying to get a session for the session store by cookie that provided in the handshake object, if such session with accessToken exists function doesn't return any errors. In other way you could get errors on client using next code
+
+```js
+var sio = io.connect();
+
+sio.socket.on('error', function (reason){
+  console.error('Unable to connect Socket.IO', reason);
+});
+
+```
+
+Also auth module get you a possibility to bind your custome handler on success socket login event for doing this you should add:
+
+```js
+socketAuth.on('successSocketLogin', function (user, handshake) {
+    //your code
+});
+```
+
+Using this event you can add some information to handshake object and then receive it on the connection event. from ***socket.handshake*** object
 
