@@ -60,7 +60,7 @@ console.log(services);
 
 ```
 
-To get a service by its key (or  a part of the key) pass the key to the `getService` method as a parameter. For instance, to get `logstash_4777_v1-v1` service, pass `logstash` to `getService` method:
+To get a service by its key (or  a part of the key) pass the key to the `getService` method as a parameter. For instance, to get `logstash_4777_v1-v1` service pass 'logstash' to `getService` method:
 
 ```js
 var dspServices = require('factory').services;
