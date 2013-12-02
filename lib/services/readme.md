@@ -6,15 +6,15 @@ Section: Tutorial
 
 ---
 
-##DSP Services library
+## Binding to Services in Cloud Foundry
 
-Services library get you possibility to easyly connect to cloud foundry services that added to your environment.
+The `Services` module let's you easily connect to services in Cloud Foundry environment.
 
->**Improtant** Since library obtains services data from cloudfoundry environment variable in the localhost all methods just return null
+>**NOTE:** The module will properly function only in Cloud Foundry environment. All the methods return `null` in local environment. 
 
 ##Usage
 
-You can get a list of all services that binded to your application usin method ***getServices***
+To get the list of all services bound to your application use `getServices` method without parameters:
 
 ```js
 var dspServices = require('factory').services;
@@ -60,7 +60,7 @@ console.log(services);
 
 ```
 
-You also can get some service by its key or just a part of a key. So for instance if we want to get service 'logstash_4777_v1-v1' you could use ***getService*** method
+To get a service by its key (or  a part of the key) pass the key to the `getService` method as a parameter. For instance, to get `logstash_4777_v1-v1` service, pass `logstash` to `getService` method:
 
 ```js
 var dspServices = require('factory').services;
@@ -84,14 +84,4 @@ console.log(service);
 //      "app_id": "1"
 //    }
 //  }
-```
-
-
-If you want to definitely specify the version of service you can provide to the funtcion a full key name like:
-
-
-```js
-
-var service = dspServices.getService('logstash_4777_v1-v1');
-
 ```
