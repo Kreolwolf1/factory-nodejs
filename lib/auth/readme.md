@@ -36,15 +36,9 @@ Then execute:
 npm install factory
 ```
 
-###Make your application secure
+###Making your application secure
 
-First, you need to register your application in UAA. In order to to that specify `client_id`, `client_secret`, and UAA URL in the configuration file:
-
- - `client_id`;
- - `client_secret`;
- - UAA URL (is obtained from the Cloud Foundry environment variable).
-
-{{tip "To use this code on your local machine, you have to explicitly provide the UAA URL as opposued to Cloud Foundry environment where it could be taken from the environment variable." type="info"}}
+1\. Register your application in UAA. In order to do that specify `client_id`, `client_secret`, and UAA `URL` in the configuration file:
 
 ```js
 //config.js
@@ -57,38 +51,57 @@ module.exports = {
     }
 }
 ```
+{{tip "To use this code on your local machine, you have to explicitly provide the UAA URL as opposed to Cloud Foundry environment where it could be taken from the environment variable." type="info"}}
 
-Second, you need to create a new instance of the 'auth.Authentication' constructor and wire it up with your application:
+
+2\. Create a new instance of the `auth` object using `Authentication` constructor and wire it up with your application:
+
+```js
+var Authentication = require('factory').auth.Authentication;
+var auth = new Authentication(app);
+```
+
+3\. To make all your routes secure by default set the **isAllUrlsSecure** option to 'true': 
+
+```js
+config.uaa.isAllUrlsSecure = true;
+```
+
+> To have more granular control of your routes security, you can add the `ensureAuthenticated` middleware for each route that needs to be secure. Refer to "*Setting routes security on a case-by-case basis*" section for more details.
+
+4\. Invoke `use` method and pass configuration object:
+
+```js
+auth.use(config.uaa);
+```
+
+>**Note**: Since inside the `auth.use` method we initialize the passport's middleware and it works with sessions, the `auth.use` method must be executed after initialization of a session's middleware. Also, it is important to use this function before router initialization; otherwise you could face passport errors. 
+
+Here is the resulting *app.js* file:
 
 ```js
 //app.js
+var express = require('express');
 var config = require('./config');
+
 var Authentication = require('factory').auth.Authentication;
 var app = express();
 
-// Create an instance of auth provider
+// Create a new instance of the `auth` object using `Authentication` constructor 
+// and wire it up with your application
 var auth = new Authentication(app);
 
 app.use(express.session());
+
+// Make all routes secure by default
+config.uaa.isAllUrlsSecure = true;
 
 // invoke use method with UAA credentials that initialize passport and makes '/login'
 // and '/logout' routes 
 auth.use(config.uaa);
 
 app.use(app.router);
-
-// add ensureAuthenticated middleware to the routes 
-app.get('/', auth.ensureAuthenticated(), routes.index);
-
 ```
-To make all your routes secure by default set the **isAllUrlsSecure** option to 'true', for example: 
-
-```js
-config.uaa.isAllUrlsSecure = true;
-auth.use(config.uaa);
-```
-
-> To have more granular control of your routes security, you can add the `ensureAuthenticated` middleware for each route that needs to be secure. Refer to the next section for more details.
 
 ##Usage
 
@@ -98,81 +111,50 @@ The library uses [passport][3] and [passport-OAuth][4] under the hood. It provid
 
 The `auth` object provides the following functions:
 
+1\. UAA strategy constructor function that could be used if you want to implement your own authentication with passport and UAA strategy:
+
 ```js
 var factory = require('factory');
 
-// UAA strategy constructor function that could be used if you want to implement your own 
-// authentication with passport and UAA strategy
 var Strategy = factory.auth.Strategy;
+```
 
-// constructor function that instantiates the auth provider object
+2\. Constructor function that instantiates the auth provider object:
+
+```js
 var Authentication = factory.auth.Authentication;
+```
 
-// middleware for checking user authentication
+3\. Middleware for checking user authentication:
+
+```js
+// 
 var ensureAuthenticated = factory.auth.ensureAuthenticated;
+```
 
-// socket authorization provider
+4\. Socket authorization provider:
+
+```js
 var socketAuthorization = factory.auth.socketAuthorization;
 ```
 
-###How to Add Authentication to Your Application
+### Setting routes security on a case-by-case basis
 
-Perform the following steps to add authentication to your app:
+Add the `ensureAuthenticated` middleware for each route that needs to be secure.
 
- - Create an instance of the `auth.Authentication` constructor;
- - Execute the `use` method with UAA credentials;
- - Add the `ensureAuthenticated` middleware to the routes that need to be secure.
-
-
-
-```js
-//config.js
-var cloudfoundry = require('cloudfoundry');
-module.exports = {
-    uaa: {
-        client_id: 'devportal',
-        client_secret: 'appclientsecret',
-        url: cloudfoundry.dsp_uaa_v1["dsp-uaa"].credentials.login_server_url
-    }
-}
 
 ```
-
-```js
-//app.js
-
-var express = require('express');
-var config = require('./config');
-
-// some code...
+...
 
 var Authentication = require('factory').auth.Authentication;
-var app = express();
-
-// instantiate auth object using an Authentication constructor
 var auth = new Authentication(app);
-
-// some code... 
-
-app.use(express.session());
-
-// invoke use method with UAA credentials that initialize passport and makes '/login'
-// and '/logout' routes 
-auth.use(config.uaa);
-
-app.use(app.router);
-
-
-// some code
 
 // add ensureAuthenticated middleware to the routes 
 app.get('/', auth.ensureAuthenticated(), routes.index);
 
 ```
 
->**Note**: Since inside the `auth.use` method we initialize the passport's middleware and it works with sessions, the `auth.use` method must be to executed after initialization of a session's middleware. Also it is important to use this function before router initialization; otherwise you could face passport errors. 
-
-If your routes are created in several files, there is no need to instantiate the 'auth' object in every filey, ou can use `ensureAuthenticated` function directly, for example:
+If your routes are created in several files, there is no need to instantiate the 'auth' object every time, you can use `ensureAuthenticated` function directly, for example:
 
 ```js
 var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
@@ -180,18 +162,8 @@ var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
 app.get('/', ensureAuthenticated, routes.index);
 
 ```
-### User object
 
-After having added authentication to your application, you can obtain the `user` object from the `request` object in the route handler:
-
-```js
-app.get('/', ensureAuthenticated, function (request, response) {
-    console.log(request.user);
-});
-
-```
-
-###Making all the routes secure
+### Making all the routes secure
 
 If all routes are meant to be secure in your application, there is no need to add a middleware to each of them; you can just add the **isAllUrlsSecure** option to configuration and set it to `true`:
 
@@ -207,8 +179,22 @@ auth.addUnsecureUrl('/foobar');
 
 // array is accepted too
 auth.addUnsecureUrl(['/foo/bar', '/some/other/url']);
+```
+
+
+
+
+### User object
+
+After having added authentication to your application, you can obtain the `user` object from the `request` object in the route handler:
+
+```js
+app.get('/', ensureAuthenticated, function (request, response) {
+    console.log(request.user);
+});
 
 ```
+
 
 ###Getting notification on successful authentication
 
@@ -232,7 +218,7 @@ auth.verifyAuth = function (accessToken, refreshToken, profile, done) {
 
 ```
 
-###How to Authorize a User on the WebSocket Connection
+###Authorizing a user on WebSocket connection
 
 If you use [Socket.io][5] (or any module with the compatible API), you can run you handler when [Socket.io][5] is performing a handshake (the `Authentication` module provides you with such a handler):
 
