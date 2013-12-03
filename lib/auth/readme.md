@@ -7,13 +7,15 @@ Section: Tutorial
 ---
 ##Introduction
 
-The *Authentication* module provides a simple way for developers to add integration with the User Account and Authentication (UAA) authentication to *node.js* applications.
+The *Authentication* module provides a simple way for developers to add integration with the User Account and Authentication (UAA) Server to *node.js* applications.
+
+> The UAA is the identity management service for Cloud Foundry. It's primary role is as an OAuth2 provider, issuing tokens for client applications to use when they act on behalf of users. It can also authenticate users with their credentials, and can act as an SSO service using those credentials (or others). It has endpoints for managing user accounts and for registering OAuth2 clients, as well as various other management functions.
 
 ##Quick Start
 
 ###Installation
 
-The *Authentication* module is a part of the *Node.js Factory Library*; to use it, you need to include the dependency on the *Factory Library* in your **package.json** file:
+The *Authentication* module is a part of the *Node.js Factory Library*. You need to include dependency on the library in your **package.json** file in order to use the Authentication module:
 
 ```js
 "factory": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development",
