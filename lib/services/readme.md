@@ -6,13 +6,13 @@ Section: Tutorial
 
 ---
 
-The `Services` module let's you easily connect to services in Cloud Foundry environment.
+The *Services* module allows you to easily connect to services in the Cloud Foundry environment.
 
->**NOTE:** The module will properly function only in Cloud Foundry environment. All the methods return `null` in local environment. 
+>**NOTE:** The module properly functions only in the Cloud Foundry environment. All the methods return `null` in a local environment. 
 
 ##Usage
 
-To get the list of all services bound to your application use `getServices` method without parameters:
+To get the list of all services bound to your application, use the `getServices` method without parameters:
 
 ```js
 var dspServices = require('factory').services;
@@ -58,7 +58,7 @@ console.log(services);
 
 ```
 
-To get a service by its key (or  a part of the key) pass the key to the `getService` method as a parameter. For instance, to get `logstash_4777_v1-v1` service pass 'logstash' to `getService` method:
+To get a service by its key (or a part of the key), pass the key to the `getService` method as a parameter. For instance, to get `logstash_4777_v1-v1` service, pass 'logstash' to the `getService` method:
 
 ```js
 var dspServices = require('factory').services;
