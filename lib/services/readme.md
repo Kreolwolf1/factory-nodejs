@@ -1,12 +1,10 @@
 ---
-Title: DSP Services Module
+Title: Binding to Services in Cloud Foundry
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
 
 ---
-
-## Binding to Services in Cloud Foundry
 
 The `Services` module let's you easily connect to services in Cloud Foundry environment.
 
