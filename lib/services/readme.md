@@ -6,7 +6,11 @@ Section: Tutorial
 
 ---
 
+##Introduction
+
 The *Services* module allows you to easily connect to services in the Cloud Foundry environment.
+
+> Services (or User Provided Service Instances) are containers with some data that could be added to any application in your environment. For instance you have Redis database that managed outside of, and unknown to Cloud Foundry. Rather than hard coding credentials for this database into your applications, you can create a service instance in Cloud Foundry. Than if you are developer of application that is supposed to work with your DB, you could add this service to your app and get access to credentials using our library. More information about User Provided Service Instances could be found [here][1]
 
 >**NOTE:** The module properly functions only in the Cloud Foundry environment. All the methods return `null` in a local environment. 
 
@@ -83,3 +87,26 @@ console.log(service);
 //    }
 //  }
 ```
+###Usage example of services with authentication module
+
+```js
+var dspServices = require('factory').services;
+var Authentication = require('factory').auth.Authentication;
+
+var auth = new Authentication(app);
+
+
+var uaaService = dspServices.getService('dsp_uaa');
+
+
+auth.use({
+    client_id: 'devportal',
+    client_secret: 'appclientsecret',
+    url: uaaService.credentials.login_server_url
+});
+
+```
+
+In this example as you can see, we use `dspServices.getService` method to obtain dsp uaa service that helps as to determine url of UAA login server.
+
+[1]: http://docs.cloudfoundry.com/docs/using/services/user-provided.html
