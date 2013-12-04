@@ -253,9 +253,14 @@ io.set('authorization', socketAuth.checkAuthorization(sessionStore,
     'someKey', 'someSecret'));
 
 ```
-The `checkAuthorization` method obtains `sessionStore`, `sessionKey` and `sessionSecret` as parameters and returns a checker function. 
 
-If session store does not contain the session corresponding to the cookie provided by the handshake object, an error is emitted. You can subscribe to it the following way:
+### How It Works
+
+The `checkAuthorization` method receives `sessionStore`, `sessionKey` and `sessionSecret` as parameters and returns a checker function. [Socket.io][5] will invoke the checker function and pass the `socket.handshake` object and accept callback.
+
+In the checker function we verify that headers contain the 'someKey' cookie (see sample above) and attempt to obtain the session by this cookie from the session store. If such a session exists, we will verify that user object has the access token.
+
+If session does not exist, an error is emitted. In the client code you can subscribe to it the following way:
 
 ```js
 var sio = io.connect();
