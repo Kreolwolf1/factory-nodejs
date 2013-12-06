@@ -24,7 +24,6 @@ var dspServices = require('factory').services;
 
 var services = dspServices.getServices();
 
-
 console.log(services);
 ```
 
