@@ -3,14 +3,15 @@ Title: Binding to Services in Cloud Foundry
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
-
+Image: assets/img/Editing-Attach-icon.png
+Tags: Services, Cloud Foundry, node.js
 ---
 
 ##Introduction
 
 The *Services* module allows you to easily connect to services in the Cloud Foundry environment.
 
-> Services (or User Provided Service Instances) are containers with some data that could be added to any application in your environment. For instance you have Redis database that managed outside of, and unknown to Cloud Foundry. Rather than hard coding credentials for this database into your applications, you can create a service instance in Cloud Foundry. Than if you are developer of application that is supposed to work with your DB, you could add this service to your app and get access to credentials using our library. More information about User Provided Service Instances could be found [here][1]
+> Services (or User Provided Service Instances) are containers with some data that could be added to any application in your environment. For instance you have Redis database that managed outside of, and unknown to Cloud Foundry. Rather than hard coding credentials for this database into your applications, you can create a service instance in Cloud Foundry. Than if you are developer of application that is supposed to work with your DB, you could add this service to your app and get access to credentials using our library. More information about User Provided Service Instances could be found [here][1].
 
 >**NOTE:** The module properly functions only in the Cloud Foundry environment. All the methods return `null` in a local environment. 
 
@@ -25,40 +26,42 @@ var services = dspServices.getServices();
 
 
 console.log(services);
+```
 
-// =>
-// {
-//  "dsp_uaa_v1-0.0.1": [
-//     {
-//       "name": "dsp-uaa",
-//       "label": "dsp_uaa_v1-0.0.1",
-//       "plan": "free",
-//       "tags": [
-//         "dsp_uaa_v1-0.0.1",
-//         "dsp_uaa_v1"
-//       ],
-//       "credentials": {
-//         "login_server_url": "http://some.server.dev"
-//       }
-//     }
-//   ],
-//   "logstash_4777_v1-v1": [
-//     {
-//       "name": "dsp-logstash",
-//       "label": "logstash_4777_v1-v1",
-//       "plan": "free",
-//       "tags": [
-//         "logstash_4777_v1-v1",
-//         "logstash_4777_v1"
-//       ],
-//       "credentials": {
-//         "host": "logstash_4777",
-//         "port": 4777,
-//         "app_id": "1"
-//       }
-//     }
-//   ]
-// }
+Output:
+```js
+{
+ "dsp_uaa_v1-0.0.1": [
+ {
+   "name": "dsp-uaa",
+   "label": "dsp_uaa_v1-0.0.1",
+   "plan": "free",
+   "tags": [
+     "dsp_uaa_v1-0.0.1",
+     "dsp_uaa_v1"
+   ],
+   "credentials": {
+     "login_server_url": "http://some.server.dev"
+   }
+ }
+  ],
+  "logstash_4777_v1-v1": [
+ {
+   "name": "dsp-logstash",
+   "label": "logstash_4777_v1-v1",
+   "plan": "free",
+   "tags": [
+     "logstash_4777_v1-v1",
+     "logstash_4777_v1"
+   ],
+   "credentials": {
+     "host": "logstash_4777",
+     "port": 4777,
+     "app_id": "1"
+   }
+ }
+  ]
+}
 
 ```
 
@@ -70,43 +73,46 @@ var dspServices = require('factory').services;
 var service = dspServices.getService('logstash');
 
 console.log(service);
-
-// =>
-//  {
-//    "name": "dsp-logstash",
-//    "label": "logstash_4777_v1-v1",
-//    "plan": "free",
-//    "tags": [
-//      "logstash_4777_v1-v1",
-//      "logstash_4777_v1"
-//    ],
-//    "credentials": {
-//      "host": "logstash_4777",
-//      "port": 4777,
-//      "app_id": "1"
-//    }
-//  }
 ```
-###Usage example of services with authentication module
+
+Output:
+```js
+{
+  "name": "dsp-logstash",
+  "label": "logstash_4777_v1-v1",
+  "plan": "free",
+  "tags": [
+    "logstash_4777_v1-v1",
+    "logstash_4777_v1"
+  ],
+  "credentials": {
+    "host": "logstash_4777",
+    "port": 4777,
+    "app_id": "1"
+  }
+}
+```
+###Example: binding to UAA
+
+In this example we use `dspServices.getService` method to obtain the UAA Service that helps us to determine the URL of the UAA Login Server:
 
 ```js
-var dspServices = require('factory').services;
+// Obtain the service
+var uaaService = require('factory').services.getService('dsp_uaa');
+
+// Get the UAA Login Server URL from the service credentials
+var uaaURL = uaaService.credentials.login_server_url);
+
 var Authentication = require('factory').auth.Authentication;
-
 var auth = new Authentication(app);
-
-
-var uaaService = dspServices.getService('dsp_uaa');
-
 
 auth.use({
     client_id: 'devportal',
     client_secret: 'appclientsecret',
-    url: uaaService.credentials.login_server_url
+    url: uaaURL
 });
 
 ```
 
-In this example as you can see, we use `dspServices.getService` method to obtain dsp uaa service that helps as to determine url of UAA login server.
 
 [1]: http://docs.cloudfoundry.com/docs/using/services/user-provided.html
