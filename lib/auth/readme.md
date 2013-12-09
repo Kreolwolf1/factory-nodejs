@@ -75,6 +75,11 @@ config.uaa.isAllUrlsSecure = true;
 ```js
 auth.use(config.uaa);
 ```
+5\. Invoke `makeRoutes` method, after all middlewares are initialized, in order to assigne login, logout and auth/callback routes
+
+```js
+auth.makeRoutes();
+```
 
 >**Note**: Since inside the `auth.use` method we initialize the passport's middleware and it works with sessions, the `auth.use` method must be executed after initialization of a session's middleware. Also, it is important to use this function before router initialization; otherwise you could face passport errors. 
 
@@ -102,6 +107,9 @@ config.uaa.isAllUrlsSecure = true;
 auth.use(config.uaa);
 
 app.use(app.router);
+
+//makes '/login', '/logout' and '/auth/callback' routes 
+auth.makeRoutes();
 ```
 
 ##Usage
@@ -281,6 +289,35 @@ socketAuth.on('successSocketLogin', function (user, handshake) {
 
 When using this event, you can add some information to the handshake object and then receive it on the connection event from the `socket.handshake` object.
 
+### How to associate current socket object with user
+
+Socket authorization and successSocketLogin event could be useful if you have to associate curent user with socket object. For instance in order to send some message from one user to someone else.
+
+For such binding you could do following:
+
+```js
+
+var io = require('socket.io'),
+    socketAuth = require('factory').auth.socketAuthorization;
+
+// some initital code
+
+io.set('authorization', socketAuth.checkAuthorization(sessionStore,
+    'someKey', 'someSecret'));
+
+var userSocketMap = {};
+
+socketAuth.on('successSocketLogin', function (user, handshake) {
+    handshake.user = user;
+});
+
+io.on('connection', function(socket) {
+    var handshake = socket.handshake;
+    userSocketMap[handshake.user.name] = socket;
+});
+
+```
+So as you see at this example we have added some user information to the handshake object in the successSocketLogin handler. And then it's easy to get this data back on connection event when you have acces to user socket
 
 [1]: http://tools.ietf.org/html/draft-ietf-oauth-v2
 [2]: http://blog.cloudfoundry.com/2012/07/23/introducing-the-uaa-and-security-for-cloud-foundry/
