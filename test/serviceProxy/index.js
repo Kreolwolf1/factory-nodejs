@@ -39,7 +39,7 @@ describe('serviceProxy', function () {
                 accessToken: 'foobar'
             },
             params: {
-                0: 'foo/bar',
+                0: 'api/v1/foo/bar',
                 name: 'search'
             },
             query: {
