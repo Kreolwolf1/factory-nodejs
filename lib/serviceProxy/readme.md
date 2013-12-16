@@ -1,5 +1,5 @@
 ---
-Title: How do I expose a Java DSP service to the Frontend?
+Title: How do I expose a Java DSP service to the Frontend
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
