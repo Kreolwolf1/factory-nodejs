@@ -26,8 +26,8 @@ var serviceProxy = require('factory').serviceProxy;
 var app = express();
 
 serviceProxy.addProxiedServices({
-    someServiceName: {
-        host: 'service.host.name.wmg.com',
+    search: {
+        host: 'devportalsvc.devportal-ci.dspdev.wmg.com',
         port: 80
     },
     otherServiceName: {
