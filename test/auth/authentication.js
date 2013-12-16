@@ -85,10 +85,9 @@ describe('authentication.Authentication', function () {
         expect(passport.initialize.called).to.eql(true);
         expect(passport.session.called).to.eql(true);
 
-        expect(auth.makeRoutes.called).to.eql(true);
-        var makeRoutesOptions = auth.makeRoutes.getCall(0).args[0];
+        var authOptions = auth.authOptions;
 
-        expect(makeRoutesOptions).to.eql({
+        expect(authOptions).to.eql({
             callbackURL: '/auth/callback',
             clientID: options.client_id,
             clientSecret: options.client_secret,
@@ -178,7 +177,7 @@ describe('authentication.Authentication', function () {
     });
 
     it('#makeRoutes should assigne routes for /login /logout and /auth/callback', function () {
-        auth.makeRoutes({});
+        auth.makeRoutes();
 
         expect(app.get.getCall(0).args[0]).to.eql('/login');
         expect(app.get.getCall(1).args[0]).to.eql('/logout');
