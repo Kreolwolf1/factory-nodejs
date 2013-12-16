@@ -1,8 +1,9 @@
 ---
-Title: How do I expose a Java DSP service to the Frontend?
+Title: How Java DSP Services Are Exposed to the Frontend?
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
+Image: assets/img/JavaDSP.jpg
 Tags: Services, Proxy, Java Services, Node.js
 ---
 
@@ -13,7 +14,7 @@ Sometimes while developing node.js application in wmg environment you have to us
 
 ServiceProxy add route to your application. Requests that will be sended to this route will be proxied to the Java Services. Authentication header would be added to request automatically.
 
-> Notice, that we could proxy request only to that Java services that deployed to the same cloudfoundry environment where your application is.
+>**Note**:  Notice, that we could proxy request only to that Java services that deployed to the same cloudfoundry environment where your application is.
 
 ###Usage
 
