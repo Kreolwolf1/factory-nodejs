@@ -22,17 +22,17 @@ In order to initialize serviceProxy library you have to do following
 
 ```js
 var express = require('express');
-var serviceProxy = require('factory').serviceProxy;
-
 var app = express();
 
+var serviceProxy = require('factory').serviceProxy;
+
 serviceProxy.addProxiedServices({
-    someServiceName: {
-        host: 'service.host.name.wmg.com',
+    search: {
+        host: 'devportalsvc.devportal-ci.dspdev.wmg.com',
         port: 80
     },
-    otherServiceName: {
-        host: 'otherService.host.name.wmg.com',
+    someServiceName: {
+        host: 'service.host.name.wmg.com',
         port: 80
     }
 });
@@ -48,10 +48,35 @@ Another method `serviceProxy.createProxy` obtains application object as a parame
 
 So if you want to send get request to service 'someServiceName' like this:
 
-`service.host.name.wmg.com/api/v1/resources?foo=bar`
+`devportalsvc.devportal-ci.dspdev.wmg.com/api/v1/tutorials?query=bar`
 
 You could send request to following url:
 
-`your.app.host.name/services/someServiceName/api/v1/resources?foo=bar`
+`your.app.host.name/services/search/api/v1/tutorials?query=bar`
 
 And it would be proxied to someServiceName with authentication header.
+
+
+Also if you use [Services library][1] from factory you don't need to hardcode services information like on example above
+you can just obtain it from CF environment. Look at this following code:
+
+```js
+var url = require('url')
+var factory = require('factory');
+
+var serviceProxy = factory.serviceProxy,
+    services = factory.services;
+
+var connectionOptions = url.parse(services.getService('devportalsvc').credentials.conn);
+
+serviceProxy.addProxiedServices({
+    search: {
+        host: connectionOptions.host,
+        port: connectionOptions.port || 80
+    }
+});
+
+```
+So as you see we just obtained connection information from services that are built in the CF envaironment.
+
+[1]: http://devportal.devportal-ci.dspdev.wmg.com/docs/nodejs/tutorial/binding_to_services_in_cloud_foundry
