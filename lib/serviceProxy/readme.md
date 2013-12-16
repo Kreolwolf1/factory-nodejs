@@ -1,5 +1,5 @@
 ---
-Title: How Java DSP Services Are Exposed to the Frontend?
+Title: How Java DSP Services Are Exposed to the Frontend
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
