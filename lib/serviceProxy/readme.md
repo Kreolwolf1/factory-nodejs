@@ -6,6 +6,7 @@ Section: Tutorial
 Image: assets/img/JavaDSP.jpg
 Tags: Services, Proxy, Java Services, Node.js
 ---
+
 ##Introduction
 
 Sometimes while developing a node.js application in the **wmg** environment you need to use Java DSP services in order to gain access to data that is stored in cassandra or elastic search. The *ServiceProxy* library that is found in the *factory-nodejs* module helps you deal with this issue.
@@ -46,7 +47,7 @@ Another method, `serviceProxy.createProxy`, obtains the application object as a 
 
 where 
 
-- name – is a variable that indicate the name of the service which the request is sent to;
+- name – is a variable that indicate the name of the service, which the request is sent to;
 - /* – asterisk is where you specify the request that should be proxied (after the service name). 
 
 So if you want to send this **get** request to the 'someServiceName' service:
@@ -60,7 +61,7 @@ You can send it to following URL:
 It will be proxied to `someServiceName` with the authentication header.
 
 
-When you use [Services library][1] from the factory, you do not need to hardcode services information. 
+When you use the [*Services* library][1] from the factory, you do not need to hardcode services information. 
 You can just obtain it from the CF environment:
 
 ```js
@@ -80,6 +81,6 @@ serviceProxy.addProxiedServices({
 });
 
 ```
-In the above example we have just obtained connection information from services that are built in the CF environment.
+In the above example we have just obtained connection information from the services that are built in the CF environment.
 
 [1]: http://devportal.devportal-ci.dspdev.wmg.com/docs/nodejs/tutorial/binding_to_services_in_cloud_foundry
