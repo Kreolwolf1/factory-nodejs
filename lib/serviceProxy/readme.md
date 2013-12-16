@@ -3,7 +3,7 @@ Title: How Java DSP Services Are Exposed to the Frontend
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
-Image: assets/img/JavaDSP.jpg
+Image: 
 Tags: Services, Proxy, Java Services, Node.js
 ---
 
