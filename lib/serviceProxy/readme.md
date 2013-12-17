@@ -52,7 +52,7 @@ serviceProxy.createProxy(app);
 
 The `serviceProxy.addProxiedServices` method accepts service descriptors which should have two properties: `host` and `port`.
 
-When `serviceProxy.createProxy` is called, it register the proxy as a `Connect` middle and assign the route `/services/:name/*` to every registered service. 
+When `serviceProxy.createProxy` is called, it registers the proxy as a `Connect` middle and assigns the route `/services/:name/*` to every registered service. 
 
 ## Consuming proxied services from Frontend
 
@@ -78,8 +78,8 @@ var factory = require('factory');
 var serviceProxy = factory.serviceProxy,
     services = factory.services;
 
-// read connection information for the 'devportalsvc' service from environment variables
-var connectionOptions = url.parse(services.getService('devportalsvc').credentials.conn);
+// read connection information for the 'someService' service from environment variables
+var connectionOptions = url.parse(services.getService('someService').credentials.conn);
 
 // create the proxy and pass service host and port information
 serviceProxy.addProxiedServices({
