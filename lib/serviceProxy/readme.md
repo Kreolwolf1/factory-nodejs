@@ -68,7 +68,7 @@ from the Frontend code you can send your request to:
 
 and it will be proxied to `someService` with the authentication header automatically added.
 
-## Binding to Services in a Cloud Foundry Environment
+## Binding to Services in a CloudFoundry Environment
 
 In the above examples the service URLs are hardcoded, whereas in your applications you may want to bind to services in a Cloud Foundry environment using environment variables. The [*services*][1] module will help you do this:
 
@@ -95,8 +95,5 @@ serviceProxy.addProxiedServices({
 
 To learn more, visit [Binding to Services in Cloud Foundry][1].
 
-
-
 [1]: http://devportal.devportal-ci.dspdev.wmg.com/docs/nodejs/tutorial/binding_to_services_in_cloud_foundry
-
 
