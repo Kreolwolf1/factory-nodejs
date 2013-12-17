@@ -21,7 +21,7 @@ To expose a DSP service to Frontend:
 
 1. Initiate the `factory.serviceProxy` module;
 2. Add proxied services descriptors;
-3. Create the proxy and assigne a route for proxied requests.
+3. Create the proxy and assign a route for proxied requests.
 
 **Example**
 
@@ -45,16 +45,16 @@ serviceProxy.addProxiedServices({
     }
 });
 
-// Create the proxy and assigne a route for proxied requests 
+// Create the proxy and assign a route for proxied requests 
 serviceProxy.createProxy(app);
 
 ```
 
 The `serviceProxy.addProxiedServices` method accepts service descriptors that should have two properties: `host` and `port`.
 
-When `serviceProxy.createProxy` is called, it assigns an *express* route `/services/:name/*` that is common for each registered service.
+When `serviceProxy.createProxy` is called, it creates an *Express* route `/services/:name/*` that will handle all the proxied services.
 
->**Note**: Since the `createProxy` method assigns a route for your application, you had better invoke it after all your middleware.
+>**Note**: `createProxy` method must be called after your middleware has been initialized.
 
 ## Consuming Proxied Services from Frontend
 
