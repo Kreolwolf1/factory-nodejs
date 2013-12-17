@@ -1,33 +1,42 @@
 ---
-Title: How Java DSP Services Are Exposed to the Frontend
+Title: Exposing Backend Services to Frontend
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
-Image: 
-Tags: Services, Proxy, Java Services, Node.js
+Image: assets/img/Actions-document-open-remote-icon.png
+Tags: Services, Proxy, Backend, Java, Node.js
 ---
 
 ##Introduction
 
-Sometimes while developing a node.js application in the **wmg** environment you need to use Java DSP services in order to gain access to data that is stored in cassandra or elastic search. The *ServiceProxy* library that is found in the *factory-nodejs* module helps you deal with this issue.
+It is often necessary to expose a Backend service to Frontend via a node.js application. The *ServiceProxy* module from the *factory-nodejs* library allows you to easily do this by adding a route to your application and proxying requests to Backend services via this route.
 
-*ServiceProxy* adds a route to your application. Requests that are sent to this route will be proxied to Java services. The authentication header will be added to such a request automatically.
+{{tip "Authentication information is passed by the 'ServiceProxy' module automatically, so you don't have to do this."}}
 
->**Note**: You can proxy a request only to the Java services that are deployed to the same CloudFoundry environment where your application belongs.
+>**Note**: You can proxy requests only to the services on the same CloudFoundry environment where your application runs.
 
 ##Usage
 
-Take these steps to initialize the *ServiceProxy* library:
+To expose a DSP service to Frontend:
+
+1. Initiate the 'factory.serviceProxy' module;
+2. Add proxied services descriptors;
+3. Create the proxy and register it as a middleware.
+
+**Example**
 
 ```js
 var express = require('express');
+
+// Initiate the 'factory.serviceProxy' module
 var serviceProxy = require('factory').serviceProxy;
 
 var app = express();
 
+// Add proxied services
 serviceProxy.addProxiedServices({
     search: {
-        host: 'devportalsvc.devportal-ci.dspdev.wmg.com',
+        host: 'someService.host.name.wmg.com',
         port: 80
     },
     otherServiceName: {
@@ -36,43 +45,43 @@ serviceProxy.addProxiedServices({
     }
 });
 
-
+// Create the proxy and register it as a middleware
 serviceProxy.createProxy(app);
 
 ```
 
-As you see in the above example, the `serviceProxy.addProxiedServices` method obtains services descriptions. Each service descriptor should have two options: `host` and `port`.
+The `serviceProxy.addProxiedServices` method accepts service descriptors which should have two properties: `host` and `port`.
 
-Another method, `serviceProxy.createProxy`, obtains the application object as a parameter and assign the route `/services/:name/*` 
+When `serviceProxy.createProxy` is called, it register the proxy as a `Connect` middle and assign the route `/services/:name/*` to every registered service. 
 
-where 
+## Consuming proxied services from Frontend
 
-- name – is a variable that indicate the name of the service, which the request is sent to;
-- /* – asterisk is where you specify the request that should be proxied (after the service name). 
+Proxied services are exposed to Frontend at `yourapp.hostname/services/:name/*`, so if you want to send the *GET* request to `someService` service available, for example, at 
 
-So if you want to send this **get** request to the 'someServiceName' service:
+    someService.host.name.wmg.com/api/v1/endpoint?query=foo
 
-`devportalsvc.devportal-ci.dspdev.wmg.com/api/v1/tutorials?query=bar`
+from the Frontend code you can you can send your request to
 
-You can send it to following URL:
+    yourapp.host.name.wmg.com/services/someService/api/v1/endpoint?query=foo
 
-`your.app.host.name/services/search/api/v1/tutorials?query=bar`
+and it will be proxied to `someService` with the authentication header automatically added.
 
-It will be proxied to `someServiceName` with the authentication header.
+## Binding to services in Cloud Foundry environment
 
-
-When you use the [*Services* library][1] from the factory, you do not need to hardcode services information. 
-You can just obtain it from the CF environment:
+> Note that in the examples above the service URLs are hardcoded whereas in your applications you will want to bind to services in Cloud Foundry environment using environment variables. The [*services*][1] module will help you do this:
 
 ```js
 var url = require('url')
 var factory = require('factory');
 
+// initialize 'serviceProxy' and 'services' modules
 var serviceProxy = factory.serviceProxy,
     services = factory.services;
 
+// read connection information for the 'devportalsvc' service from environment variables
 var connectionOptions = url.parse(services.getService('devportalsvc').credentials.conn);
 
+// create the proxy and pass service host and port information
 serviceProxy.addProxiedServices({
     search: {
         host: connectionOptions.host,
@@ -81,6 +90,7 @@ serviceProxy.addProxiedServices({
 });
 
 ```
-In the above example we have just obtained connection information from the services that are built in the CF environment.
+
+To learn more, visit [Binding to Services in Cloud Foundry][1].
 
 [1]: http://devportal.devportal-ci.dspdev.wmg.com/docs/nodejs/tutorial/binding_to_services_in_cloud_foundry
