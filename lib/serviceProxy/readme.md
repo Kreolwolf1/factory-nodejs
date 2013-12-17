@@ -45,7 +45,7 @@ serviceProxy.addProxiedServices({
     }
 });
 
-// Create the proxy and assigne a route for proxied requests 
+// Create the proxy and assign a route for proxied requests 
 serviceProxy.createProxy(app);
 
 ```
@@ -54,7 +54,11 @@ The `serviceProxy.addProxiedServices` method accepts service descriptors that sh
 
 When `serviceProxy.createProxy` is called, it creates an *Express* route `/services/:name/*` that will handle all the proxied services.
 
+<<<<<<< HEAD
 >**Note**: Since the `createProxy` method assigns a route for your application, you had better invoke it after all your middleware has been initialized.
+=======
+>**Note**: `createProxy` method must be called after your middleware has been initialized.
+>>>>>>> 98f2dcdfcb4f450aef4397d2dfc6cf857671ee52
 
 ## Consuming Proxied Services from Frontend
 
