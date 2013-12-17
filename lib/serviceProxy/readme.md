@@ -4,7 +4,7 @@ Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
 Image: assets/img/Actions-document-open-remote-icon.png
-Tags: Services, Proxy, Backend, Java, Node.js, Cloud Foundry
+Tags: Services, Proxy, Backend, Java, Node.js
 ---
 
 ##Introduction
@@ -13,7 +13,7 @@ It is often necessary to expose a Backend service to Frontend via a node.js appl
 
 {{tip "Authentication information is passed by the 'ServiceProxy' module automatically, so you don't have to do this."}}
 
->**Note**: You can proxy requests only to the services on the same Cloud Foundry environment where your application runs.
+>**Note**: You can proxy requests only to the services on the same CloudFoundry environment where your application runs.
 
 ##Usage
 
@@ -52,13 +52,8 @@ serviceProxy.createProxy(app);
 
 The `serviceProxy.addProxiedServices` method accepts service descriptors that should have two properties: `host` and `port`.
 
-When `serviceProxy.createProxy` is called, it creates an *Express* route `/services/:name/*` that will handle all the proxied services.
-
-<<<<<<< HEAD
+When `serviceProxy.createProxy` is called, it creates an *Express* route `/services/:name/*` will handle all the proxied services.
 >**Note**: Since the `createProxy` method assigns a route for your application, you had better invoke it after all your middleware has been initialized.
-=======
->**Note**: `createProxy` method must be called after your middleware has been initialized.
->>>>>>> 98f2dcdfcb4f450aef4397d2dfc6cf857671ee52
 
 ## Consuming Proxied Services from Frontend
 
@@ -72,9 +67,9 @@ from the Frontend code, you can send your request to:
 
 and it will be proxied to `someService` with the authentication header automatically added.
 
-## Binding to Services in a Cloud Foundry Environment
+## Binding to Services in a CloudFoundry Environment
 
-In the above examples the service URLs are hardcoded, whereas in your applications you may want to bind to services in a Cloud  Foundry environment using environment variables. The [*services*][1] module will help you do this:
+In the above examples the service URLs are hardcoded, whereas in your applications you may want to bind to services in a Cloud Foundry environment using environment variables. The [*services*][1] module will help you do this:
 
 ```js
 var url = require('url')
