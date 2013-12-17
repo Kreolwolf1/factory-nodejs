@@ -52,15 +52,15 @@ serviceProxy.createProxy(app);
 
 The `serviceProxy.addProxiedServices` method accepts service descriptors which should have two properties: `host` and `port`.
 
-When `serviceProxy.createProxy` is called, it registers the proxy as a `Connect` middle and assigns the route `/services/:name/*` to every registered service. 
+When `serviceProxy.createProxy` is called, it registers the proxy as a `Connect` middleware and assigns the route `/services/:name/*` to every registered service. 
 
 ## Consuming proxied services from Frontend
 
-Proxied services are exposed to Frontend at `yourapp.hostname/services/:name/*`, so if you want to send the *GET* request to `someService` service available, for example, at 
+Proxied services are exposed to Frontend at `yourapp.hostname/services/:name/*`, so if you want to send the *GET* request to `someService` service available at, for example: 
 
     someService.host.name.wmg.com/api/v1/endpoint?query=foo
 
-from the Frontend code you can you can send your request to
+from the Frontend code you can send your request to:
 
     yourapp.host.name.wmg.com/services/someService/api/v1/endpoint?query=foo
 
