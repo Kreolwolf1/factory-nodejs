@@ -62,7 +62,7 @@ Proxied services are exposed to Frontend at `yourapp.hostname/services/:name/*`,
 
     someService.host.name.wmg.com/api/v1/endpoint?query=foo
 
-from the Frontend code you can send your request to:
+from the Frontend code, you can send your request to:
 
     yourapp.host.name.wmg.com/services/someService/api/v1/endpoint?query=foo
 
