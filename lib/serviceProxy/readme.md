@@ -11,7 +11,7 @@ Tags: Services, Proxy, Backend, Java, Node.js
 
 It is often necessary to expose a Backend service to the Frontend via a node.js application. The *ServiceProxy* module from the *factory-node.js* library allows you to easily do this by adding a route to your application and proxying requests to the Backend services via this route.
 
-{{tip "Authentication information is passed by the 'ServiceProxy' module automatically, so you don't have to do this manually."}}
+{{tip "Authentication information is passed by the ServiceProxy module automatically, so you don't have to do this manually."}}
 
 >**Note**: You can proxy requests only to services within the same Cloud Foundry environment where your application runs.
 
