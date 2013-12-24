@@ -10,7 +10,7 @@ Tags: Authentication, Security, OAuth2, UAA, Credentials, User, Socket.io, WebSo
 
 The *Authentication* module provides a simple way for developers to add integration with the User Account and Authentication (UAA) Server to *node.js* applications.
 
-> The UAA is the identity management service for Cloud Foundry. Its primary role is as an OAuth2 provider, issuing tokens for client applications to use when they act on behalf of users. It can also authenticate users with their credentials, and can act as an SSO service using those credentials (or others). It has endpoints for managing user accounts and for registering OAuth2 clients, as well as various other management functions.
+> The UAA is the identity management service for Cloud Foundry. Its primary role is to serve as an OAuth2 provider for issuing tokens for client applications to use when they act on behalf of users. It can also authenticate users with their credentials and can act as an SSO service using those credentials (or others). It has endpoints for managing user accounts and for registering OAuth2 clients as well as other various management functions.
 
 > The basic delegation model is described in the [OAuth2 specification][1]. You can also read more about the Cloud Foundry UAA component in [this article][2].
 
@@ -18,7 +18,7 @@ The *Authentication* module provides a simple way for developers to add integrat
 
 ###Installation
 
-The *Authentication* module is a part of the *Node.js Factory Library*. You need to include dependency on the library in your **package.json** file in order to use the Authentication module:
+The *Authentication* module is a part of the *Node.js Factory* library. You need to include dependency on the library in your **package.json** file in order to use the *Authentication* module:
 
 ```js
 "factory": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development",
@@ -37,9 +37,9 @@ Then execute:
 npm install factory
 ```
 
-###Making your application secure
+###Making your Application Secure
 
-1\. Register your application in UAA. In order to do that specify `client_id`, `client_secret`, and UAA `URL` in the configuration file:
+1\. Register your application in UAA. In order to do that, specify `client_id`, `client_secret`, and UAA `URL` in the configuration file:
 
 ```js
 //config.js
@@ -52,30 +52,30 @@ module.exports = {
     }
 }
 ```
-{{tip "To use this code on your local machine, you have to explicitly provide the UAA URL as opposed to Cloud Foundry environment where it could be taken from the environment variable." type="info"}}
+{{tip "To use the above code on your local machine, you have to explicitly provide the UAA URL as opposed to a Cloud Foundry environment where it can be taken from the environment variable." type="info"}}
 
 
-2\. Create a new instance of the `auth` object using `Authentication` constructor and wire it up with your application:
+2\. Create a new instance of the `auth` object using the `Authentication` constructor and wire it up with your application:
 
 ```js
 var Authentication = require('factory').auth.Authentication;
 var auth = new Authentication(app);
 ```
 
-3\. To make all your routes secure by default set the **isAllUrlsSecure** option to 'true': 
+3\. To make all your routes secure by default, set the **isAllUrlsSecure** option to `true`: 
 
 ```js
 config.uaa.isAllUrlsSecure = true;
 ```
 
-> To have more granular control of your routes security, you can add the `ensureAuthenticated` middleware for each route that needs to be secure. Refer to "*Setting routes security on a case-by-case basis*" section for more details.
+>**Note**: To have more granular control of your routes security, you can add the `ensureAuthenticated` middleware for each route that needs to be secure. Refer to the *Setting Routes Security on a Case-by-Case Basis* section for more details.
 
-4\. Invoke `use` method and pass configuration object:
+4\. Invoke the `use` method and pass the configuration object:
 
 ```js
 auth.use(config.uaa);
 ```
-5\. Invoke `makeRoutes` method, after all middlewares are initialized, in order to assigne login, logout and auth/callback routes
+5\. Invoke the `makeRoutes` method after all middlewares have been initialized to assign login, logout, and auth/callback routes:
 
 ```js
 auth.makeRoutes();
@@ -116,11 +116,11 @@ auth.makeRoutes();
 
 ###How It Works
 
-The library uses [passport][3] and [passport-OAuth][4] under the hood. It provides the UAA authentication strategy that is inherited from the passport OAuth2 strategy and encapsulates the process of passport initialization from a developer. Also the library makes routes for Login and Logout and provides `ensureAuthenticated` middleware that can check whether a user is authenticated or not.
+The library uses [passport][3] and [passport-OAuth][4] under the hood. It provides the UAA authentication strategy that is inherited from the passport OAuth2 strategy and encapsulates the process of passport initialization from a developer. Also the library makes routes for login and logout and provides the `ensureAuthenticated` middleware that can check whether a user is authenticated or not.
 
 The `auth` object provides the following functions:
 
-1\. UAA strategy constructor function that could be used if you want to implement your own authentication with passport and UAA strategy:
+1\. The UAA strategy constructor function that could be used if you want to implement your own authentication with the passport and UAA strategy:
 
 ```js
 var factory = require('factory');
@@ -128,33 +128,31 @@ var factory = require('factory');
 var Strategy = factory.auth.Strategy;
 ```
 
-2\. Constructor function that instantiates the auth provider object:
+2\. The constructor function that instantiates the auth provider object:
 
 ```js
 var Authentication = factory.auth.Authentication;
 ```
 
-3\. Middleware for checking user authentication:
+3\. The middleware for checking a user's authentication:
 
 ```js
 // 
 var ensureAuthenticated = factory.auth.ensureAuthenticated;
 ```
 
-4\. Socket authorization provider:
+4\. The socket authorization provider:
 
 ```js
 var socketAuthorization = factory.auth.socketAuthorization;
 ```
 
-### Setting routes security on a case-by-case basis
+### Setting Routes Security on a Case-by-Case Basis
 
 Add the `ensureAuthenticated` middleware for each route that needs to be secure.
 
 
 ```
-...
-
 var Authentication = require('factory').auth.Authentication;
 var auth = new Authentication(app);
 
@@ -163,7 +161,7 @@ app.get('/', auth.ensureAuthenticated(), routes.index);
 
 ```
 
-If your routes are created in several files, there is no need to instantiate the 'auth' object every time; you can use `ensureAuthenticated` function directly, for example:
+If your routes are created in several files, there is no need to instantiate the 'auth' object every time; you can use the `ensureAuthenticated` function directly, for example:
 
 ```js
 var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
@@ -172,9 +170,9 @@ app.get('/', ensureAuthenticated, routes.index);
 
 ```
 
-### Making all the routes secure
+### Making all the Routes Secure
 
-If all routes are meant to be secure in your application, there is no need to add a middleware to each of them; you can just add the **isAllUrlsSecure** option to configuration and set it to `true`:
+If all routes are meant to be secure in your application, there is no need to add a middleware to each of them; you can just add the **isAllUrlsSecure** option to their configuration and set it as `true`:
 
 ```js
 config.uaa.isAllUrlsSecure = true;
@@ -193,7 +191,7 @@ auth.addUnsecureUrl(['/foo/bar', '/some/other/url']);
 
 
 
-### User object
+### User Object
 
 After having added authentication to your application, you can obtain the `user` object from the `request` object in the route handler:
 
@@ -205,7 +203,7 @@ app.get('/', ensureAuthenticated, function (request, response) {
 ```
 
 
-###Getting notification on successful authentication
+###Getting Notification on Successful Authentication
 
 There are two ways to execute your code after successful authentication:
 
@@ -217,7 +215,7 @@ auth.on('successLogin', function (profile) {
 });
 ```
 
-* Redefine the `verifyAuth` method before the `use` method has been executed:
+* Re-define the `verifyAuth` method before the `use` method has been executed:
 
 ```js
 auth.verifyAuth = function (accessToken, refreshToken, profile, done) {
@@ -227,7 +225,7 @@ auth.verifyAuth = function (accessToken, refreshToken, profile, done) {
 
 ```
 
-###Authorizing a user on WebSocket connection
+###Authorizing a User on a WebSocket Connection
 
 If you use [Socket.io][5] (or any module with the compatible API), you can run you handler when [Socket.io][5] is performing a handshake (the `Authentication` module provides you with such a handler):
 
@@ -264,11 +262,11 @@ io.set('authorization', socketAuth.checkAuthorization(sessionStore,
 
 ### How It Works
 
-The `checkAuthorization` method receives `sessionStore`, `sessionKey` and `sessionSecret` as parameters and returns a checker function. [Socket.io][5] will invoke the checker function and pass the `socket.handshake` object and accept callback.
+The `checkAuthorization` method receives `sessionStore`, `sessionKey` and `sessionSecret` as parameters and returns the checker function. [Socket.io][5] will invoke the checker function and pass the `socket.handshake` object and accept callback.
 
-In the checker function we verify that headers contain the 'someKey' cookie (see sample above) and attempt to obtain the session by this cookie from the session store. If such a session exists, we will verify that user object has the access token.
+In the checker function we verify that headers contain the `someKey` cookie (see the sample above) and attempt to obtain the session by this cookie from the session store. If this session exists, we will verify that the user object has the access token.
 
-If session does not exist, an error is emitted. In the client code you can subscribe to it the following way:
+If the session does not exist, an error is emitted. In the client code you can subscribe to it the following way:
 
 ```js
 var sio = io.connect();
@@ -279,7 +277,7 @@ sio.socket.on('error', function (reason){
 
 ```
 
-Also, the `Authentication` module allows subsribing to `successSocketLogin` event:
+Also, the `Authentication` module allows subscribing to the `successSocketLogin` event:
 
 ```js
 socketAuth.on('successSocketLogin', function (user, handshake) {
@@ -289,11 +287,11 @@ socketAuth.on('successSocketLogin', function (user, handshake) {
 
 When using this event, you can add some information to the handshake object and then receive it on the connection event from the `socket.handshake` object.
 
-### How to associate current socket object with user
+### How to Associate the Current Socket Object with the User
 
-Socket authorization and successSocketLogin event could be useful if you have to associate curent user with socket object. For instance in order to send some message from one user to someone else.
+The socket authorization and `successSocketLogin` event can be useful if you have to associate the curent user with the socket object (for instance, in order to send some message from one user to someone else).
 
-For such binding you could do following:
+For such binding you can do the following:
 
 ```js
 
@@ -317,7 +315,7 @@ io.on('connection', function(socket) {
 });
 
 ```
-So as you see at this example we have added some user information to the handshake object in the successSocketLogin handler. And then it's easy to get this data back on connection event when you have acces to user socket
+So as you see in the above example, we have added some user information to the handshake object in the `successSocketLogin` handler. And then it's easy to get this data back on a connection event when you have access to the user socket.
 
 [1]: http://tools.ietf.org/html/draft-ietf-oauth-v2
 [2]: http://blog.cloudfoundry.com/2012/07/23/introducing-the-uaa-and-security-for-cloud-foundry/
