@@ -9,18 +9,18 @@ Tags: Services, Proxy, Backend, Java, Node.js
 
 ##Introduction
 
-It is often necessary to expose a Backend service to Frontend via a node.js application. The *ServiceProxy* module from the *factory-nodejs* library allows you to easily do this by adding a route to your application and proxying requests to Backend services via this route.
+It is often necessary to expose a Backend service to the Frontend via a node.js application. The *ServiceProxy* module from the *factory-node.js* library allows you to easily do this by adding a route to your application and proxying requests to the Backend services via this route.
 
-{{tip "Authentication information is passed by the 'ServiceProxy' module automatically, so you don't have to do this."}}
+{{tip "Authentication information is passed by the 'ServiceProxy' module automatically, so you don't have to do this manually."}}
 
->**Note**: You can proxy requests only to the services on the same CloudFoundry environment where your application runs.
+>**Note**: You can proxy requests only to services within the same Cloud Foundry environment where your application runs.
 
 ##Usage
 
-To expose a DSP service to Frontend:
+To expose a DSP service to the Frontend:
 
 1. Initiate the `factory.serviceProxy` module;
-2. Add proxied services descriptors;
+2. Add proxied service descriptors;
 3. Create the proxy and assign a route for proxied requests.
 
 **Example**
@@ -52,12 +52,12 @@ serviceProxy.createProxy(app);
 
 The `serviceProxy.addProxiedServices` method accepts service descriptors that should have two properties: `host` and `port`.
 
-When `serviceProxy.createProxy` is called, it creates an *Express* route `/services/:name/*` will handle all the proxied services.
->**Note**: Since the `createProxy` method assigns a route for your application, you had better invoke it after all your middleware has been initialized.
+When `serviceProxy.createProxy` is called, it creates an *Express* route `/services/:name/*` which will handle all the proxied services.
+>**Note**: Since the `createProxy` method assigns a route for your application, you had better invoke it only after all your middleware has been initialized.
 
 ## Consuming Proxied Services from Frontend
 
-Proxied services are exposed to Frontend at `yourapp.hostname/services/:name/*`, so if you want to send the *GET* request to `someService` service available at, for example: 
+Proxied services are exposed to the Frontend at `yourapp.hostname/services/:name/*`, so if you want to send a *GET* request to the `someService` service available at, for example: 
 
     someService.host.name.wmg.com/api/v1/endpoint?query=foo
 
@@ -65,7 +65,7 @@ from the Frontend code, you can send your request to:
 
     yourapp.host.name.wmg.com/services/someService/api/v1/endpoint?query=foo
 
-and it will be proxied to `someService` with the authentication header automatically added.
+and it will be proxied to `someService` with an authentication header automatically added.
 
 ## Binding to Services in a Cloud Foundry Environment
 
