@@ -20,7 +20,7 @@ The *Services* module allows you to easily connect to services in the Cloud Foun
 To get the list of all services bound to your application, use the `getServices` method without parameters:
 
 ```js
-var dspServices = require('factory').services;
+var dspServices = require('krot').services;
 
 var services = dspServices.getServices();
 
@@ -67,7 +67,7 @@ Output:
 To get a service by its key (or a part of the key), pass the key to the `getService` method as a parameter. For instance, to get `logstash_4777_v1-v1` service, pass 'logstash' to the `getService` method:
 
 ```js
-var dspServices = require('factory').services;
+var dspServices = require('krot').services;
 
 var service = dspServices.getService('logstash');
 
@@ -97,12 +97,12 @@ In this example we use `dspServices.getService` method to obtain the UAA Service
 
 ```js
 // Obtain the service
-var uaaService = require('factory').services.getService('dsp_uaa');
+var uaaService = require('krot').services.getService('dsp_uaa');
 
 // Get the UAA Login Server URL from the service credentials
 var uaaURL = uaaService.credentials.login_server_url);
 
-var Authentication = require('factory').auth.Authentication;
+var Authentication = require('krot').auth.Authentication;
 var auth = new Authentication(app);
 
 auth.use({

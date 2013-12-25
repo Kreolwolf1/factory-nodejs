@@ -21,20 +21,20 @@ The *Authentication* module provides a simple way for developers to add integrat
 The *Authentication* module is a part of the *Node.js Factory* library. You need to include dependency on the library in your **package.json** file in order to use the *Authentication* module:
 
 ```js
-"factory": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development",
+"krot": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development",
 "cloudfoundry": "*"
 ```
 
 If you have the WMG private NPM repository installed, you just need to add:
  
 ```js
-"factory": "*"
+"krot": "*"
 ```
 
 Then execute:
 
 ```
-npm install factory
+npm install krot
 ```
 
 ###Making your Application Secure
@@ -58,7 +58,7 @@ module.exports = {
 2\. Create a new instance of the `auth` object using the `Authentication` constructor and wire it up with your application:
 
 ```js
-var Authentication = require('factory').auth.Authentication;
+var Authentication = require('krot').auth.Authentication;
 var auth = new Authentication(app);
 ```
 
@@ -90,7 +90,7 @@ Here is the resulting *app.js* file:
 var express = require('express');
 var config = require('./config');
 
-var Authentication = require('factory').auth.Authentication;
+var Authentication = require('krot').auth.Authentication;
 var app = express();
 
 // Create a new instance of the `auth` object using `Authentication` constructor 
@@ -123,28 +123,28 @@ The `auth` object provides the following functions:
 1\. The UAA strategy constructor function that could be used if you want to implement your own authentication with the passport and UAA strategy:
 
 ```js
-var factory = require('factory');
+var krot = require('krot');
 
-var Strategy = factory.auth.Strategy;
+var Strategy = krot.auth.Strategy;
 ```
 
 2\. The constructor function that instantiates the auth provider object:
 
 ```js
-var Authentication = factory.auth.Authentication;
+var Authentication = krot.auth.Authentication;
 ```
 
 3\. The middleware for checking a user's authentication:
 
 ```js
 // 
-var ensureAuthenticated = factory.auth.ensureAuthenticated;
+var ensureAuthenticated = krot.auth.ensureAuthenticated;
 ```
 
 4\. The socket authorization provider:
 
 ```js
-var socketAuthorization = factory.auth.socketAuthorization;
+var socketAuthorization = krot.auth.socketAuthorization;
 ```
 
 ### Setting Routes Security on a Case-by-Case Basis
@@ -153,7 +153,7 @@ Add the `ensureAuthenticated` middleware for each route that needs to be secure.
 
 
 ```
-var Authentication = require('factory').auth.Authentication;
+var Authentication = require('krot').auth.Authentication;
 var auth = new Authentication(app);
 
 // add ensureAuthenticated middleware to the routes 
@@ -164,7 +164,7 @@ app.get('/', auth.ensureAuthenticated(), routes.index);
 If your routes are created in several files, there is no need to instantiate the 'auth' object every time; you can use the `ensureAuthenticated` function directly, for example:
 
 ```js
-var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
+var ensureAuthenticated = require('krot').auth.ensureAuthenticated;
 
 app.get('/', ensureAuthenticated, routes.index);
 
@@ -232,7 +232,7 @@ If you use [Socket.io][5] (or any module with the compatible API), you can run y
 ```js
 var io = require('socket.io'),
     express = require('express'),
-    auth = require('factory').auth;
+    auth = require('krot').auth;
 
 var MemoryStore = express.session.MemoryStore;
 var sessionStore = new MemoryStore();
@@ -296,7 +296,7 @@ For such binding you can do the following:
 ```js
 
 var io = require('socket.io'),
-    socketAuth = require('factory').auth.socketAuthorization;
+    socketAuth = require('krot').auth.socketAuthorization;
 
 // some initital code
 
