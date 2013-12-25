@@ -1,5 +1,5 @@
 {
-    "name": "factory",
+    "name": "krot",
     "version": "0.0.5",
     "private": true,
     "dependencies": {
@@ -25,5 +25,5 @@
         "debugTest": "mocha debug -R spec --recursive",
         "xunitTest": "mocha --recursive -R xunit > test-reports.xml"
     },
-    "main": "factory"
+    "main": "krot"
 }
