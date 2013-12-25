@@ -1,6 +1,6 @@
 {
     "name": "factory",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "private": true,
     "dependencies": {
         "passport": "0.1.x",
