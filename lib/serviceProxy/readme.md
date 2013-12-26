@@ -29,7 +29,7 @@ To expose a DSP service to the Frontend:
 var express = require('express');
 
 // Initiate the 'factory.serviceProxy' module
-var serviceProxy = require('factory').serviceProxy;
+var serviceProxy = require('krot').serviceProxy;
 
 var app = express();
 
@@ -73,11 +73,11 @@ In the above examples the service URLs are hardcoded, whereas in your applicatio
 
 ```js
 var url = require('url')
-var factory = require('factory');
+var krot = require('krot');
 
 // initialize 'serviceProxy' and 'services' modules
-var serviceProxy = factory.serviceProxy,
-    services = factory.services;
+var serviceProxy = krot.serviceProxy,
+    services = krot.services;
 
 // read connection information for the 'someService' service from environment variables
 var connectionOptions = url.parse(services.getService('someService').credentials.conn);
