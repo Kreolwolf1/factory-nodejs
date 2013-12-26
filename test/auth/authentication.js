@@ -11,7 +11,7 @@ var passport;
 
 
 describe('auth', function () {
-    var auth = require('../../factory').auth;
+    var auth = require('../../krot').auth;
     it('should have Authentication, Strategy constructors and ensureAuthenticated', function () {
         expect(auth).to.have.property('Authentication');
         expect(auth).to.have.property('Strategy');
@@ -66,8 +66,8 @@ describe('authentication.Authentication', function () {
         auth.makeRoutes = sinon.spy();
 
         var options = {
-            client_id: 'foo',
-            client_secret: 'bar',
+            clientId: 'foo',
+            clientSecret: 'bar',
             url: 'foo/bar'
         };
 
@@ -89,8 +89,8 @@ describe('authentication.Authentication', function () {
 
         expect(authOptions).to.eql({
             callbackURL: '/auth/callback',
-            clientID: options.client_id,
-            clientSecret: options.client_secret,
+            clientID: options.clientId,
+            clientSecret: options.clientSecret,
             uaaUrl: options.url
         });
 

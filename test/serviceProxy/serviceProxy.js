@@ -6,7 +6,7 @@ var sinon = require('sinon'),
     expect = require('chai').expect,
     rewire = require('rewire');
 
-var serviceProxy = rewire('../../lib/serviceProxy');
+var serviceProxy = rewire('../../lib/serviceProxy/serviceProxy');
 
 var httpProxyMock = {
     HttpProxy: sinon.stub()
