@@ -39,15 +39,15 @@ npm install factory
 
 ###Making your Application Secure
 
-1\. Register your application in UAA. In order to do that, specify `client_id`, `client_secret`, and UAA `URL` in the configuration file:
+1\. Register your application in UAA. In order to do that, specify `clientId`, `clientSecret`, and UAA `URL` in the configuration file:
 
 ```js
 //config.js
 var cloudfoundry = require('cloudfoundry');
 module.exports = {
     uaa: {
-        client_id: 'devportal',
-        client_secret: 'appclientsecret',
+        clientId: 'devportal',
+        clientSecret: 'appclientsecret',
         url: cloudfoundry.dsp_uaa_v1["dsp-uaa"].credentials.login_server_url
     }
 }
