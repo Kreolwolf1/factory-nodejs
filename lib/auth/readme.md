@@ -10,7 +10,7 @@ Tags: Authentication, Security, OAuth2, UAA, Credentials, User, Socket.io, WebSo
 
 The *Authentication* module provides a simple way for developers to add integration with the User Account and Authentication (UAA) Server to *node.js* applications.
 
-> The UAA is the identity management service for Cloud Foundry. Its primary role is to serve as an OAuth2 provider for issuing tokens for client applications to use when they act on behalf of users. It can also authenticate users with their credentials and can act as an SSO service using those credentials (or others). It has endpoints for managing user accounts and for registering OAuth2 clients as well as other various management functions.
+> The UAA is the identity management service for Cloud Foundry. Its primary role is to serve as an OAuth2 provider for issuing tokens for client applications to use when they act on the behalf of users. It can also authenticate users with their credentials and can act as an SSO service using those credentials (or others). It has endpoints for managing user accounts and for registering OAuth2 clients as well as other various management functions.
 
 > The basic delegation model is described in the [OAuth2 specification][1]. You can also read more about the Cloud Foundry UAA component in [this article][2].
 
@@ -18,23 +18,23 @@ The *Authentication* module provides a simple way for developers to add integrat
 
 ###Installation
 
-The *Authentication* module is a part of the *Node.js Factory* library. You need to include dependency on the library in your **package.json** file in order to use the *Authentication* module:
+The *Authentication* module is a part of the *Node.js Factory* library. You need to include the library dependency in your **package.json** file in order to use the *Authentication* module:
 
 ```js
-"factory": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development",
+"krot": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development",
 "cloudfoundry": "*"
 ```
 
 If you have the WMG private NPM repository installed, you just need to add:
  
 ```js
-"factory": "*"
+"krot": "*"
 ```
 
 Then execute:
 
 ```
-npm install factory
+npm install krot
 ```
 
 ###Making your Application Secure
@@ -55,10 +55,10 @@ module.exports = {
 {{tip "To use the above code on your local machine, you have to explicitly provide the UAA URL as opposed to a Cloud Foundry environment where it can be taken from the environment variable." type="info"}}
 
 
-2\. Create a new instance of the `auth` object using the `Authentication` constructor and wire it up with your application:
+2\. Create a new instance of the `auth` object using the `Authentication` constructor and wire it up to your application:
 
 ```js
-var Authentication = require('factory').auth.Authentication;
+var Authentication = require('krot').auth.Authentication;
 var auth = new Authentication(app);
 ```
 
@@ -90,7 +90,7 @@ Here is the resulting *app.js* file:
 var express = require('express');
 var config = require('./config');
 
-var Authentication = require('factory').auth.Authentication;
+var Authentication = require('krot').auth.Authentication;
 var app = express();
 
 // Create a new instance of the `auth` object using `Authentication` constructor 
@@ -116,35 +116,35 @@ auth.makeRoutes();
 
 ###How It Works
 
-The library uses [passport][3] and [passport-OAuth][4] under the hood. It provides the UAA authentication strategy that is inherited from the passport OAuth2 strategy and encapsulates the process of passport initialization from a developer. Also the library makes routes for login and logout and provides the `ensureAuthenticated` middleware that can check whether a user is authenticated or not.
+The library uses [passport][3] and [passport-OAuth][4] under the hood. It provides the UAA authentication strategy that is inherited from the passport OAuth2 strategy and encapsulates the process of passport initialization for a developer. Also the library makes routes for login and logout and provides the `ensureAuthenticated` middleware that can check whether a user is authenticated or not.
 
 The `auth` object provides the following functions:
 
 1\. The UAA strategy constructor function that could be used if you want to implement your own authentication with the passport and UAA strategy:
 
 ```js
-var factory = require('factory');
+var krot = require('krot');
 
-var Strategy = factory.auth.Strategy;
+var Strategy = krot.auth.Strategy;
 ```
 
 2\. The constructor function that instantiates the auth provider object:
 
 ```js
-var Authentication = factory.auth.Authentication;
+var Authentication = krot.auth.Authentication;
 ```
 
 3\. The middleware for checking a user's authentication:
 
 ```js
 // 
-var ensureAuthenticated = factory.auth.ensureAuthenticated;
+var ensureAuthenticated = krot.auth.ensureAuthenticated;
 ```
 
 4\. The socket authorization provider:
 
 ```js
-var socketAuthorization = factory.auth.socketAuthorization;
+var socketAuthorization = krot.auth.socketAuthorization;
 ```
 
 ### Setting Routes Security on a Case-by-Case Basis
@@ -153,7 +153,7 @@ Add the `ensureAuthenticated` middleware for each route that needs to be secure.
 
 
 ```
-var Authentication = require('factory').auth.Authentication;
+var Authentication = require('krot').auth.Authentication;
 var auth = new Authentication(app);
 
 // add ensureAuthenticated middleware to the routes 
@@ -161,16 +161,16 @@ app.get('/', auth.ensureAuthenticated(), routes.index);
 
 ```
 
-If your routes are created in several files, there is no need to instantiate the 'auth' object every time; you can use the `ensureAuthenticated` function directly, for example:
+If your routes are created over several files, there is no need to instantiate the 'auth' object every time; you can use the `ensureAuthenticated` function directly, for example:
 
 ```js
-var ensureAuthenticated = require('factory').auth.ensureAuthenticated;
+var ensureAuthenticated = require('krot').auth.ensureAuthenticated;
 
 app.get('/', ensureAuthenticated, routes.index);
 
 ```
 
-### Making all the Routes Secure
+### Making all Routes Secure
 
 If all routes are meant to be secure in your application, there is no need to add a middleware to each of them; you can just add the **isAllUrlsSecure** option to their configuration and set it as `true`:
 
@@ -179,7 +179,7 @@ config.uaa.isAllUrlsSecure = true;
 auth.use(config.uaa);
 ```
 
-After `ensureAuthenticated` has been initialized as a middleware for all the routes, it will redirect a user to the login page when this user has not been authenticated or the URL is not found in the list of unsecure URLs. By default, this list contains only three URLs: `/login`, `/auth/callback`, and `/logout`, though you can extend this list using the `addUnsecureUrl` method:
+After `ensureAuthenticated` has been initialized as a middleware for all the routes, it will redirect a user to the login page whenever this user has not been authenticated or if the URL is not found in the list of unsecure URLs. By default, this list contains only three URLs: `/login`, `/auth/callback`, and `/logout`, though you can extend this list using the `addUnsecureUrl` method:
 
 ```js
 auth.addUnsecureUrl('/foobar');
@@ -232,7 +232,7 @@ If you use [Socket.io][5] (or any module with the compatible API), you can run y
 ```js
 var io = require('socket.io'),
     express = require('express'),
-    auth = require('factory').auth;
+    auth = require('krot').auth;
 
 var MemoryStore = express.session.MemoryStore;
 var sessionStore = new MemoryStore();
@@ -266,7 +266,7 @@ The `checkAuthorization` method receives `sessionStore`, `sessionKey` and `sessi
 
 In the checker function we verify that headers contain the `someKey` cookie (see the sample above) and attempt to obtain the session by this cookie from the session store. If this session exists, we will verify that the user object has the access token.
 
-If the session does not exist, an error is emitted. In the client code you can subscribe to it the following way:
+If the session does not exist, an error is emitted. In the client code you can subscribe to it in the following way:
 
 ```js
 var sio = io.connect();
@@ -289,14 +289,14 @@ When using this event, you can add some information to the handshake object and 
 
 ### How to Associate the Current Socket Object with the User
 
-The socket authorization and `successSocketLogin` event can be useful if you have to associate the curent user with the socket object (for instance, in order to send some message from one user to someone else).
+The socket authorization and `successSocketLogin` event can be useful if you have to associate the current user with the socket object (for instance, in order to send some message from one user to someone else).
 
 For such binding you can do the following:
 
 ```js
 
 var io = require('socket.io'),
-    socketAuth = require('factory').auth.socketAuthorization;
+    socketAuth = require('krot').auth.socketAuthorization;
 
 // some initital code
 
@@ -315,7 +315,7 @@ io.on('connection', function(socket) {
 });
 
 ```
-So as you see in the above example, we have added some user information to the handshake object in the `successSocketLogin` handler. And then it's easy to get this data back on a connection event when you have access to the user socket.
+So as you see in the above example, we have added some user information to the handshake object in the `successSocketLogin` handler. And then it's easy to retrieve this data on a connection event when you have access to the user socket.
 
 [1]: http://tools.ietf.org/html/draft-ietf-oauth-v2
 [2]: http://blog.cloudfoundry.com/2012/07/23/introducing-the-uaa-and-security-for-cloud-foundry/

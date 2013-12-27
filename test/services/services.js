@@ -5,7 +5,7 @@ var expect = require('chai').expect;
 var rewire = require('rewire');
 
 
-var services = rewire('../../lib/services');
+var services = rewire('../../lib/services/services');
 
 describe('#getService', function () {
 
