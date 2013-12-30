@@ -4,7 +4,7 @@ Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorial
 Image: assets/img/Editing-Attach-icon.png
-Tags: Services, Cloud Foundry, node.js
+Tags: Services, Cloud Foundry, Node.js
 ---
 
 ##Introduction
