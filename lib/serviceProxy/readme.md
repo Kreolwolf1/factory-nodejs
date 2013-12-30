@@ -94,5 +94,4 @@ serviceProxy.addProxiedServices({
 
 To learn more, visit [Binding to Services in Cloud Foundry][1].
 
-[1]: devportal.devportal-ci.dspdev.wmg.com/docs/nodejs/tutorial/binding_to_services_in_cloud_foundry
-
+[1]: /docs/nodejs/tutorial/binding_to_services_in_cloud_foundry
