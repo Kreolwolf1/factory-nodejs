@@ -2,7 +2,7 @@
 Title: Binding to Services in Cloud Foundry
 Author: Eugene Tsypkin
 DevCenter: Node.js
-Section: Tutorial
+Section: Node.js Components 
 Tags: Services, Cloud Foundry, Node.js
 ---
 

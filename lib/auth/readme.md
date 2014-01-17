@@ -2,7 +2,7 @@
 Title: Authentication Module
 Author: Eugene Tsypkin
 DevCenter: Node.js
-Section: Tutorial
+Section: Node.js Components 
 Tags: Authentication, Security, OAuth2, UAA, Credentials, User, Socket.io, WebSockets, Node.js
 ---
 ##Introduction
