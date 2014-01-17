@@ -1,5 +1,5 @@
 ---
-Title: Using private NPM repo
+Title: Use of Private NPM Repo
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorials
