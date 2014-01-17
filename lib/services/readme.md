@@ -6,7 +6,7 @@ Section: Tutorial
 Tags: Services, Cloud Foundry, Node.js
 ---
 
-{{tip "In progress" type="warning"}}
+{{tip "In progress" type="danger"}}
 
 ##Introduction
 
