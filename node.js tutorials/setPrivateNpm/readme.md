@@ -1,5 +1,5 @@
 ---
-Title: Use of Private NPM Repo
+Title: Use of Private NPM Repository
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorials
@@ -7,7 +7,7 @@ Tags: NPM, Registry, Private, Configuration
 ---
 
 
-{{tip "In progress" type="danger"}}
+{{tip "This page is currently under construction." type="danger"}}
 
 
 ##Introduction

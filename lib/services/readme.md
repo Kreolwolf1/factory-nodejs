@@ -6,7 +6,7 @@ Section: Node.js Components
 Tags: Services, Cloud Foundry, Node.js
 ---
 
-{{tip "In progress" type="danger"}}
+{{tip "This page is currently under construction." type="danger"}}
 
 ##Introduction
 
