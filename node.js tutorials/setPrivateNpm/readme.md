@@ -20,7 +20,7 @@ You can install this modules using github links for instance in order to add fac
 
 But, since WMG has its own private npm registry you can easily tune your npm client and install wmg private packages for it as public ones
 
-##Seting up
+##Setting up
 
 First off all WMG private npm registry could be found here
 
