@@ -26,13 +26,13 @@ describe('serviceProxy', function () {
 
         var proxyRequest = serviceProxy.__get__('proxyRequest');
 
-        serviceProxy.addProxiedServices(services);
-
         var proxy = {
             proxyRequest: sinon.spy()
         };
 
         httpProxyMock.HttpProxy.returns(proxy);
+
+        serviceProxy.addProxiedServices(services);
 
         var request = {
             user: {
