@@ -1,7 +1,10 @@
 {
     "name": "krot",
     "version": "0.0.5",
-    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/wmgdsp/factory-nodejs"
+    },
     "dependencies": {
         "passport": "0.1.x",
         "passport-oauth": "0.1.x",
