@@ -2,8 +2,7 @@
 Title: Exposing Backend Services to Frontend
 Author: Eugene Tsypkin
 DevCenter: Node.js
-Section: Tutorial
-Image: assets/img/Actions-document-open-remote-icon.png
+Section: Node.js Components 
 Tags: Services, Proxy, Backend, Java, Node.js
 ---
 
