@@ -12,7 +12,7 @@ In order to be able to use private Node.js libraries, you need to make your NPM 
 
 Run the following command in your terminal:
 
-    npm config set registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite
+    npm config set registry http://10.70.99.217:8888/registry/_design/scratch/_rewrite
 
 
 {{tip "The rest of the page is currently under construction." type="danger"}}
