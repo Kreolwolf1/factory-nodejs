@@ -6,8 +6,16 @@ Section: Tutorials
 Tags: NPM, Registry, Private, Configuration
 ---
 
+# Configuration
 
-{{tip "This page is currently under construction." type="danger"}}
+In order to be able to use private Node.js libraries, you need to make your NPM client connect to the Private NPM repo.
+
+Run the following command in your terminal:
+
+    npm config set registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite
+
+
+{{tip "The rest of the page is currently under construction." type="danger"}}
 
 
 ##Introduction
