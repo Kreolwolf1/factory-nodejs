@@ -16,7 +16,7 @@ In WMG private github repository we have some modules that might be useful for n
 
 You can install this modules using github links for instance in order to add factory-nodejs to your project, you should add dependency to your **package.json** like this:
 
-        "factory": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development"
+        "krot": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development"
 
 But, since WMG has its own private npm registry you can easily tune your npm client and install wmg private packages for it as public ones
 
@@ -24,25 +24,25 @@ But, since WMG has its own private npm registry you can easily tune your npm cli
 
 First off all WMG private npm registry could be found here
 
-http://10.70.99.209:5984/registry/_design/scratch/_rewrite
+http://10.70.99.217:5984/registry/_design/scratch/_rewrite
 
 So there are two ways how you can use private npm registry with you npm client.
 
 
 **First**. You could just add **registry** flag to each npm command for instance
 
-`npm --registry http://10.70.99.209:5984/registry/_design/scratch/_rewrite search async`
+`npm --registry http://10.70.99.217:5894/registry/_design/scratch/_rewrite search krot`
 
-should return information whether modules that contain 'async' in name exist in private registry
+should return information whether modules that contain 'krot' in name exist in private registry
 
 
 **Second**. You could add registry option to your npm config by editing .npmrc (could be found in user folder) You have to add following line:
 
-    registry = http://10.70.99.209:5984/registry/_design/scratch/_rewrite
+    registry = http://10.70.99.217:5984/registry/_design/scratch/_rewrite
 
 Or you can use npm command for it:
 
-    npm config set registry http://10.70.99.209:5984/registry/_design/scratch/_rewrite
+    npm config set registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite
 
 After that, all your npm commands like npm install or search etc. will look for modules on wmg private registry. And in order to add some private wmg module to your node app you should add to you dependency list this:
 
