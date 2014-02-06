@@ -1,7 +1,7 @@
 {
     "name": "krot",
     "version": "0.0.6",
-    "private": true,
+    "private": false,
     "dependencies": {
         "passport": "0.1.x",
         "passport-oauth": "0.1.x",
