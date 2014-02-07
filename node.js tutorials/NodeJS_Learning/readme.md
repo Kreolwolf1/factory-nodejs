@@ -1,6 +1,6 @@
 ---
 Title: Node.js Learning Resources
-Author: Eugene Tsypkin
+Author: Sergey Titov and Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorials
 Tags: Node.js, npm, async, callbacks, Learning, Resources
@@ -50,11 +50,12 @@ To use Node.js you need to have a decent understanding of JavaScirpt language.
 
 - [Understanding the node.js event loop](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
 
-- [Avoiding Callback Hell with Async.js](Avoiding Callback Hell with Async.js)
+- [Avoiding Callback Hell with Async.js](http://www.slideshare.net/cacois/avoiding-callback-hell-with-asyncjs)
 - Promises
     - [Asynchronous Control Flow with Promises](http://howtonode.org/promises)
     - [Promises with Q](http://www.slideshare.net/async_io/javascript-promisesq-library-17206726)
 - [ES6 Generators and Preventing Callback Hell](http://www.sitepoint.com/javascript-generators-preventing-callback-hell/)
+- [Managing Node.js Callback Hell with Promises, Generators and Other Approaches](http://strongloop.com/strongblog/node-js-callback-hell-promises-generators/?utm_source=nodeweekly&utm_medium=email)
 
 
 ## Node Package Manager (npm)
@@ -88,10 +89,11 @@ https://www.codeschool.com/courses/real-time-web-with-nodejs
 
 {{tip "TODO" type="warning"}}
 
-- [express.js](http://expressjs.com/guide.html)
-- socket.io
-- express.io
-- connect
+- [express.js](http://expressjs.com/guide.html) - Sinatra inspired web development framework for node.js;
+- [socket.io](https://github.com/LearnBoost/socket.io) - Realtime application framework for Node.JS, with HTML5 WebSockets and cross-browser fallbacks support
+- [express.io](https://github.com/techpines/express.io) = express + socket.io
+- [co](https://github.com/visionmedia/co) - The ultimate generator based flow-control goodness for nodejs;
+- [koa](https://github.com/koajs/koa) - Expressive middleware for node.js using generators;
 - ejs
 - lodash
 - request
