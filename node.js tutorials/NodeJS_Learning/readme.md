@@ -23,7 +23,9 @@ Go to http://nodejs.org/, download node.js installer and follow instructions. Ma
 To use Node.js you need to have a decent understanding of JavaScirpt language.
 
 - [Crockford's videos](http://yuiblog.com/crockford/)
+- [Eloquent JavaScript](http://eloquentjavascript.net/)
 - [Essential JavaScript Design Patterns For Beginners](http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/)
+- [Understand JavaScript Closures With Ease](http://javascriptissexy.com/understand-javascript-closures-with-ease/)
 - [JavaScript garden](http://bonsaiden.github.com/JavaScript-Garden/)
 - [JavaScript Patterns Book](http://oreilly.com/catalog/9780596806767)
 - [JavaScript: The Good Parts Book](http://oreilly.com/catalog/9780596517748/)
@@ -31,22 +33,28 @@ To use Node.js you need to have a decent understanding of JavaScirpt language.
 
 ## Fundamentals
 
+{{tip "TODO" type="warning"}}
+
+- Why Node.js
 - [Official Documentation](http://nodejs.org/api/)
-- [CommonJS Module System](http://docs.nodejitsu.com/articles/getting-started/what-is-require)
+- CommonJS Module System
+    - http://docs.nodejitsu.com/articles/getting-started/what-is-require)
+    - http://pages.citebite.com/i9e9e4d1yxip
 - [Node.js Modules Official Documentation](http://nodejs.org/api/modules.html)
+- [Managing module dependencies](http://howtonode.org/managing-module-dependencies)
 - [Using Node's Event Module](http://code.tutsplus.com/tutorials/using-nodes-event-module--net-35941)
 
 
 ## Asyncrhonous Programming
+{{tip "TODO" type="warning"}}
 
 - [Understanding the node.js event loop](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
-- [Managing the Asynchronous Nature of Node.js](http://code.tutsplus.com/tutorials/managing-the-asynchronous-nature-of-nodejs--net-36183)
-(not very good, covers BAD solution, promises, and Step library only)
 
-### Taming Callback Hell
-- async
-- promises
-- ES6 generators
+- [Avoiding Callback Hell with Async.js](Avoiding Callback Hell with Async.js)
+- Promises
+    - [Asynchronous Control Flow with Promises](http://howtonode.org/promises)
+    - [Promises with Q](http://www.slideshare.net/async_io/javascript-promisesq-library-17206726)
+- [ES6 Generators and Preventing Callback Hell](http://www.sitepoint.com/javascript-generators-preventing-callback-hell/)
 
 
 ## Node Package Manager (npm)
@@ -54,7 +62,7 @@ To use Node.js you need to have a decent understanding of JavaScirpt language.
 - [What is npm?](http://docs.nodejitsu.com/articles/getting-started/npm/what-is-npm)
 - Explore [registered public npm modules](https://npmjs.org/)
 
-{{tip "Private npm registry" type="danger"}}
+{{tip "TODO: Private npm registry" type="warning"}}
 
 ## Free Books
 
@@ -71,7 +79,9 @@ To use Node.js you need to have a decent understanding of JavaScirpt language.
 
 ## Frameworks and Libraries
 
-- express
+{{tip "TODO" type="warning"}}
+
+- [express.js](http://expressjs.com/guide.html)
 - socket.io
 - express.io
 - connect
@@ -81,6 +91,8 @@ To use Node.js you need to have a decent understanding of JavaScirpt language.
 - config
 
 ## Testing
+
+{{tip "TODO" type="warning"}}
 
 Read about various approaches to testing node.js code at:
 
