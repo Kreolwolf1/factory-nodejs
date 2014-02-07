@@ -64,6 +64,13 @@ To use Node.js you need to have a decent understanding of JavaScirpt language.
 
 {{tip "TODO: Private npm registry" type="warning"}}
 
+## Tutorials
+
+{{tip "TODO" type="warning"}}
+
+http://nodeschool.io/
+https://www.codeschool.com/courses/real-time-web-with-nodejs
+
 ## Free Books
 
 - [The Node Beginner Book](http://www.nodebeginner.org/#about)
@@ -97,10 +104,10 @@ To use Node.js you need to have a decent understanding of JavaScirpt language.
 Read about various approaches to testing node.js code at:
 
 - [Testing in Node.js](http://code.tutsplus.com/tutorials/testing-in-nodejs--net-35018)
-- 
+- [Testing NodeJS with Mocha, Should, Sinon, and JSCoverage](http://www.slideshare.net/mlilley/testing-node-js-with-mocha)
 
 
-Learn how we do it using the following frameworks:
+Learn **how we do it** using the following frameworks:
 - mocha
 - sinon
 - chai
@@ -126,10 +133,3 @@ Learn how we do it using the following frameworks:
 - [Mikeal Rogers](https://github.com/mikeal) - Request
 - [James Haliday "substack"](https://github.com/substack) - Browserify, dnode, Optimist
 - [Guillermo Rauch](https://github.com/guille) - Socket.IO
-
-## Additional Resources
-
- 
-
-- http://nodeschool.io/
-- https://www.codeschool.com/courses/real-time-web-with-nodejs
