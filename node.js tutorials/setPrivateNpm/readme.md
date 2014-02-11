@@ -6,21 +6,9 @@ Section: Tutorials
 Tags: NPM, Registry, Private, Configuration
 ---
 
-# Configuration
+#Introduction
 
-In order to be able to use private Node.js libraries, you need to make your NPM client connect to the Private NPM repo.
-
-Run the following command in your terminal:
-
-    npm config set registry http://10.70.99.217:8888
-
-
-{{tip "The rest of the page is currently under construction." type="danger"}}
-
-
-##Introduction
-
-In WMG private github repository we have some modules that might be useful for node.js developers who wants to bootstrap their apps or easily integrates with WMG services. As examples of this modules are [factory-nodejs][1], [factory-handlebars-helpers][2] or [factory-cf-client][3]
+In WMG private github repository we have some modules that might be useful for node.js developers who wants to bootstrap their apps or easily integrates with WMG services.
 
 You can install this modules using github links for instance in order to add factory-nodejs to your project, you should add dependency to your **package.json** like this:
 
@@ -28,35 +16,58 @@ You can install this modules using github links for instance in order to add fac
 
 But, since WMG has its own private npm registry you can easily tune your npm client and install wmg private packages for it as public ones
 
-##Setting up
+WMG private npm registry could be found here http://10.70.99.217:5984/registry/_design/scratch/_rewrite
 
-First off all WMG private npm registry could be found here
+This registry can be used to publish and install modules directly but if you a module developer you can just push your changes to Github and they will be published automatically.
 
-http://10.70.99.217:5984/registry/_design/scratch/_rewrite
+{{tip "Make sure that module version in package.json was updated. Otherwise module will not be published." type="notice"}}
 
-So there are two ways how you can use private npm registry with you npm client.
+## Modules currently in repository
 
+Currently presented modules can be reviewed here http://10.70.99.217:5984/_utils/database.html?registry
 
-**First**. You could just add **registry** flag to each npm command for instance
+As examples of this modules are [factory-nodejs][1], [factory-handlebars-helpers][2] or [factory-cf-client][3]
 
-`npm --registry http://10.70.99.217:5894/registry/_design/scratch/_rewrite search krot`
+## NPM Proxy
 
-should return information whether modules that contain 'krot' in name exist in private registry
+As WMG own private npm registry only contains own components there is a npm proxy. This proxy allows transparently install private and public registries.
 
+Proxy can be found here http://10.70.99.217:8888 and should be used for npm client configuration.
 
-**Second**. You could add registry option to your npm config by editing .npmrc (could be found in user folder) You have to add following line:
+## Installing modules from repository
 
-    registry = http://10.70.99.217:5984/registry/_design/scratch/_rewrite
+Install required dependencies from private repository is the same as usual installation routine, but require some tuning of npm client described below.
+
+## Configuration
+
+In order to be able to use private Node.js libraries, you need to make your NPM client connect to the Private NPM repo.
+
+You could add registry option to your npm config by editing .npmrc (could be found in user folder) You have to add following line:
+
+    registry = registry http://10.70.99.217:8888
 
 Or you can use npm command for it:
 
-    npm config set registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite
+    npm config set registry registry http://10.70.99.217:8888
 
 After that, all your npm commands like npm install or search etc. will look for modules on wmg private registry. And in order to add some private wmg module to your node app you should add to you dependency list this:
 
     "wmg-module-name": "version"
 
 And then `npm install` command installs all private and public modules from one registry
+
+If in some cases you can not change .npmrc you can set registry manually on each npm execution.
+
+You could just add **registry** flag to each npm command for instance
+
+    npm --registry http://10.70.99.217:8888 search krot
+
+should return information whether modules that contain 'krot' in name exist in private registry
+
+## Troubleshooting
+
+If by some reason proxy is not working (or working slow) for you can run `npm install` as usual with default configuration. After you get all public modules and get an errors finding private modules you can run `npm install --registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite` to donwload private modules directly.
+
 
   [1]: https://github.com/wmgdsp/factory-nodejs
   [2]: https://github.com/wmgdsp/factory-handlebars-helpers
