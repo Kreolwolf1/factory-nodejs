@@ -99,6 +99,8 @@ https://www.codeschool.com/courses/real-time-web-with-nodejs
 - request
 - config
 
+If you would like to learn more about node.js frameworks please visit [nodeframework.com/](http://nodeframework.com/) and [nodewebmodules.com](http://nodewebmodules.com).
+
 ## Testing
 
 {{tip "TODO" type="warning"}}
