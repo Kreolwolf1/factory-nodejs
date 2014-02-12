@@ -6,15 +6,29 @@ Section: Tutorials
 Tags: NPM, Registry, Private, Configuration
 ---
 
+#Quick Start Guide
+
+Adding private repository as registry:
+
+    npm config set registry http://10.70.99.217:8888
+
+Check if repository works as planned:
+
+    npm search krot
+    
+Should return:
+```
+npm http GET http://10.70.99.217:8888/-/all/since?stale=update_after&startkey=1392213014516
+npm http 200 http://10.70.99.217:8888/-/all/since?stale=update_after&startkey=1392213014516
+NAME  DESCRIPTION AUTHOR     DATE              VERSION KEYWORDS
+krot    =jenkins2  2014-02-06 14:38  0.0.7
+```
+
 #Introduction
 
-In WMG private github repository we have some modules that might be useful for node.js developers who wants to bootstrap their apps or easily integrates with WMG services.
+In WMG private github repository we have some modules that node.js developers who wants to bootstrap their apps or easily integrates with WMG services should use.
 
-You can install this modules using github links for instance in order to add factory-nodejs to your project, you should add dependency to your **package.json** like this:
-
-        "krot": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development"
-
-But, since WMG has its own private npm registry you can easily tune your npm client and install wmg private packages for it as public ones
+Since WMG has its own private npm registry you can easily tune your npm client and install wmg private packages for it as public ones
 
 WMG private npm registry could be found here http://10.70.99.217:5984/registry/_design/scratch/_rewrite
 
@@ -22,7 +36,7 @@ This registry can be used to publish and install modules directly but if you a m
 
 {{tip "Make sure that module version in package.json was updated. Otherwise module will not be published." type="notice"}}
 
-## Modules currently in repository
+## Modules Currently In Repository
 
 Currently presented modules can be reviewed here http://10.70.99.217:5984/_utils/database.html?registry
 
@@ -34,7 +48,7 @@ As WMG own private npm registry only contains own components there is a npm prox
 
 Proxy can be found here http://10.70.99.217:8888 and should be used for npm client configuration.
 
-## Installing modules from repository
+## Installing Modules From Repository
 
 Install required dependencies from private repository is the same as usual installation routine, but require some tuning of npm client described below.
 
@@ -66,7 +80,25 @@ should return information whether modules that contain 'krot' in name exist in p
 
 ## Troubleshooting
 
+In case when you was previously signed in in other private repository you can get an error message
+
+     Error: unauthorized Name or password is incorrect
+     
+To fix this issue you can add your user by executing
+
+    npm adduser --registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite
+    
+And then login with your credentials
+
+    npm login --registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite
+
 If by some reason proxy is not working (or working slow) for you can run `npm install` as usual with default configuration. After you get all public modules and get an errors finding private modules you can run `npm install --registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite` to donwload private modules directly.
+
+If repository is not working you still can install this modules using github links for instance. In order to add factory-nodejs to your project, you should add dependency to your **package.json** like this:
+
+        "krot": "git+ssh://git@github.com:wmgdsp/factory-nodejs.git#development"
+
+
 
 
   [1]: https://github.com/wmgdsp/factory-nodejs
