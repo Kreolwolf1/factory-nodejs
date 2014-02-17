@@ -1,6 +1,6 @@
 {
     "name": "krot",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "repository": {
         "type": "git",
         "url": "git://github.com/wmgdsp/factory-nodejs"
@@ -15,7 +15,8 @@
         "cloudfoundry": "*",
         "connect": "~2.11.0",
         "cookie": "~0.1.0",
-        "connect-restreamer": "*"
+        "connect-restreamer": "*",
+        "validator": "~3.2.0"
     },
     "devDependencies": {
         "matchdep": "~0.1.2",
