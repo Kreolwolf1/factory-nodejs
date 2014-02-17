@@ -6,7 +6,22 @@ Section: Tutorials
 Tags: NPM, Registry, Private, Configuration, Registry, Module
 ---
 
-##Quick Start Guide
+
+
+##Introduction
+
+The WMG private GitHub repository includes modules that help node.js developers bootstrap their applications or easily integrate them with WMG services.     
+
+Since WMG has their own private NPM registry, you can easily tune your NPM client and install WMG private packages as public ones.
+
+The WMG private NPM registry is found at this link: http://10.70.99.217:5984/registry/_design/scratch/_rewrite
+
+> **Note**: Although the WMG private NPM registry can be used directly to publish and install modules, you can also push your changes to GitHub: they will be published automatically. 
+
+{{tip "Make sure that a module version in package.json is updated. Otherwise, the module will not be published." type="notice"}}
+
+
+##Adding NPM Repository
 
 1. To add the WMG private NPM repository as a registry, run this command:
 
@@ -25,17 +40,6 @@ NAME  DESCRIPTION AUTHOR     DATE              VERSION KEYWORDS
 krot    =jenkins2  2014-02-06 14:38  0.0.7
 ```
 
-##Introduction
-
-The WMG private GitHub repository includes modules that help node.js developers bootstrap their applications or easily integrate them with WMG services.     
-
-Since WMG has their own private NPM registry, you can easily tune your NPM client and install WMG private packages as public ones.
-
-The WMG private NPM registry is found at this link: http://10.70.99.217:5984/registry/_design/scratch/_rewrite
-
-> **Note**: Although the WMG private NPM registry can be used directly to publish and install modules, you can also push your changes to GitHub: they will be published automatically. 
-
-{{tip "Make sure that a module version in package.json is updated. Otherwise, the module will not be published." type="notice"}}
 
 ## Modules Currently Found in Repository
 
