@@ -62,7 +62,7 @@ The result will be displayed as: `http://some.server.com 5984 customers`.
 
 **Cons**:
 
- - Can be configured only with environments variables (it can be eliminated by reassigning the process.env object)
+ - Can be configured only with environments variables (it can be eliminated by reassigning the **process.env** object).
 
 >**Note**: You need to use **env** variables for configuration. When you want to change the configuration base directory (by default, the module looks for it in the porject root), take the following step:
 
@@ -167,7 +167,7 @@ var config = konphyg.all();
 
 ##Conclusion
 
-Each of the above described libraries can be used in production. When it comes to the development of DevPortal, we use the **node-config** module for configuration management. These are the main reasons for our selecting **node-config**: 
+Each of the above described libraries can be used in production. When it comes to the development of DevPortal, we use the  **node-config** module for configuration management. These are the main reasons for our selecting **node-config**: 
 
  - Meets our requirements.
  - Supports the hierarchical structure of configuration based on **NODE_ENV**.
