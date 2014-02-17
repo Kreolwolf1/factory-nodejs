@@ -22,7 +22,6 @@ Each has their strengths and weaknesses, but no one can be regarded as the optim
 
 ###node-config
 
-
 The [node-config] [1] module allows us to define a default set of application parameters and tune them for different runtime environments (development, qa, staging, production, etc.).
 
 An example:
