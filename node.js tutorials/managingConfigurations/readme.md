@@ -1,24 +1,30 @@
 ---
-Title: Managing Configurations in node.js
+Title: Managing Configurations in Node.js
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorials
-Tags: Node.js, configurations, config
+Tags: Node.js, Configurations, Module, JS, JSON 
 ---
 
 ##Introduction
 
-Every application need to store some configuration information somehow. If you create a simple application, it could be enough
-to store all information in simple js or json file and load it using *require* function. But when your application become bigger,
-you start thinking about some useful features that you can get from configuration. For example: different behavior on different environment,
-or you could think about writing config in yaml format, or for instance, including process arguments to the config automatically.
-There are several modules that could solve all or some of those issue for you. So lets describe some of them
+Every application stores some configuration information. When it comes to a small and simple application, you might have all its configuration information stored
+in a simple JS or JSON file and load it using the **require** function. 
 
-### [node-config] [1]
+When your application becomes bigger, you start thinking about useful features that you can get from its configuration. For example, you might want your application to have different behavior when running in different environment,
+or you need to write configuration files in the YAML format, include process arguments to the configuration automatically, etc.
 
-Lets you define a default set of application parameters, and tune them for different runtime environments (development, qa, staging, production, etc.).
 
-####example
+##Configuration Modules for Node.js
+
+There are several configuration modules for Node.js. 
+Each has their strengths and weaknesses, but no one can be regarded as the optimal configuration option for all use cases.  
+
+###node-config
+
+The [node-config] [1] module allows us to define a default set of application parameters and tune them for different runtime environments (development, qa, staging, production, etc.).
+
+An example:
 
 ```
 (example default.yaml file):
@@ -40,25 +46,25 @@ var config = require('config').Customer;
 
 console.log(config.dbHost, config.dbPort, config.dbName);
 ```
-Then if you execute app.js in production env
+Then if you execute `app.js` in the production environment:
 ```
 $ NODE_ENV=production app.js
 ```
-It shows as
-```
-http://some.server.com 5984 customers
-```
+The result will be displayed as: `http://some.server.com 5984 customers`.
 
-####pros: 
- - Supports hierarchical config structure
- - Could works with different config format such as js, json, yaml
- - Automatically load config for current NODE_ENV
- - A lot of stars and contributors on github last commit on 05/Feb/14
 
-####cons:
- - could be configured only be environments variables(it can be eliminated by reassigning process.env object)
+**Pros**:
+ 
+ - Supports the hierarchical configuration structure.
+ - Can work with different configuration formats such as JS, JSON, YAML.
+ - Automatically loads configuration for current **NODE_ENV**.
+ - Has a lot of contributors on GitHub (the last commit was on 05/Feb/14).
 
->**Note**: As you read before for configuration you have to use env variables so if for instance you want to change base config directory(by default module look for it in the porject root) you have to do following:
+**Cons**:
+
+ - Can be configured only with environments variables (it can be eliminated by reassigning the **process.env** object).
+
+>**Note**: You need to use **env** variables for configuration. When you want to change the configuration base directory (by default, the module looks for it in the porject root), take the following step:
 
 ```
 // set NODE_CONFIG_DIR env variable in order to setup config module
@@ -70,11 +76,12 @@ console.log(config.dbHost, config.dbPort, config.dbName);
 ```
  
 
-### [nconf] [2]
+### nconf 
 
-Hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging.
+The [nconf] [2] module provides hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging.
 
-####example
+The following is a nconf configuration example:
+
 ```
 var nconf = require('nconf');
 
@@ -101,34 +108,41 @@ console.log('database: ' + nconf.get('database'));
 ```
 
 If you run the above script:
+
 ```
 $ NODE_ENV=production sample.js --foo bar
 ```
 The output will be:
+
 ```
 foo: bar
 NODE_ENV: production
 database: { host: '127.0.0.1', port: 5984 }
 ```
 
-####pros:
- - Can use process arguments and environment variable as config keys
- - It is easy to load on config json or just js object
- - Has api for rewriting config on runtime
- - Well supported last commit on 12/Feb/2014
+**Pros**:
 
-####cons:
- - Supports json by default for config file (for other formats you have to provide parser)
- - Supports hierarchical config only on api level
- - Can't load config file depending on NODE_ENV
+ - Can use process arguments and environment variables as configuration keys.
+ - Makes it easy to load configuration: it is much easy to load configuration from a JSON file or just from a JS object.
+ - Provides an API for rewriting configuration in runtime.
+ - Is well supported (last commit was on February 12, 2014).
 
-Could be very useful if you are planning to work with a lot of process arguments and env variable and rewrite configuration on runtime.
+To sum up, **conf** can prove very useful if you plan to work with a lot of process arguments and env variables and rewrite configuration in runtime.  
+ 
+**Cons**:
 
-### [konphyg][3]
+ - Supports only JSON by default for a configuration file (for other formats you have to provide a parser).
+ - Supports hierarchical configuration only on the API level.
+ - Cannot load a configuration file depending on **NODE_ENV**.
 
-Cascading Environment based configuration. Very simple and straightforward
 
-####example
+
+### konphyg
+
+The [konphyg][3] module provides configuration based on a cascading environment. It is very simple and straightforward.
+
+An example:
+
 ```
 // Initialize konphyg with the base config dir
 var config = require('konphyg')(__dirname + '../config');
@@ -136,22 +150,30 @@ var config = require('konphyg')(__dirname + '../config');
 // Read the "redis" domain
 var redisConfig = config('redis');
 // Loading all configurations
-var config = konphyg.all();
+var config = konphyg.all(); 
 ```
 
-####pros:
- - Supports hierarchical config structure, (Supports additional levels of hierarchy like database.env.json or main.env.json)
- - Automatically load config for current NODE_ENV
- - Easy to setup and config
+**Pros**:
 
-####cons:
- - Supports only json format for config
- - Not so well supported a few stars and contributors last commit was on september before that there had not been any commits for a year
+ - Supports the hierarchical configuration structure, (supports additional levels of hierarchy such as **database.env.json** or **main.env.json**).
+ - Automatically loads configuration for the current **NODE_ENV**.
+ - Makes it easy to setup and configure.
+
+**Cons**:
+
+ - Supports only the JSON format for configuration.
+ - Poorly supported (few stars and contributors, the last commit was in September, 2013 - before that there had not been any commits for a year).
 
 
 ##Conclusion
 
-All of those libraries could be used in production. During the development of devportal we chose a **node-config** module for configuration management. Because it meats our requirements. It supports hierarchical structure of config based in NODE_ENV. It supports different formats for config file out of the box. It is well supported and it is quite simple to use.
+Each of the above described libraries can be used in production. When it comes to the development of DevPortal, we use the  **node-config** module for configuration management. These are the main reasons for our selecting **node-config**: 
+
+ - Meets our requirements.
+ - Supports the hierarchical structure of configuration based on **NODE_ENV**.
+ - Supports different formats for configuration file out of the box.
+ - Is well supported and easy to use.
+ 
  
 
 [1]: https://github.com/lorenwest/node-config
