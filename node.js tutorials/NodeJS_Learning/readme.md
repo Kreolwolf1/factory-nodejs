@@ -105,21 +105,44 @@ https://www.codeschool.com/courses/real-time-web-with-nodejs
 - [JavaScript on the Server Using Node.js and Express](http://www.amazon.com/JavaScript-Server-Node-js-Express-Development/dp/0956737080/ref=sr_1_20?s=books&ie=UTF8&qid=1391739340&sr=1-20&keywords=%22node.js%22)
 - [Express.js Guide](http://www.amazon.com/Express-js-Guide-Comprehensive-Book/dp/1494269279/ref=sr_1_2?s=books&ie=UTF8&qid=1391740486&sr=1-2&keywords=%22node.js%22+express)
 
-## Frameworks and Libraries
+## Frameworks
 
-{{tip "TODO" type="warning"}}
-
-- [express.js](http://expressjs.com/guide.html) - Sinatra inspired web development framework for node.js;
-- [socket.io](https://github.com/LearnBoost/socket.io) - Realtime application framework for Node.JS, with HTML5 WebSockets and cross-browser fallbacks support
-- [express.io](https://github.com/techpines/express.io) = express + socket.io
-- [co](https://github.com/visionmedia/co) - The ultimate generator based flow-control goodness for nodejs;
-- [koa](https://github.com/koajs/koa) - Expressive middleware for node.js using generators;
-- ejs
-- lodash
-- request
-- config
+- Sinatra like:
+    - [connect](https://github.com/senchalabs/connect) - extensible HTTP server framework for node using "plugins" known as middleware.
+    - [express.js](http://expressjs.com/guide.html) - Sinatra inspired web development framework for node.js;
+    - [hapi](https://github.com/spumko/hapi) - A rich framework for building web applications and services.
+    - [express.io](https://github.com/techpines/express.io) = express + socket.io
+    - [koa](https://github.com/koajs/koa) - Expressive middleware for node.js using generators based on [co];
+    - [Flatiron](https://github.com/flatiron/flatiron) - framework components for node.js and the browser
+    - [total.js](https://github.com/totaljs/framework) - web application framework for creating a rich web sites and web services
+- MVC:
+    - [Geddy](http://geddyjs.org) - A simple, structured web framework for Node
+    - [Sails.js](http://sailsjs.org) - Realtime MVC Framework for Node.js
+    - [Compound](http://compoundjs.com/) - Compound's formula is Express + structure + extensions    
+- Full stuck
+    - [meteor.js](https://github.com/meteor/meteor) - Meteor is an ultra-simple environment for building modern web applications. Built using node.js Meteor is a framework on its own. Please see [amazing list of Meteor resources](http://yauh.de/articles/376/best-learning-resources-for-meteorjs) for more information.
+    - [Derby](https://github.com/codeparty/derby) - MVC framework making it easy to write realtime, collaborative applications that run in both Node.js and browsers
+    - [SocketStream](https://github.com/socketstream/socketstream) - A fast, modular Node.js web framework dedicated to building realtime single-page apps
 
 If you would like to learn more about node.js frameworks please visit [nodeframework.com/](http://nodeframework.com/) and [nodewebmodules.com](http://nodewebmodules.com).
+
+
+## Libraries
+
+- [socket.io](https://github.com/LearnBoost/socket.io) - Realtime application framework for Node.JS, with HTML5 WebSockets and cross-browser fallbacks support
+- [mongoose](https://github.com/LearnBoost/mongoose) - MongoDB object modeling designed to work in an asynchronous environment.
+- [winston](http://github.com/flatiron/winston) - a multi-transport async logging library for node.js
+- [passport](https://github.com/jaredhanson/passport) - Simple, unobtrusive authentication for Node.js.
+- [async](https://github.com/caolan/async) - Async utilities for node and the browser
+- [Q](https://github.com/kriskowal/q) - A tool for making and composing asynchronous promises in JavaScript
+- [co](https://github.com/visionmedia/co) - The ultimate generator based flow-control goodness for nodejs;
+- [jade](https://github.com/visionmedia/jade) - Jade - robust, elegant, feature rich template engine for nodejs
+- [ejs](https://github.com/visionmedia/ejs) - Embedded JavaScript templates for node
+- [lodash](https://github.com/lodash/lodash) - A utility library delivering consistency, customization, performance, & extras.
+- [request](https://github.com/mikeal/request) - Simplified HTTP request client.
+- [config](https://github.com/lorenwest/node-config) - Runtime configuration for node.js modules
+
+
 
 ## Testing
 
