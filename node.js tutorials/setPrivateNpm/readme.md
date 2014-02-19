@@ -35,7 +35,7 @@ If everyting went fine, running your npm commands such as `npm install`, `npm se
 
 ## package.json
 
-In order to add a private WMG module to your Node application, you need to add this line to your dependencies list:
+In order to add a private WMG module to your Node application, you need to add this line to your dependencies list in package.json:
 
     "wmg-module-name": "version" 
 
@@ -43,18 +43,18 @@ Then the `npm install` command will install all private and public modules from 
 
 ## Advanced
 
-This section contains information that you will not typically need during day-to-day development but that could be useful when something goes wrong or when you need to do somehting unusual.
+This section contains information that you will not typically need during day-to-day development but that could be useful when something goes wrong or when you need to do something unusual.
 
 ### NPM Proxy
 
-To make it possible to install both private and public NPM modules we are using a a proxy that reaches out to public NPM repo, if the requested module is not found in the private one. 
+To make it possible to install both private and public NPM modules we are using a proxy that reaches out to public NPM repo, if the requested module is not found in the private one. 
 
 The NPM proxy is located at http://10.70.99.217:8888. This is the address NPM clients should be using as described in the [NPM Client Configuration](#config) section.
 
 
 ### Various configuration methods
 
-There are tree ways to make NPM client use the WMG private NPM repository:
+There are tree ways to make NPM client use the private NPM repository:
 
 A. Run this command:
 
