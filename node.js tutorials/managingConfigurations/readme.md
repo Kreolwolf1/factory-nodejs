@@ -11,14 +11,14 @@ Tags: Node.js, Configurations, Module, JS, JSON
 Every application stores some configuration information. When it comes to a small and simple application, you might have all its configuration information stored
 in a simple JS or JSON file and load it using the **require** function. 
 
-When your application becomes bigger, you start thinking about useful features that you can get from its configuration. For example, you might want your application to have different behavior when running in different environment,
-or you need to write configuration files in the YAML format, include process arguments to the configuration automatically, etc.
+When your application becomes bigger, you start thinking about useful features what useful features you can get by leveraging its configurability. For example, you might want your application to have a different behavior when running in different environment,
+or you need to write configuration files in YAML format, include passing arguments to the configuration automatically, etc.
 
 
 ##Configuration Modules for Node.js
 
 There are several configuration modules for Node.js. 
-Each has their strengths and weaknesses, but no one can be regarded as the optimal configuration option for all use cases.  
+Each has their own strengths and weaknesses, but no single configuration can be regarded as being optimal for all use cases.  
 
 ###node-config
 
@@ -55,16 +55,16 @@ The result will be displayed as: `http://some.server.com 5984 customers`.
 
 **Pros**:
  
- - Supports the hierarchical configuration structure.
+ - Supports a hierarchical configuration structure.
  - Can work with different configuration formats such as JS, JSON, YAML.
- - Automatically loads configuration for current **NODE_ENV**.
- - Has a lot of contributors on GitHub (the last commit was on 05/Feb/14).
+ - Automatically loads configuration for the current **NODE_ENV**.
+ - Has a lot of contributors on GitHub.
 
 **Cons**:
 
- - Can be configured only with environments variables (it can be eliminated by reassigning the **process.env** object).
+ - Can only be configured with environments variables (it can be eliminated by reassigning the **process.env** object).
 
->**Note**: You need to use **env** variables for configuration. When you want to change the configuration base directory (by default, the module looks for it in the porject root), take the following step:
+>**Note**: You need to use **env** variables for configuration. When you want to change the configuration base directory (by default, the module looks for it in the project root), take the following step:
 
 ```
 // set NODE_CONFIG_DIR env variable in order to setup config module
@@ -78,7 +78,7 @@ console.log(config.dbHost, config.dbPort, config.dbName);
 
 ### nconf 
 
-The [nconf] [2] module provides hierarchical node.js configuration with files, environment variables, command-line arguments, and atomic object merging.
+The [nconf] [2] module provides the hierarchical node.js configuration with files, environment variables, command-line arguments, and merging of atomic objects.
 
 The following is a nconf configuration example:
 
@@ -123,16 +123,16 @@ database: { host: '127.0.0.1', port: 5984 }
 **Pros**:
 
  - Can use process arguments and environment variables as configuration keys.
- - Makes it easy to load configuration: it is much easy to load configuration from a JSON file or just from a JS object.
- - Provides an API for rewriting configuration in runtime.
+ - Makes it easy to load configuration: it is much easier to load a configuration from a JSON file or just from a JS object.
+ - Provides an API for rewriting the configuration during runtime.
  - Is well supported (last commit was on February 12, 2014).
 
-To sum up, **conf** can prove very useful if you plan to work with a lot of process arguments and env variables and rewrite configuration in runtime.  
+To sum up, **conf** can prove very useful if you plan to work with a lot of process arguments and env variables and rewrite the configuration during runtime.  
  
 **Cons**:
 
- - Supports only JSON by default for a configuration file (for other formats you have to provide a parser).
- - Supports hierarchical configuration only on the API level.
+ - Supports only JSON configuration files by default (for other formats you have to provide a parser).
+ - Supports hierarchical configuration only at the API level.
  - Cannot load a configuration file depending on **NODE_ENV**.
 
 
@@ -155,23 +155,23 @@ var config = konphyg.all();
 
 **Pros**:
 
- - Supports the hierarchical configuration structure, (supports additional levels of hierarchy such as **database.env.json** or **main.env.json**).
- - Automatically loads configuration for the current **NODE_ENV**.
+ - Supports a hierarchical configuration structure, (supports additional levels of hierarchy such as **database.env.json** or **main.env.json**).
+ - Automatically loads the configuration for the current **NODE_ENV**.
  - Makes it easy to setup and configure.
 
 **Cons**:
 
  - Supports only the JSON format for configuration.
- - Poorly supported (few stars and contributors, the last commit was in September, 2013 - before that there had not been any commits for a year).
+ - Poorly supported (few stars and contributors, prior to September, 2013 there had been no commits for a year).
 
 
 ##Conclusion
 
-Each of the above described libraries can be used in production. When it comes to the development of DevPortal, we use the  **node-config** module for configuration management. These are the main reasons for our selecting **node-config**: 
+Each of the libraries described above can be used in production. When it comes to the development of DevPortal, we use the  **node-config** module for configuration management. Below are the main reasons for our selecting **node-config**: 
 
  - Meets our requirements.
- - Supports the hierarchical structure of configuration based on **NODE_ENV**.
- - Supports different formats for configuration file out of the box.
+ - Supports a hierarchical structure of configuration based on **NODE_ENV**.
+ - Supports different formats for the configuration file out of the box.
  - Is well supported and easy to use.
  
  
