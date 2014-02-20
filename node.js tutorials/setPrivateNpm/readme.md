@@ -6,6 +6,7 @@ Section: Tutorials
 Tags: NPM, Registry, Private, Configuration, Registry, Module
 ---
 
+
 ##Introduction
 
 The WMG private NPM repository includes modules that help Node.js developers bootstrap their applications and easily integrate them with WMG services.
@@ -88,7 +89,7 @@ Then you can login with your credentials:
 
     npm login --registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite
 
-### Slow Packages Installation
+### Slow Package Installation
 
 If for any reason the NPM proxy does not work (or works slowly), you can run `npm install` with the default configuration. If you have already downloaded all public modules and receive “cannot find private module” errors, you can run the following command to download private modules directly: 
 
