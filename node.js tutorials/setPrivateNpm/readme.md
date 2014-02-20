@@ -91,9 +91,7 @@ Then you can login with your credentials:
 
 ### Slow Package Installation
 
-If for any reason the NPM proxy does not work (or works slowly), you can run `npm install` with the default configuration. If you have already downloaded all public modules and receive “cannot find private module” errors, you can run the following command to download private modules directly: 
-
-	npm install --registry http://10.70.99.217:5984/registry/_design/scratch/_rewrite 
+If for any reason the NPM proxy does not work (or works slowly), you can run `npm install` with the default configuration to download public modules from the public repository. When public modules are downloaded and installed, you will receive the “cannot find private module” error. At this point you can switch back to private repository and download private modules.
 
 ### Referencing Github Repositories 
 
