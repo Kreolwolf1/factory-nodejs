@@ -31,7 +31,7 @@ NAME DESCRIPTION AUTHOR DATE VERSION KEYWORDS
 krot    =jenkins2  2014-02-06 14:38  0.0.7
 ```
 
-If everything went fine, running your npm commands such as `npm install`, `npm search`, will result in finding their corresponding modules in the WMG private NPM registry. 
+If everything has gone well, running your npm commands such as `npm install`, `npm search`, will result in finding their corresponding modules in the WMG private NPM registry. 
 
 ## package.json
 
