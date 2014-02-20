@@ -146,20 +146,23 @@ If you would like to learn more about node.js frameworks please visit [nodeframe
 
 ## Testing
 
-{{tip "TODO" type="warning"}}
-
 Read about various approaches to testing node.js code at:
 
 - [Testing in Node.js](http://code.tutsplus.com/tutorials/testing-in-nodejs--net-35018)
 - [Testing NodeJS with Mocha, Should, Sinon, and JSCoverage](http://www.slideshare.net/mlilley/testing-node-js-with-mocha)
-
+- [Setting up Mocha & JSCoverage](http://www.seejohncode.com/2012/03/13/setting-up-mocha-jscoverage/)
+- [Acceptance testing with supertest](http://www.scotchmedia.com/tutorials/express/authentication/2/02)
+- [Testing node.js applications with Jasmine](http://blog.codeship.io/2013/08/20/testing-tuesday-19-how-to-test-node-js-applications-with-jasmine.html)
+- [Mocking Dependencies using [rewire]](http://howtonode.org/mocking-private-dependencies-using-rewire)
 
 Learn **how we do it** using the following frameworks:
-- mocha
-- sinon
-- chai
-- rewire
-
+- [mocha](https://github.com/visionmedia/mocha) -  simple, flexible, fun javascript test framework for node.js & the browser. (BDD, TDD, QUnit styles via interfaces)
+- [jasmin-node](https://github.com/mhevery/jasmine-node) - Integration of Jasmine Spec framework with Node.js
+- [sinon](https://github.com/cjohansen/Sinon.JS) - Test spies, stubs and mocks for JavaScript
+- [chai](https://github.com/chaijs/chai) - BDD / TDD assertion framework for node.js and the browser 
+- [supertest](https://github.com/visionmedia/supertest) - Super-agent driven library for testing node.js HTTP servers using a fluent API
+- [rewire](https://github.com/jhnns/rewire) - Dependency injection for node.js applications
+- [node-jscoverage](https://github.com/visionmedia/node-jscoverage) - JScoverage for node.
 ## Keep up to date
 
 ### What To Read
