@@ -75,7 +75,7 @@ To use Node.js, you need to have a decent understanding of the JavaScirpt langua
 - Explore [registered public npm modules](https://npmjs.org/)
 - [How to publish your module to npm?](https://gist.github.com/coolaj86/1318304)
 - Node.js tips and tricks:
-    - [9 Quick Tips About npm](http://blog.ponyfoo.com/2013/12/14/9-quick-tips-about-npm)
+    - [9 Quick Tips about NPM](http://blog.ponyfoo.com/2013/12/14/9-quick-tips-about-npm)
     - [NPM tricks](http://www.devthought.com/2012/02/17/npm-tricks/)
     - [Task automation with npm run](http://substack.net/task_automation_with_npm_run)
 - Private NPM approaches:
