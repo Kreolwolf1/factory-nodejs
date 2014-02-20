@@ -51,6 +51,7 @@ To use Node.js, you need to have a decent understanding of the JavaScirpt langua
 - [Managing module dependencies](http://howtonode.org/managing-module-dependencies)
 - [Using Node.js Event Module](http://code.tutsplus.com/tutorials/using-nodes-event-module--net-35941)
 - [Understanding exports vs. module.exports](http://openmymind.net/2012/2/3/Node-Require-and-Exports/)
+- [Managing Configurations in Node.js](/docs/nodejs/tutorials/managing_configurations_in_nodejs)
 
 
 ## Asynchronous Programming
