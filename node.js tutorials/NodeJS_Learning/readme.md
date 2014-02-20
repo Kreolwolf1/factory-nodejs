@@ -35,7 +35,7 @@ To use Node.js, you need to have a decent understanding of the JavaScirpt langua
 
 ## Node.js Fundamentals
 
-- [Node.js FUNdamentals: A Concise Overview of The Main Concepts](http://webapplog.com/node-js-fundamentals-a-concise-overview-of-the-main-concepts)
+- [Node.js FUNdamentals: a Concise Overview of the Main Concepts](http://webapplog.com/node-js-fundamentals-a-concise-overview-of-the-main-concepts)
 - Why Node.js:
     - [Why the Hell Would I Use Node.js? A Case-by-Case Introduction](http://www.toptal.com/nodejs/why-the-hell-would-i-use-node-js)
     - [Why I use Node.js?](http://pettergraff.blogspot.com/2013/01/why-node.html)
@@ -43,13 +43,13 @@ To use Node.js, you need to have a decent understanding of the JavaScirpt langua
 - Migrating to Node.js:
     - [Dismantling the Monoliths](https://engineering.groupon.com/2013/misc/i-tier-dismantling-the-monoliths/)
     - [Node.js at PayPal](https://www.paypal-engineering.com/2013/11/22/node-js-at-paypal/)
-- [Official Documentation](http://nodejs.org/api/)
+- [Official documentation](http://nodejs.org/api/)
 - CommonJS module system:
     - http://docs.nodejitsu.com/articles/getting-started/what-is-require)
     - http://pages.citebite.com/i9e9e4d1yxip
-- [Node.js Modules Official Documentation](http://nodejs.org/api/modules.html)
+- [Node.js modules official documentation](http://nodejs.org/api/modules.html)
 - [Managing module dependencies](http://howtonode.org/managing-module-dependencies)
-- [Using Node's Event Module](http://code.tutsplus.com/tutorials/using-nodes-event-module--net-35941)
+- [Using Node.js Event Module](http://code.tutsplus.com/tutorials/using-nodes-event-module--net-35941)
 - [Understanding exports vs. module.exports](http://openmymind.net/2012/2/3/Node-Require-and-Exports/)
 
 
@@ -70,7 +70,7 @@ To use Node.js, you need to have a decent understanding of the JavaScirpt langua
 
 ## Node Package Manager (npm)
 
-- [What is npm?](http://docs.nodejitsu.com/articles/getting-started/npm/what-is-npm)
+- [What is NPM?](http://docs.nodejitsu.com/articles/getting-started/npm/what-is-npm)
 - [Introduction to npm](http://howtonode.org/introduction-to-npm)
 - Explore [registered public npm modules](https://npmjs.org/)
 - [How to publish your module to npm?](https://gist.github.com/coolaj86/1318304)
@@ -78,7 +78,7 @@ To use Node.js, you need to have a decent understanding of the JavaScirpt langua
     - [9 Quick Tips About npm](http://blog.ponyfoo.com/2013/12/14/9-quick-tips-about-npm)
     - [NPM tricks](http://www.devthought.com/2012/02/17/npm-tricks/)
     - [Task automation with npm run](http://substack.net/task_automation_with_npm_run)
-- Private NPM approches:
+- Private NPM approaches:
     - [How to create a private npm.js repository](http://clock.co.uk/tech-blogs/how-to-create-a-private-npmjs-repository)
     - [A hierarchical npm-registry proxy that allows to support private npm repos without replicating the entire public registry](https://github.com/paypal/kappa)
     - [A lazy local cache for npm](https://github.com/mixu/npm_lazy)
