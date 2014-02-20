@@ -27,7 +27,7 @@ To use Node.js, you need to have a decent understanding of the JavaScirpt langua
 - [Crockford's videos](http://yuiblog.com/crockford/)
 - [Eloquent JavaScript](http://eloquentjavascript.net/)
 - [Essential JavaScript Design Patterns For Beginners](http://www.addyosmani.com/resources/essentialjsdesignpatterns/book/)
-- [Understand JavaScript Closures With Ease](http://javascriptissexy.com/understand-javascript-closures-with-ease/)
+- [Understand JavaScript Closures With Ease](https://gibbon.co/paptamas/javascript-concepts/understand-javascript-closures-with-ease)
 - [JavaScript Garden](http://bonsaiden.github.com/JavaScript-Garden/)
 - [JavaScript Patterns Book](http://oreilly.com/catalog/9780596806767)
 - [JavaScript: The Good Parts Book](http://oreilly.com/catalog/9780596517748/)
@@ -168,7 +168,7 @@ Learn **how we do it** using the following frameworks:
 - [Google Node.js Community](https://plus.google.com/communities/115365528781941125390)
 - [Node.js on Reddit](http://www.reddit.com/r/node/)
 - [Stackoverflow Node.js tag](http://stackoverflow.com/questions/tagged/node.js)
-- IRC - for real-time chatting about Node.js development go to [irc.freenode.net](irc.freenode.net) in the **node.js** channel with an [IRC client](http://colloquy.info/) or connect in your Web browser to the channel using [freenode's WebChat](http://webchat.freenode.net/?channels=node.js).
+- IRC - for real-time chatting about Node.js development go to **irc.freenode.net** in the **node.js** channel with an [IRC client](http://colloquy.info/) or connect in your Web browser to the channel using [freenode's WebChat](http://webchat.freenode.net/?channels=node.js).
 - [Node.js Weekly](http://nodeweekly.com/) - an email list that gathers up the latest events and news from around the Node.js community.
 - [NodeUp](http://nodeup.com/) - a podcast covering the latest Node.js news in the community.
 
