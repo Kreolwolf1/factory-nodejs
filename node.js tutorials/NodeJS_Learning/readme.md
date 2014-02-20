@@ -53,7 +53,7 @@ To use Node.js, you need to have a decent understanding of the JavaScirpt langua
 - [Understanding exports vs. module.exports](http://openmymind.net/2012/2/3/Node-Require-and-Exports/)
 
 
-## Asyncrhonous Programming
+## Asynchronous Programming
 
 - [Understanding the node.js event loop](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
 - [Control flow in Node.js](http://book.mixu.net/node/ch7.html)
