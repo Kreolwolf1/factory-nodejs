@@ -57,16 +57,18 @@ To use Node.js you need to have a decent understanding of JavaScirpt language.
 
 
 ## Asyncrhonous Programming
-{{tip "TODO" type="warning"}}
 
 - [Understanding the node.js event loop](http://blog.mixu.net/2011/02/01/understanding-the-node-js-event-loop/)
+- [Control flow in Node.js](http://book.mixu.net/node/ch7.html)
+- [Managing Node.js Callback Hell with Promises, Generators and Other Approaches](http://strongloop.com/strongblog/node-js-callback-hell-promises-generators/?utm_source=nodeweekly&utm_medium=email)
 
-- [Avoiding Callback Hell with Async.js](http://www.slideshare.net/cacois/avoiding-callback-hell-with-asyncjs)
+- Async
+    - [Avoiding Callback Hell with Async.js](http://www.slideshare.net/cacois/avoiding-callback-hell-with-asyncjs)
+    - [Node.js Async Programming](http://www.hacksparrow.com/node-js-async-programming.html)
 - Promises
     - [Asynchronous Control Flow with Promises](http://howtonode.org/promises)
     - [Promises with Q](http://www.slideshare.net/async_io/javascript-promisesq-library-17206726)
 - [ES6 Generators and Preventing Callback Hell](http://www.sitepoint.com/javascript-generators-preventing-callback-hell/)
-- [Managing Node.js Callback Hell with Promises, Generators and Other Approaches](http://strongloop.com/strongblog/node-js-callback-hell-promises-generators/?utm_source=nodeweekly&utm_medium=email)
 
 
 ## Node Package Manager (npm)
