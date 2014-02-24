@@ -39,7 +39,7 @@ in our application:
 - to implement different behavior of error handling based on NODE_ENV
 
 Express provide us the possibility to specify a middleware that could handle all errors in one place. So lets rewrite our application:
-{{code js="/expressErrorHAndling.js" js_rows="15-37, 44"}}
+{{code js="expressErrorHAndling.js" js_rows="15-37, 44"}}
 
 As you see at this example we specify all our actions that we do after errors in middleware. If you need to add you custome logic you can also specify anther middleware with it inside. Also you can customize statusCode inside each route(By default it is 500)
 ```
@@ -87,7 +87,7 @@ Soo as you can see our process was interrupted with error and we have not seen a
 The same behavior you will see with big application that handles a lot of online connections.
 
 ### Try than catch
-So if your code is synchronous it is quite easy to handle this situation you can use ##try catch## for it.
+So if your code is synchronous it is quite easy to handle this situation you can use **try catch** for it.
 
 ```
     var errorFunction = function () {
@@ -108,7 +108,7 @@ So if your code is synchronous it is quite easy to handle this situation you can
     The end
 ```
 
-Now everything is cool but in node.js everything is asynchronous and in this case ###try catch### could not help you.
+Now everything is cool but in node.js everything is asynchronous and in this case **try catch** could not help you.
 
 Lets look on async example
 ```
