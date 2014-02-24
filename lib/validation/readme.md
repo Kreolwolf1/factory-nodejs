@@ -8,12 +8,83 @@ Tags: Node.js, validator.js, browserify, grunt-browserify
 
 {{tip "This page is currently under construction." type="danger"}}
 
-{{header "Validation module provides a declarative way validation for express routes. It works as a standart middleware and allows validate requrest parameters before real action will be executed."}}
+##Introduction
+
+Validation module provides a declarative way validation for express routes. It works as a standart middleware and allows validate requrest parameters before real action will be executed.
 
 Validation module uses a [validator.js][1] libarary under the hood. So it's possible to use any validation rule that validation.js supports. (isEmail, isURL, isUUID, etc.)
 
-Lets take a look how does it work:
+##Validation module api
 
+Validation module avaliable from the krot library:
+
+```js
+    var krot = require('krot');
+    var addValidation = krot.validation.addValidation;
+    
+    //application creation goes here
+    
+    app.post('/api/account', addValidation(
+        {from: 'body.password', rule: 'isAlphanumeric'}
+    ), function (req, res) {
+        //controller action goes here
+    });
+    
+```
+
+**addValidation** is a convenient decorator, that returns middleware validation function. It is possible provide to addValidation function two types of arguments:
+
+1. Validation object
+2. Custom validation function
+
+####Validation object
+
+```js
+addValidation({from: 'body.email', rule: ['isEmail', 'isLowercase'], required: false, error: "Email is required"});
+```
+**from** (*String*): property that will be taken from the request object and validated according to the rule.
+
+[**rule** (*String*)]: name of validation rule in validation.js library. If "rule" property is omitted than "from" value will be validated by default rule (value have to be present in request object)
+
+[**required** (*bool*)]: If value is not strictly required it will be validated only if it is exist in request object.
+
+[**error** (*String*)]: Custom validation message. 
+
+####Custom validation funciton
+```js
+addValidation(function (req, res) {/*validation rule goes here*/});
+```
+Inside custom validation function you can use express request param to obtain a nessesary value. Validation function should return nothing if validated value is correct and error message if it's not.
+
+{{tip "Validation functions and objects can be used together" type="info"}}
+
+```js
+var krot = require('krot');
+var express = require('express');
+
+var addValidation = krot.validation.addValidation;
+var app = express();
+
+//apply standart middlewares (static, bodyParser, cookieParser) here
+//....
+
+app.post('/api/account', addValidation(
+    //simpe validation object
+    {from: 'body.password', rule: 'isAlphanumeric'},
+    //validation object with 2 rules
+    {from: 'body.email', rule: ['isEmail', 'isLowercase']},
+    //body.birth is not strictly required, but if it exist it should be a date.
+    {from: 'body.birth', rule: 'isDate', required: false},
+    //custom validation rule
+    function (req) {
+        if (!req.body.website) {
+            return "Website parameter is required!";
+        }
+    }
+), accountController.createAccount);
+```
+
+##Using validation middleware
 
 Here we have a standart **router.js** file with a list of all application routes in one file:
 
@@ -64,27 +135,9 @@ exports.getAccount = [
 ]
 ```
 
-You can include in **addValidation** function as many validation objects as you want and of course it can be used directry in the file where you declare routes.
+##Creating custom rules
 
-```js
-var krot = require('krot');
-var express = require('express');
-
-var addValidation = krot.validation.addValidation;
-var app = express();
-
-//apply standart middlewares (static, bodyParser, cookieParser) here
-//....
-
-app.post('/api/account', addValidation(
-    {from: 'body.email', rule: 'isEmail'}
-    {from: 'body.password', rule: 'isAlphanumeric'}
-    {from: 'body.birth', rule: 'isDate'}
-    {from: 'body.website', rule: 'isURL'}
-), accountController.createAccount);
-```
-
-Also you can create your own validation rules and use them on a both backend and frontend sides.
+Also you can use validation rules not only inside addValidation function. You can declare custom validation rules once and then use them anywhere.
 
 1) Create separate file (e.g. **rules.js**) and put there your custom validation rules.
 
@@ -96,7 +149,6 @@ var validator = require('validator');
 var rules = {};
 
 //define custom rule
-//rule should return nothing if value is correct and error message if not
 rules.isAccount = function (body) {
     if (!validator.isEmail(body.email) || validator.isAlphanumeric(body.password)) {
         return "Please provide correct data";
@@ -105,6 +157,8 @@ rules.isAccount = function (body) {
 
 module.exports = rules;
 ```
+Notice that validation rule should return nothing if validated value is correct and error message if it's not.
+
 2) Add your custom rules to the validation middleware
 
 ```js
@@ -125,8 +179,18 @@ app.post('/api/account', addValidation(
 ), accountController.createAccount);
 ```
 
-File with custom validation rules also can we exported to the frontend. To achieve this you should use [browserify grunt task][2] and avoid usage of node.js specific libraries in rules.js file. Keep in mind that [lodash][3], [util][4], [validator][5] and many other libraries and utilities can we easily processed via browserify.
+##Exporting rules to the front-end
 
+File with custom validation rules also can we exported to the front-end. To achieve this you should use [browserify grunt task][2] and avoid usage of node.js specific libraries in rules.js file. Keep in mind that [lodash][3], [util][4], [validator][5] and many other libraries and utilities can we easily processed via browserify.
+If you want apply validator.js rules on front-end you can use next trick.
+
+```js
+var validator = require('validator');
+
+var rules = Object.create(validator);
+
+module.exports = rules;
+```
 
   [1]: https://github.com/chriso/validator.js
   [2]: https://github.com/jmreidy/grunt-browserify
