@@ -39,7 +39,7 @@ in our application:
 - to implement different behavior of error handling based on NODE_ENV
 
 Express provide us the possibility to specify a middleware that could handle all errors in one place. So lets rewrite our application:
-{{code js="/expressErrorHAndling.js" js_rows="15-37, 44"}}
+{{code js="expressErrorHAndling.js" js_rows="15-37, 44"}}
 
 As you see at this example we specify all our actions that we do after errors in middleware. If you need to add you custome logic you can also specify anther middleware with it inside. Also you can customize statusCode inside each route(By default it is 500)
 ```
