@@ -1,20 +1,25 @@
 ---
-Title: Error Handling in node.js
+Title: Error Handling in Node.js
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorials
-Tags: Node.js, errors, uncought error, error handling
+Tags: Node.js, Error, Uncaught Exception, Error Handling, Express Framework
 ---
 
 ##Introduction
 
-While programming in the node.js environment you defiantly will face with two types of exceptions: uncaught exceptions
-and exceptions that are provided by our code. In this tutorial we will describe how you can handle with all of them.
+When programming in the Node.js environment, you will definitely encounter two types of exceptions: 
+- uncaught exceptions;
+- exceptions stipulated by our code.
 
-## Handling caught exceptions in express framework
+In this tutorial, we are going to explain to you how you can handle such errors.  
 
-While developing an application we always face with some actions after those we have to check errors and return information
-about it to frontend. Take a look to following example
+## Caught Exceptions in the Express Framework
+
+In the process of developing an application, you will always need now and then to check for errors and return error information to the frontend.  
+
+<a id="first"></a> Take a look at the following example:
+
 ```
 var fs = require('fs');
 var express = require('express');
@@ -32,27 +37,38 @@ app.get('/', function(req, res){
 app.listen(5000);
 ```
 
-So after starting this server and requesting localhost:5000 you will get an error description. What we need from exception handling
-in our application:
-- to have all error displaying logic in one place
-- to log every error
-- to implement different behavior of error handling based on NODE_ENV
+As you can see, after starting the server and making a request to localhost **5000**, you will get an error description. 
 
-Express provide us the possibility to specify a middleware that could handle all errors in one place. So lets rewrite our application:
+We expect error handling in our application:
+- to store all the error displaying logic in one place;
+- to log every error;
+- to implement a different behavior of error handling based on **NODE_ENV**.
+
+The *Express* framework provides you with the ability to specify a middleware that can handle all errors in one place. So let us rewrite our application:
+
+
+
 {{code js="assets/expressErrorHandling.js" js_rows="15-37, 44"}}
 
-As you see at this example we specify all our actions that we do after errors in middleware. If you need to add you custome logic you can also specify anther middleware with it inside. Also you can customize statusCode inside each route(By default it is 500)
+As you can see from the example above, we have specified all the actions that we need to take after an error has occured in the middleware. 
+
+If you need to add you custom logic, you can specify another middleware with that logic. You can also customize ` statusCode ` inside each route (by default, it is **500**).
+
+
 ```
     app.get('/', function (req, res, next) {
         return next({statusCode: 400, message: 'foo bar'})
     });
 ```
 
-If you substitute route from first example by this one you will get 400 status code in response.
+If you replace the route from the [first example](#first) by this one, you will get ` statusCode ` **400** in response.
 
 
 ## Uncaught Exceptions
-You can see a simple example of uncaught exception in following code
+
+The following code illustrates a simple example of an uncaught exception:
+
+
 
 ```
     // app.js file
@@ -65,7 +81,8 @@ You can see a simple example of uncaught exception in following code
     console.log('The end');
 ```
 
-Now if you execute this code with node you get the such output like this one
+Now when you have executed this code with Node.js, you will get an output that is similar to this one:
+
 ```
     node app.js
 
@@ -83,11 +100,15 @@ Now if you execute this code with node you get the such output like this one
         at startup (node.js:119:16)
         at node.js:901:3
 ```
-Soo as you can see our process was interrupted with error and we have not seen an 'The end' log.
-The same behavior you will see with big application that handles a lot of online connections.
+As you can see, our process is interrupted with an error.
+The same behavior will occur when a large application handles a lot of online connections.
 
-### Try than catch
-So if your code is synchronous it is quite easy to handle this situation you can use **try catch** for it.
+
+### Try Catch Method
+
+If your code is synchronous, it is quite easy to handle this situation: you can just use the **try catch** method for this purpose.
+
+
 
 ```
     var errorFunction = function () {
@@ -108,9 +129,10 @@ So if your code is synchronous it is quite easy to handle this situation you can
     The end
 ```
 
-Now everything is cool but in node.js everything is asynchronous and in this case **try catch** could not help you.
+The point however is that everything in Node.js is asynchronous and **try catch** cannot help you in this case.
 
-Lets look on async example
+Let us look at an asynchronous example:
+
 ```
     var errorFunction = function (callback) {
         process.nextTick(function () {
@@ -142,13 +164,16 @@ Lets look on async example
         at node.js:901:3
 ```
 
-So as you see our process fall with error.
+You can see that our process failed with an error.
 
-### Uncaught Exception handler
+### Uncaught Exception Handler
 
-In this situation node.js gets as a possibility to invoke our handler after
-uncaught exception happened to do this you have to add your handler to uncaughtException event of process object.
-Lets assume that we have a simple node.js app:
+
+Node.js provides you with the ability to invoke an error handler after an uncaught exception has taken place: for this purpose, you can attach your exception handler to the ** uncaughtException** event of the process object.    
+
+Let us assume that we have a simple Node.js application:
+
+
 
 ```
 'use strict'
@@ -171,15 +196,24 @@ require('http').createServer(function(req, res) {
 }).listen(5000);
 ```
 
-If you request with browser localhost:5000 you could see an error message in console but you still could see a foo bar
-response in browser and You can noticed that our server has not fall and still could send responses. But it is not really great idea.
-Because if the process does not crash after error it defiantly could lead to memory leak. The good approach is to log error, kill the process after
-it and then restart it using some thing like [forever](https://github.com/nodejitsu/forever) module.
+If you make a browser request to localhost 5000, you can see an error message in the console. However, you will also see a **foobar** response in your browser and realize that our server has not actually failed and still can send responses. 
+Since the process does not crash, which can lead to a memory leak, this approach cannot be regarded as an effective one.    
+
+The most effective approach is to log an error, “kill” the process after that, and then restart the process, using a tool such as the [forever](https://github.com/nodejitsu/forever) module. 
 
 
-### Use winston handleExceptions method
-If you use [winston](https://github.com/flatiron/winston) logger it helps you easily specify how to log uncaught exceptions
-take a look on following code
+
+
+### Use of Winston **handleExceptions** Method
+
+
+Using the [Winston](https://github.com/flatiron/winston) logger will help you easily specify how to log uncaught exceptions.
+
+Take a look at the following code:
+
+
+
+
 
 ```
 var winston = require('winston');
@@ -204,19 +238,26 @@ require('http').createServer(function(req, res) {
 }).listen(5000);
 ```
 
-After executing this example you could find all information about error in app.log. Also handleExceptions method kills process automatically.
-So using this approach you could easily change the logging destination by changing the File transport on the one of
-[already existing](https://github.com/flatiron/winston/blob/master/docs/transports.md) Also you can [create your own transport](https://github.com/flatiron/winston#adding-custom-transports) with your custom logic
 
-### Using domains
+After having executed the above code, you will find all information about an error in the **app.log** file. The **handleExceptions** method also “kills” the process automatically.
 
-Since node version 0.10 you can use a builtin [domain](http://nodejs.org/api/domain.html) module in order to solve a problem with error Handling.
-From api documentation: "Domains provide a way to handle multiple different IO operations as a single group. If any of
-the event emitters or callbacks registered to a domain emit an error event, or throw an error, then the domain object will be notified,
-rather than losing the context of the error in the process.on('uncaughtException') handler, or causing the program to exit immediately with an
-error code."
+Using this approach, you can easily change the logging destination by changing the file transport to one of the [already existing ones](https://github.com/flatiron/winston/blob/master/docs/transports.md). 
 
-So here our small server that rewriting with domain usage
+You can also [create your own transport](https://github.com/flatiron/winston#adding-custom-transports) with your custom logic.
+
+
+
+
+
+### Using Domains
+
+Starting with Node.js Version **0.10**, you can use the built-in [domain](http://nodejs.org/api/domain.html) module to solve a problem of error handling.
+
+This is an extract from the API documentation: "Domains provide a way to handle multiple different IO operations as a single group. If any of the event emitters or callbacks registered to a domain emit an error event, or throw an error, then the domain object will be notified, rather than losing the context of the error in the process.on('uncaughtException') handler, or causing the program to exit immediately with an error code."
+
+This is an example of rewriting our server with domain usage:
+
+
 ```
 var d = require('domain').create();
 
@@ -239,7 +280,10 @@ d.run(function () {
     }).listen(5000);
 });
 ```
-In this case the behavior is the same as with process.on('uncaughtError') the main benefit is that you can get the context
-in which error happened. Despite it you still need to crash process in order to avoid memory leaks. In this [tutorial](http://nodejs.org/api/domain.html#domain_warning_don_t_ignore_errors)
-you can find how to combine domains with [cluster](http://nodejs.org/api/cluster.html) module in order to
-implement graceful degradation after exception
+In this case the behavior is the same as with ` process.on('uncaughtError') `. The main benefit of using domains is that you can get the context in which errors occur. 
+
+{{tip "Nevertheless, you still need to crash the process in order to avoid memory leaks. " type="warning"}}
+
+For the information about how to combine domains with the [cluster](http://nodejs.org/api/cluster.html) module to implement graceful degradation after an exception, refer to this [tutorial](http://nodejs.org/api/domain.html#domain_warning_don_t_ignore_errors).  
+
+
