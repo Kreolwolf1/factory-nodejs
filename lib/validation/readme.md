@@ -3,7 +3,7 @@ Title: Validation in Node.js
 Author: Pavel Voronin
 DevCenter: Node.js
 Section: Tutorials
-Tags: Node.js, validator.js, browserify, grunt-browserify
+Tags: Node.js, validator.js, grunt-browserify
 ---
 
 {{tip "This page is currently under construction." type="danger"}}
