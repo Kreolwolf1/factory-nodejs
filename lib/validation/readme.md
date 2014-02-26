@@ -3,20 +3,25 @@ Title: Validation in Node.js
 Author: Pavel Voronin
 DevCenter: Node.js
 Section: Tutorials
-Tags: Node.js, validator.js, grunt-browserify
+Tags: Node.js, Validator.js, Express.js, grunt-browserify
 ---
 
-{{tip "This page is currently under construction." type="danger"}}
+
 
 ##Introduction
 
-Validation module provides a declarative way validation for express routes. It works as a standart middleware and allows validate requrest parameters before real action will be executed.
+The *Validation* module provides a declarative way of validating routes in Express.js. It works as a standard middleware and allows validating request parameters before a real action is executed.
 
-Validation module uses a [validator.js][1] libarary under the hood. So it's possible to use any validation rule that validation.js supports. (isEmail, isURL, isUUID, etc.)
+The *Validation* module uses the [validator.js][1] library under the hood. So it is possible to use any validation rule that **validator.js** supports. (**isEmail**, **isURL**, **isUUID**, etc.).
 
-##Validation module api
 
-Validation module avaliable from the krot library:
+
+
+
+##Validation Module API
+
+The *Validation* module is available in the **krot** library:
+
 
 ```js
     var krot = require('krot');
@@ -32,31 +37,39 @@ Validation module avaliable from the krot library:
     
 ```
 
-**addValidation** is a convenient decorator, that returns middleware validation function. It is possible provide to addValidation function two types of arguments:
+The **addValidation** method is a convenient decorator that returns a middleware validation function. It is possible to provide the **addValidation** function with two types of arguments:
 
-1. Validation object
-2. Custom validation function
+1. [Validation object](#jbject);
+2. [Custom validation function](#function).
 
-####Validation object
+
+###<a id="object"></a> Validation Object
 
 ```js
 addValidation({from: 'body.email', rule: ['isEmail', 'isLowercase'], required: false, error: "Email is required"});
 ```
-**from** (*String*): property that will be taken from the request object and validated according to the rule.
 
-[**rule** (*String*)]: name of validation rule in validation.js library. If "rule" property is omitted than "from" value will be validated by default rule (value have to be present in request object)
 
-[**required** (*bool*)]: If value is not strictly required it will be validated only if it is exist in request object.
 
-[**error** (*String*)]: Custom validation message. 
+Property               | Description
+---------              | -----
+**from**: (*String*)   | A property that will be taken from the request object and validated according to the rule.
+**rule**: (*String*) | The name of a validation rule in the [validator.js][1] library. If the rule property is omitted, than the **from** parameter value will be validated by the default rule (a value have to be indicated in the request object).
+**required**: (*Bool*) | If a value is not strictly required, it will be validated only when it is found in the request object.
+**error**: (*String*) | A custom validation message.
 
-####Custom validation funciton
+
+
+
+###<a id="function"></a> Custom Validation Funciton
 ```js
 addValidation(function (req, res) {/*validation rule goes here*/});
 ```
-Inside custom validation function you can use express request param to obtain a nessesary value. Validation function should return nothing if validated value is correct and error message if it's not.
+You can use a request parameter in Express.js to obtain a necessary value.
+The validation function should return **null** if the validated value is correct or an error message if it is not.   
 
-{{tip "Validation functions and objects can be used together" type="info"}}
+
+{{tip "Validation functions and objects can be used together." type="info"}}
 
 ```js
 var krot = require('krot');
@@ -84,9 +97,9 @@ app.post('/api/account', addValidation(
 ), accountController.createAccount);
 ```
 
-##Using validation middleware
+##Using Validation Middleware
 
-Here we have a standart **router.js** file with a list of all application routes in one file:
+Below is a standard **router.js** file with a list of all application routes:
 
 ```js
 var accountController = require('./accountController');
@@ -97,7 +110,7 @@ app.update('/api/account/:id', accountController.updateAccount);
 app.delete('/api/account/:id', accountController.deleteAccount);
 ```
 
-**accountController.js** file contains an appropriate endpoints implementation:
+The **accountController.js** file contains the endpoint implementation:
 
 ```js
 //require krot library
@@ -135,11 +148,12 @@ exports.getAccount = [
 ]
 ```
 
-##Creating custom rules
+##Creating Custom Rules
 
-Also you can use validation rules not only inside addValidation function. You can declare custom validation rules once and then use them anywhere.
+You can use validation rules not only inside the **addValidation** function. You can also create your own custom validation rules and then use them anywhere.
 
-1) Create separate file (e.g. **rules.js**) and put there your custom validation rules.
+1) Create a separate file (for example, **rules.js**) and put there your custom validation rules.
+
 
 ```js
 //require validator library if you need it
@@ -157,9 +171,10 @@ rules.isAccount = function (body) {
 
 module.exports = rules;
 ```
-Notice that validation rule should return nothing if validated value is correct and error message if it's not.
 
-2) Add your custom rules to the validation middleware
+> **Note**: The above-stated validation rule should return **null** if the validated value is correct or an error message if it is not..
+
+2) Add your custom rules to the validation middleware:
 
 ```js
 //require krot libarary
@@ -179,10 +194,13 @@ app.post('/api/account', addValidation(
 ), accountController.createAccount);
 ```
 
-##Exporting rules to the front-end
+##Exporting Rules to the Frontend
 
-File with custom validation rules also can we exported to the front-end. To achieve this you should use [browserify grunt task][2] and avoid usage of node.js specific libraries in rules.js file. Keep in mind that [lodash][3], [util][4], [validator][5] and many other libraries and utilities can we easily processed via browserify.
-If you want apply validator.js rules on front-end you can use next trick.
+You can export the file with your custom validation rules to the frontend. For this purpose, you need to use the [browserify grunt][2] task and, at the same time, avoid using any of Node.js specific libraries in the **rules.js** file.
+
+Take into account that [lodash][3], [util][4], [validator.js][5] and a lot of other libraries and utilities can be easily processed via **browserify**.  
+
+If you would like to apply validator.js rules to the frontend, you can use the next trick:
 
 ```js
 var validator = require('validator');
