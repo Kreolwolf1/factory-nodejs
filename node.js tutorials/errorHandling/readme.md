@@ -3,7 +3,7 @@ Title: Error Handling in Node.js
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorials
-Tags: Node.js, Error, Unhandled Exception, Error Handling, Express Framework
+Tags: Node.js, Error, Exception, Handling, Express 
 ---
 
 
