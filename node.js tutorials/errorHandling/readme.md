@@ -3,7 +3,7 @@ Title: Error Handling in Node.js
 Author: Eugene Tsypkin
 DevCenter: Node.js
 Section: Tutorials
-Tags: Node.js, Error, Uncaught Exception, Error Handling, Express Framework
+Tags: Node.js, Error, Unhandled Exception, Error Handling, Express Framework
 ---
 
 
@@ -11,13 +11,13 @@ Tags: Node.js, Error, Uncaught Exception, Error Handling, Express Framework
 
 When programming in the Node.js environment, you will definitely encounter two types of exceptions: 
 - uncaught exceptions;
-- exceptions stipulated by our code.
+- exceptions caused by our code.
 
 In this tutorial, we are going to explain to you how you can handle such errors.  
 
 ## Caught Exceptions in the Express Framework
 
-In the process of developing an application, you will always need now and then to check for errors and return error information to the frontend.  
+In the process of developing an application, you should regularly check for errors and return error information to the frontend if necessary.  
 
 <a id="first"></a> Take a look at the following example:
 
@@ -41,19 +41,19 @@ app.listen(5000);
 As you can see, after starting the server and making a request to localhost **5000**, you will get an error description. 
 
 We expect error handling in our application:
-- to store all the error displaying logic in one place;
+- to store all the logic for displaying errors in one place;
 - to log every error;
-- to implement a different behavior of error handling based on **NODE_ENV**.
+- to implement a different method of error handling based on **NODE_ENV**.
 
-The *Express* framework provides you with the ability to specify a middleware that can handle all errors in one place. So let us rewrite our application:
+The *Express* framework provides you with the ability to specify the middleware that will handle all errors in one place. So let us rewrite our application:
 
 
 
 {{code js="assets/expressErrorHandling.js" js_rows="15-37, 44"}}
 
-As you can see from the example above, we have specified all the actions that we need to take after an error has occured in the middleware. 
+As you can see from the example above, we have specified all the actions that we need to take after an error has occurred in the middleware. 
 
-If you need to add you custom logic, you can specify another middleware with that logic. You can also customize ` statusCode ` inside each route (by default, it is **500**).
+If you need to add you own custom logic, you can specify a different middleware with it. You can also customize ` statusCode ` inside each route (by default, it is **500**).
 
 
 ```
@@ -62,7 +62,7 @@ If you need to add you custom logic, you can specify another middleware with tha
     });
 ```
 
-If you replace the route from the [first example](#first) by this one, you will get ` statusCode ` **400** in response.
+If you replace the route from the [first example](#first) with this one, you will get ` statusCode ` **400** in response.
 
 
 ## Uncaught Exceptions
@@ -82,7 +82,7 @@ The following code illustrates a simple example of an uncaught exception:
     console.log('The end');
 ```
 
-Now when you have executed this code with Node.js, you will get an output that is similar to this one:
+Now when you have executed this code with Node.js, you will get output that is similar to this:
 
 ```
     node app.js
@@ -130,7 +130,7 @@ If your code is synchronous, it is quite easy to handle this situation: you can 
     The end
 ```
 
-The point however is that everything in Node.js is asynchronous and **try catch** cannot help you in this case.
+However, the point is that everything in Node.js is asynchronous and **try catch** cannot help you in this case.
 
 Let us look at an asynchronous example:
 
@@ -240,11 +240,11 @@ require('http').createServer(function(req, res) {
 ```
 
 
-After having executed the above code, you will find all information about an error in the **app.log** file. The **handleExceptions** method also “kills” the process automatically.
+After the above code has been executed, you will find all information relating to errors in the **app.log** file. The **handleExceptions** method also “kills” the process automatically.
 
-Using this approach, you can easily change the logging destination by changing the file transport to one of the [already existing ones](https://github.com/flatiron/winston/blob/master/docs/transports.md). 
+Using this approach, you can easily change the logging destination by changing the file transport to one of the [existing ones](https://github.com/flatiron/winston/blob/master/docs/transports.md). 
 
-You can also [create your own transport](https://github.com/flatiron/winston#adding-custom-transports) with your custom logic.
+You can also [create your own transport](https://github.com/flatiron/winston#adding-custom-transports) with your own custom logic.
 
 
 
@@ -252,7 +252,7 @@ You can also [create your own transport](https://github.com/flatiron/winston#add
 
 ### Using Domains
 
-Starting with Node.js Version **0.10**, you can use the built-in [domain](http://nodejs.org/api/domain.html) module to solve a problem of error handling.
+Starting with Node.js Version **0.10**, you can use the built-in [domain](http://nodejs.org/api/domain.html) module to solve the problem of error handling.
 
 This is an extract from the API documentation: "Domains provide a way to handle multiple different IO operations as a single group. If any of the event emitters or callbacks registered to a domain emit an error event, or throw an error, then the domain object will be notified, rather than losing the context of the error in the process.on('uncaughtException') handler, or causing the program to exit immediately with an error code."
 
@@ -285,6 +285,6 @@ In this case the behavior is the same as with ` process.on('uncaughtError') `. T
 
 {{tip "Nevertheless, you still need to crash the process in order to avoid memory leaks. " type="warning"}}
 
-For the information about how to combine domains with the [cluster](http://nodejs.org/api/cluster.html) module to implement graceful degradation after an exception, refer to this [tutorial](http://nodejs.org/api/domain.html#domain_warning_don_t_ignore_errors).  
+For information about how to combine domains with the [cluster](http://nodejs.org/api/cluster.html) module to implement graceful degradation after an exception, refer to this [tutorial](http://nodejs.org/api/domain.html#domain_warning_don_t_ignore_errors).  
 
 
