@@ -47,7 +47,7 @@ We expect error handling in our application:
 
 The *Express* framework provides you with the ability to specify the middleware that will handle all errors in one place. So let us rewrite our application:
 
-{{code js="\livedemo\expressErrorHAndling.js" js_rows="15-37, 44"}}
+{{code js="assets/expressErrorHandling.js" js_rows="15-37, 44"}}
 
 
 
