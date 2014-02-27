@@ -10,11 +10,9 @@ Tags: Node.js, Validator.js, Express.js, grunt-browserify
 
 ##Introduction
 
-The *Validation* module provides a declarative way of validating routes in Express.js. It works as a standard middleware and allows validating request parameters before a real action is executed.
+The *Validation* module provides a declarative way of validating routes in Express.js. It works as a standard middleware component and allows validating request parameters before a real action is executed.
 
-The *Validation* module uses the [validator.js][1] library under the hood. So it is possible to use any validation rule that **validator.js** supports. (**isEmail**, **isURL**, **isUUID**, etc.).
-
-
+Under the hood the *Validation* module uses the [validator.js][1] library under the hood. So it is possible to use any validation rule that **validator.js** supports. (**isEmail**, **isURL**, **isUUID**, etc.).
 
 
 
@@ -54,14 +52,16 @@ addValidation({from: 'body.email', rule: ['isEmail', 'isLowercase'], required: f
 Property               | Description
 ---------              | -----
 **from**: (*String*)   | A property that will be taken from the request object and validated according to the rule.
-**rule**: (*String*) | The name of a validation rule in the [validator.js][1] library. If the rule property is omitted, than the **from** parameter value will be validated by the default rule (a value have to be indicated in the request object).
-**required**: (*Bool*) | If a value is not strictly required, it will be validated only when it is found in the request object.
+**rule**: (*String*) | The name of a validation rule in the [validator.js][1] library. If the rule property is omitted, then the **from** parameter value will be validated by the default rule (a value have to be indicated in the request object).
+**required**: (*Bool*) | When a value is not strictly required, it will be validated only if it is found in the requested object.
 **error**: (*String*) | A custom validation message.
 
 
 
 
-###<a id="function"></a> Custom Validation Funciton
+###<a id="function"></a> Custom Validation Function
+
+
 ```js
 addValidation(function (req, res) {/*validation rule goes here*/});
 ```
@@ -150,9 +150,9 @@ exports.getAccount = [
 
 ##Creating Custom Rules
 
-You can use validation rules not only inside the **addValidation** function. You can also create your own custom validation rules and then use them anywhere.
+You can also use validation rules outside the **addValidation** function. You can also create your own custom validation rules and then use them anywhere.
 
-1) Create a separate file (for example, **rules.js**) and put there your custom validation rules.
+1) Create a separate file (for example, **rules.js**) and put your custom validation rules in it.
 
 
 ```js
@@ -172,7 +172,7 @@ rules.isAccount = function (body) {
 module.exports = rules;
 ```
 
-> **Note**: The above-stated validation rule should return **null** if the validated value is correct or an error message if it is not..
+> **Note**: The above-stated validation rule should return **null** if the validated value is correct or an error message if it is not.
 
 2) Add your custom rules to the validation middleware:
 
@@ -196,11 +196,11 @@ app.post('/api/account', addValidation(
 
 ##Exporting Rules to the Frontend
 
-You can export the file with your custom validation rules to the frontend. For this purpose, you need to use the [browserify grunt][2] task and, at the same time, avoid using any of Node.js specific libraries in the **rules.js** file.
+You can export the file with your custom validation rules to the frontend. For this purpose, you need to use the [browserify grunt][2] task and, at the same time, avoid using any of the Node.js specific libraries in the **rules.js** file.
 
 Take into account that [lodash][3], [util][4], [validator.js][5] and a lot of other libraries and utilities can be easily processed via **browserify**.  
 
-If you would like to apply validator.js rules to the frontend, you can use the next trick:
+If you would like to apply validator.js rules to the frontend, you can use the following trick:
 
 ```js
 var validator = require('validator');
