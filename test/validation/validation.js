@@ -57,16 +57,75 @@ describe('validation', function () {
 
             var request = {
                 params: {
-                    foo: 1
+                    foo: 'test@mail.com'
                 }
             };
 
-            var route = validation.addValidation({from: 'params.foo', rule: 'toBeNumber'});
+            var route = validation.addValidation({from: 'params.foo', rule: ['isLowercase', 'isEmail']});
+
+            route(request, {}, nextSpy);
+            expect(nextSpy.called).to.eql(true);
+            expect(nextSpy.getCall(0).args[0]).to.eql(undefined);
+        });
+
+        it('should return an error object with statusCode and message', function () {
+            var nextSpy = sinon.spy();
+
+            var request = {
+                params: {
+                    foo: 'test@mail.com'
+                }
+            };
+
+            var route = validation.addValidation({from: 'params.foo', rule: ['isUppercase', 'isIP']});
+
+            route(request, {}, nextSpy);
+            expect(nextSpy.called).to.eql(true);
+            expect(nextSpy.getCall(0).args[0]).to.have.keys(['message', 'statusCode']);
+        });
+
+        it('should igrone not required values', function () {
+            var nextSpy = sinon.spy();
+
+            var request = {};
+
+            var route = validation.addValidation({from: 'params.foo', rule: 'toBeNumber', required: false});
+
+            route(request, {}, nextSpy);
+            expect(nextSpy.called).to.eql(true);
+            expect(nextSpy.getCall(0).args[0]).to.eql(undefined);
+        });
+
+        it('should igrone not required values, but validate if they exist', function () {
+            var nextSpy = sinon.spy();
+
+            var request = {
+                params: {
+                    foo: 'test'
+                }
+            };
+
+            var route = validation.addValidation({from: 'params.foo', rule: 'toBeNumber', required: false});
+
+            route(request, {}, nextSpy);
+            expect(nextSpy.called).to.eql(true);
+            expect(nextSpy.getCall(0).args[0]).to.have.keys(['message', 'statusCode']);
+        });
+
+        it('should use default rule if rule param is omitted', function () {
+            var nextSpy = sinon.spy();
+
+            var request = {
+                params: {
+                    foo: 'test'
+                }
+            };
+
+            var route = validation.addValidation({from: 'params.foo'});
 
             route(request, {}, nextSpy);
             expect(nextSpy.called).to.eql(true);
             expect(nextSpy.getCall(0).args[0]).to.eql(undefined);
         });
     });
-
 });
