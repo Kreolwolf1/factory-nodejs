@@ -6,26 +6,26 @@
     "url": "git://github.com/wmgdsp/factory-nodejs"
   },
   "dependencies": {
-    "passport": "0.1.x",
-    "passport-oauth": "0.1.x",
-    "async": "~0.9.0",
-    "lodash": "*",
-    "request": "*",
-    "http-proxy": "~0.10.3",
-    "cloudfoundry": "*",
-    "connect": "~2.11.0",
-    "cookie": "~0.1.0",
-    "connect-restreamer": "*",
-    "validator": "~3.2.0",
-    "redis": "~0.10.1",
-    "memcached": "~0.2.8"
+    "passport": "0.1.17",
+    "passport-oauth": "0.1.15",
+    "async": "0.9.0",
+    "lodash": "2.4.1",
+    "request": "2.30.0",
+    "http-proxy": "0.10.4",
+    "cloudfoundry": "0.1.0",
+    "connect": "2.11.2",
+    "cookie": "0.1.0",
+    "connect-restreamer": "1.0.0",
+    "validator": "3.2.1",
+    "redis": "0.10.1",
+    "memcached": "0.2.8"
   },
   "devDependencies": {
-    "matchdep": "~0.1.2",
-    "mocha": "*",
-    "chai": "*",
-    "sinon": "*",
-    "rewire": "*"
+    "matchdep": "0.1.2",
+    "mocha": "1.16.2",
+    "chai": "1.8.1",
+    "sinon": "1.7.3",
+    "rewire": "2.0.0"
   },
   "scripts": {
     "test": "mocha -R spec --recursive",

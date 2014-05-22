@@ -195,7 +195,7 @@ describe('authentication.Authentication', function () {
             done();
         });
 
-        auth.verifyAuth(accessToken, refreshToken, {}, function () {});
+        auth.verifyAuth(accessToken, refreshToken, {}, {}, function () {});
     });
 
 });
