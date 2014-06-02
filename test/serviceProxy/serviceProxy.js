@@ -67,5 +67,28 @@ describe('serviceProxy', function () {
 
         expect(proxiedRequest.headers.Authorization).to.contain(request.user.accessToken);
 
+        //test request proxing with special chars
+        proxy.proxyRequest = sinon.spy();
+
+        var request = {
+           user: {
+               accessToken: 'foobar'
+           },
+           params: {
+               //here we are using some special chars and don't encode them because in req.params express stores decoded version
+               0: 'api/v1/foo/||',
+               name: 'search'
+           },
+           query: {
+               foo: 'bar'
+           },
+           headers: {}
+       };
+
+       proxyRequest(request, {});
+
+       var proxiedRequest = proxy.proxyRequest.getCall(0).args[0];
+
+       expect(proxiedRequest.url).to.eql('/api/v1/foo/%7C%7C?foo=bar');
     });
 });
